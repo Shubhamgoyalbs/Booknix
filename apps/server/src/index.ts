@@ -1,14 +1,16 @@
-import { cors } from 'hono/cors';
-import { logger } from 'hono/logger';
-import { prettyJSON } from 'hono/pretty-json';
+import {cors} from 'hono/cors';
+import {logger} from 'hono/logger';
+import {prettyJSON} from 'hono/pretty-json';
 import {Hono} from "hono";
 import authRoute from "./route/auth.route.ts";
 import {HTTPException} from "hono/http-exception";
+import otpRoute from "./route/otp.route.ts";
 
 const app = new Hono().basePath('/api');
 
 // Handlers
 app.route('/auth', authRoute)
+app.route('/otp', otpRoute)
 
 // Global error handler
 app.onError((err, c) => {

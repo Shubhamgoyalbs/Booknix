@@ -1,26 +1,26 @@
 {
-  "name": "@repo/server",
-  "module": "src/index.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "dev": "bun run ./src/index.ts"
-  },
-  "devDependencies": {
-    "@repo/db": "*",
-    "@repo/shared": "*",
-    "@types/bun": "latest",
-    "@types/jsonwebtoken": "^9.0.10"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@hono/zod-validator": "^0.7.6",
-    "@types/bcrypt": "^6.0.0",
-    "bcrypt": "^6.0.0",
-    "dotenv": "^17.2.3",
-    "hono": "^4.11.4",
-    "jsonwebtoken": "^9.0.3"
-  }
+	"name": "@repo/server",
+	"module": "src/index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "bun run ./src/index.ts"
+	},
+	"devDependencies": {
+		"@repo/db": "*",
+		"@repo/shared": "*",
+		"@types/bun": "latest",
+		"@types/jsonwebtoken": "^9.0.10"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@hono/zod-validator": "^0.7.6",
+		"@types/bcrypt": "^6.0.0",
+		"bcrypt": "^6.0.0",
+		"dotenv": "^17.2.3",
+		"hono": "^4.11.4",
+		"jsonwebtoken": "^9.0.3"
+	}
 }

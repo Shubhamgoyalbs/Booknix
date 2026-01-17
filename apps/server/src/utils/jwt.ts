@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import type { JwtPayload, JwtTokenPair, DecodedJwtPayload } from '../../types/type.ts'
+import type {DecodedJwtPayload, JwtPayload, JwtTokenPair} from '../../types/type.ts'
 
 const REFRESH_TOKEN_SECRET: string =
 	process.env.REFRESH_TOKEN_SECRET ||

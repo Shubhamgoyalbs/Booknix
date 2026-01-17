@@ -34,7 +34,7 @@ model User {
   email         String         @unique
   firstName     String
   lastName      String
-  profilePicUrl String?
+  profilePicUrl String
   password      String
   verified      Boolean        @default(false)
   isOrganizer   Boolean        @default(false)

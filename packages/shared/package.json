@@ -1,18 +1,18 @@
 {
-  "name": "@repo/shared",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
+	"name": "@repo/shared",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
 	"exports": {
 		"./*": "./*"
 	},
 	"peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "zod": "^4.3.5"
-  }
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"zod": "^4.3.5"
+	}
 }

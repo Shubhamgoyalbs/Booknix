@@ -5,4 +5,4 @@
 
 */
 -- CreateIndex
-CREATE UNIQUE INDEX "User_refreshToken_key" ON "User"("refreshToken");
+CREATE UNIQUE INDEX "User_refreshToken_key" ON "User" ("refreshToken");

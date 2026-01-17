@@ -1,8 +1,8 @@
-import { Hono } from 'hono'
-import { zValidator } from '@hono/zod-validator'
+import {Hono} from 'hono'
+import {zValidator} from '@hono/zod-validator'
 import {authSigninSchema, authSignupSchema, tokenSchema} from '@repo/shared/validation/zod.ts'
 import prismaClient from '@repo/db/client'
-import { HTTPException } from 'hono/http-exception'
+import {HTTPException} from 'hono/http-exception'
 import * as bcrypt from 'bcrypt'
 import {generateTokens, verifyRefreshToken} from "../utils/jwt.ts";
 
@@ -16,7 +16,7 @@ authRoute.post(
 		const body = c.req.valid('json')
 
 		const existingUser = await prismaClient.user.findUnique({
-			where: { email: body.email },
+			where: {email: body.email},
 		})
 
 		if (existingUser) {
@@ -52,7 +52,7 @@ authRoute.post(
 		const body = c.req.valid('json')
 
 		const user = await prismaClient.user.findUnique({
-			where: { email: body.email },
+			where: {email: body.email},
 			select: {
 				id: true,
 				email: true,
@@ -122,7 +122,7 @@ authRoute.post(
 			}
 		})
 
-		if (!user){
+		if (!user) {
 			throw new HTTPException(400,
 				{
 					cause: "InputError",
