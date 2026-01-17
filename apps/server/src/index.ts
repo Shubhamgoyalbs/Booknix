@@ -2,31 +2,64 @@ import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
 import {Hono} from "hono";
+import authRoute from "./route/auth.route.ts";
+import {HTTPException} from "hono/http-exception";
 
-const app = new Hono();
+const app = new Hono().basePath('/api');
+
+// Handlers
+app.route('/auth', authRoute)
+
+// Global error handler
+app.onError((err, c) => {
+	if (err instanceof HTTPException) {
+		return c.json(
+			{
+				success: false,
+				error: {
+					name: err.cause,
+					message: err.message,
+				},
+			},
+			err.status
+		)
+	}
+
+	console.error("Error: ", err)
+	return c.json(
+		{
+			success: false,
+			error: {
+				name: "ServerError",
+				message: 'Internal Server Error'
+			}
+		},
+		500
+	)
+})
 
 // Global Middlewares
 app.use('*', logger());
 app.use('*', prettyJSON());
-app.use('*', cors({
-	origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-	credentials: true,
-}));
+// todo
+app.use('*', cors());
 
 // Health Check
-app.get('/health', (c) => c.json({
+app.all('/health', (c) => c.json({
 	status: 'ok',
+	success: true,
 	timestamp: new Date().toISOString()
 }));
 
-// Error Handler
-app.onError(errorHandler);
-
 // 404 Handler
-app.notFound((c) => c.json({ error: 'Not Found' }, 404));
+app.notFound((c) => c.json(
+	{
+		error: 'Not Found'
+	},
+	404
+));
 
-const port = process.env.PORT || 3000;
-console.log(`🚀 Server running on http://localhost:${port}`);
+const port = process.env.PORT || 3003;
 
 export default {
 	port,

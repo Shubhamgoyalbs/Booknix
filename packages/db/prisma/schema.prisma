@@ -38,7 +38,7 @@ model User {
   password      String
   verified      Boolean        @default(false)
   isOrganizer   Boolean        @default(false)
-  refreshToken  String?
+  refreshToken  String?        @unique
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   events        Event[]
