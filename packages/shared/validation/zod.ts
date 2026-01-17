@@ -17,6 +17,22 @@ const tokenSchema = z.object({
 	token: z.string()
 })
 
+const otpVerifySchema = z.object({
+	email: z
+		.email("Please enter a valid email address")
+		.trim()
+		.min(1, "Email cannot be empty"),
+
+	otp: z
+		.string("OTP is required")
+		.trim()
+		.min(6, "OTP cannot be empty")
+		.max(6, "OTP must of length 6"),
+
+	issuedAt: z
+		.number("issuedAt is required")
+})
+
 export {
 	authSignupSchema,
 	authSigninSchema,
