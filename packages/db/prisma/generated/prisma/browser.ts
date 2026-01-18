@@ -12,68 +12,68 @@
  * 🟢 You can import this file directly.
  */
 
-import * as Prisma from './internal/prismaNamespaceBrowser.ts'
+import * as Prisma from "./internal/prismaNamespaceBrowser.ts";
 
-export {Prisma}
-export * as $Enums from './enums.ts'
-export * from './enums.ts';
+export { Prisma };
+export * as $Enums from "./enums.ts";
+export * from "./enums.ts";
 /**
  * Model User
  *
  */
-export type User = Prisma.UserModel
+export type User = Prisma.UserModel;
 /**
  * Model Event
  *
  */
-export type Event = Prisma.EventModel
+export type Event = Prisma.EventModel;
 /**
  * Model TicketType
  *
  */
-export type TicketType = Prisma.TicketTypeModel
+export type TicketType = Prisma.TicketTypeModel;
 /**
  * Model Notification
  *
  */
-export type Notification = Prisma.NotificationModel
+export type Notification = Prisma.NotificationModel;
 /**
  * Model Coupon
  *
  */
-export type Coupon = Prisma.CouponModel
+export type Coupon = Prisma.CouponModel;
 /**
  * Model Booking
  *
  */
-export type Booking = Prisma.BookingModel
+export type Booking = Prisma.BookingModel;
 /**
  * Model BookingItem
  *
  */
-export type BookingItem = Prisma.BookingItemModel
+export type BookingItem = Prisma.BookingItemModel;
 /**
  * Model Bookmark
  *
  */
-export type Bookmark = Prisma.BookmarkModel
+export type Bookmark = Prisma.BookmarkModel;
 /**
  * Model Subscribe
  *
  */
-export type Subscribe = Prisma.SubscribeModel
+export type Subscribe = Prisma.SubscribeModel;
 /**
  * Model TicketLock
  *
  */
-export type TicketLock = Prisma.TicketLockModel
+export type TicketLock = Prisma.TicketLockModel;
 /**
  * Model EventType
  *
  */
-export type EventType = Prisma.EventTypeModel
+export type EventType = Prisma.EventTypeModel;
 /**
  * Model PaymentLink
  *
  */
-export type PaymentLink = Prisma.PaymentLinkModel
+export type PaymentLink = Prisma.PaymentLinkModel;

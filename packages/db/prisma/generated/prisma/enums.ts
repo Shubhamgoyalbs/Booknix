@@ -3,33 +3,32 @@
 // biome-ignore-all lint: generated file
 // @ts-nocheck
 /*
-* This file exports all enum related types from the schema.
-*
-* 🟢 You can import this file directly.
-*/
+ * This file exports all enum related types from the schema.
+ *
+ * 🟢 You can import this file directly.
+ */
 
 export const EventBookingStatus = {
-	WAITING: 'WAITING',
-	STARTED: 'STARTED',
-	CLOSED: 'CLOSED'
-} as const
+  WAITING: "WAITING",
+  STARTED: "STARTED",
+  CLOSED: "CLOSED",
+} as const;
 
-export type EventBookingStatus = (typeof EventBookingStatus)[keyof typeof EventBookingStatus]
-
+export type EventBookingStatus =
+  (typeof EventBookingStatus)[keyof typeof EventBookingStatus];
 
 export const EventStatus = {
-	OPEN: 'OPEN',
-	CLOSED: 'CLOSED'
-} as const
+  OPEN: "OPEN",
+  CLOSED: "CLOSED",
+} as const;
 
-export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
-
+export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus];
 
 export const PaymentStatus = {
-	PENDING: 'PENDING',
-	COMPLETED: 'COMPLETED',
-	FAILED: 'FAILED',
-	REFUNDED: 'REFUNDED'
-} as const
+  PENDING: "PENDING",
+  COMPLETED: "COMPLETED",
+  FAILED: "FAILED",
+  REFUNDED: "REFUNDED",
+} as const;
 
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus];

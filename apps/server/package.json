@@ -4,13 +4,16 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"dev": "bun run ./src/index.ts"
+		"dev": "bun run ./src/index.ts",
+		"lint": "eslint ."
 	},
 	"devDependencies": {
 		"@repo/db": "*",
+		"@repo/eslint-config": "*",
 		"@repo/shared": "*",
 		"@types/bun": "latest",
-		"@types/jsonwebtoken": "^9.0.10"
+		"@types/jsonwebtoken": "^9.0.10",
+		"eslint": "^9.39.1"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
@@ -21,6 +24,7 @@
 		"bcrypt": "^6.0.0",
 		"dotenv": "^17.2.3",
 		"hono": "^4.11.4",
-		"jsonwebtoken": "^9.0.3"
+		"jsonwebtoken": "^9.0.3",
+		"resend": "^6.7.0"
 	}
 }

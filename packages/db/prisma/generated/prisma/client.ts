@@ -9,16 +9,16 @@
  * 🟢 You can import this file directly.
  */
 
-import * as path from 'node:path'
-import {fileURLToPath} from 'node:url'
-import * as runtime from "@prisma/client/runtime/client"
-import * as $Class from "./internal/class.ts"
-import * as Prisma from "./internal/prismaNamespace.ts"
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
+import * as runtime from "@prisma/client/runtime/client";
+import * as $Class from "./internal/class.ts";
+import * as Prisma from "./internal/prismaNamespace.ts";
 
-globalThis['__dirname'] = path.dirname(fileURLToPath(import.meta.url))
+globalThis["__dirname"] = path.dirname(fileURLToPath(import.meta.url));
 
-export * as $Enums from './enums.ts'
-export * from "./enums.ts"
+export * as $Enums from "./enums.ts";
+export * from "./enums.ts";
 /**
  * ## Prisma Client
  *
@@ -32,67 +32,73 @@ export * from "./enums.ts"
  *
  * Read more in our [docs](https://pris.ly/d/client).
  */
-export const PrismaClient = $Class.getPrismaClientClass()
-export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
-export {Prisma}
+export const PrismaClient = $Class.getPrismaClientClass();
+export type PrismaClient<
+  LogOpts extends Prisma.LogLevel = never,
+  OmitOpts extends Prisma.PrismaClientOptions["omit"] =
+    Prisma.PrismaClientOptions["omit"],
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>;
+export { Prisma };
 
 /**
  * Model User
  *
  */
-export type User = Prisma.UserModel
+export type User = Prisma.UserModel;
 /**
  * Model Event
  *
  */
-export type Event = Prisma.EventModel
+export type Event = Prisma.EventModel;
 /**
  * Model TicketType
  *
  */
-export type TicketType = Prisma.TicketTypeModel
+export type TicketType = Prisma.TicketTypeModel;
 /**
  * Model Notification
  *
  */
-export type Notification = Prisma.NotificationModel
+export type Notification = Prisma.NotificationModel;
 /**
  * Model Coupon
  *
  */
-export type Coupon = Prisma.CouponModel
+export type Coupon = Prisma.CouponModel;
 /**
  * Model Booking
  *
  */
-export type Booking = Prisma.BookingModel
+export type Booking = Prisma.BookingModel;
 /**
  * Model BookingItem
  *
  */
-export type BookingItem = Prisma.BookingItemModel
+export type BookingItem = Prisma.BookingItemModel;
 /**
  * Model Bookmark
  *
  */
-export type Bookmark = Prisma.BookmarkModel
+export type Bookmark = Prisma.BookmarkModel;
 /**
  * Model Subscribe
  *
  */
-export type Subscribe = Prisma.SubscribeModel
+export type Subscribe = Prisma.SubscribeModel;
 /**
  * Model TicketLock
  *
  */
-export type TicketLock = Prisma.TicketLockModel
+export type TicketLock = Prisma.TicketLockModel;
 /**
  * Model EventType
  *
  */
-export type EventType = Prisma.EventTypeModel
+export type EventType = Prisma.EventTypeModel;
 /**
  * Model PaymentLink
  *
  */
-export type PaymentLink = Prisma.PaymentLinkModel
+export type PaymentLink = Prisma.PaymentLinkModel;

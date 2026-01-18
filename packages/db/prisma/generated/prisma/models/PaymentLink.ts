@@ -7,647 +7,846 @@
  *
  * 🟢 You can import this file directly.
  */
-import type * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace.ts";
 
 /**
  * Model PaymentLink
  *
  */
-export type PaymentLinkModel = runtime.Types.Result.DefaultSelection<Prisma.$PaymentLinkPayload>
+export type PaymentLinkModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$PaymentLinkPayload>;
 
 export type AggregatePaymentLink = {
-	_count: PaymentLinkCountAggregateOutputType | null
-	_min: PaymentLinkMinAggregateOutputType | null
-	_max: PaymentLinkMaxAggregateOutputType | null
-}
+  _count: PaymentLinkCountAggregateOutputType | null;
+  _min: PaymentLinkMinAggregateOutputType | null;
+  _max: PaymentLinkMaxAggregateOutputType | null;
+};
 
 export type PaymentLinkMinAggregateOutputType = {
-	id: string | null
-	createdAt: Date | null
-}
+  id: string | null;
+  createdAt: Date | null;
+};
 
 export type PaymentLinkMaxAggregateOutputType = {
-	id: string | null
-	createdAt: Date | null
-}
+  id: string | null;
+  createdAt: Date | null;
+};
 
 export type PaymentLinkCountAggregateOutputType = {
-	id: number
-	createdAt: number
-	_all: number
-}
-
+  id: number;
+  createdAt: number;
+  _all: number;
+};
 
 export type PaymentLinkMinAggregateInputType = {
-	id?: true
-	createdAt?: true
-}
+  id?: true;
+  createdAt?: true;
+};
 
 export type PaymentLinkMaxAggregateInputType = {
-	id?: true
-	createdAt?: true
-}
+  id?: true;
+  createdAt?: true;
+};
 
 export type PaymentLinkCountAggregateInputType = {
-	id?: true
-	createdAt?: true
-	_all?: true
-}
+  id?: true;
+  createdAt?: true;
+  _all?: true;
+};
 
-export type PaymentLinkAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Filter which PaymentLink to aggregate.
-	 */
-	where?: Prisma.PaymentLinkWhereInput
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-	 *
-	 * Determine the order of PaymentLinks to fetch.
-	 */
-	orderBy?: Prisma.PaymentLinkOrderByWithRelationInput | Prisma.PaymentLinkOrderByWithRelationInput[]
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-	 *
-	 * Sets the start position
-	 */
-	cursor?: Prisma.PaymentLinkWhereUniqueInput
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-	 *
-	 * Take `±n` PaymentLinks from the position of the cursor.
-	 */
-	take?: number
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-	 *
-	 * Skip the first `n` PaymentLinks.
-	 */
-	skip?: number
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-	 *
-	 * Count returned PaymentLinks
-	 **/
-	_count?: true | PaymentLinkCountAggregateInputType
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-	 *
-	 * Select which fields to find the minimum value
-	 **/
-	_min?: PaymentLinkMinAggregateInputType
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-	 *
-	 * Select which fields to find the maximum value
-	 **/
-	_max?: PaymentLinkMaxAggregateInputType
-}
+export type PaymentLinkAggregateArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Filter which PaymentLink to aggregate.
+   */
+  where?: Prisma.PaymentLinkWhereInput;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+   *
+   * Determine the order of PaymentLinks to fetch.
+   */
+  orderBy?:
+    | Prisma.PaymentLinkOrderByWithRelationInput
+    | Prisma.PaymentLinkOrderByWithRelationInput[];
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+   *
+   * Sets the start position
+   */
+  cursor?: Prisma.PaymentLinkWhereUniqueInput;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+   *
+   * Take `±n` PaymentLinks from the position of the cursor.
+   */
+  take?: number;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+   *
+   * Skip the first `n` PaymentLinks.
+   */
+  skip?: number;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   *
+   * Count returned PaymentLinks
+   **/
+  _count?: true | PaymentLinkCountAggregateInputType;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   *
+   * Select which fields to find the minimum value
+   **/
+  _min?: PaymentLinkMinAggregateInputType;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   *
+   * Select which fields to find the maximum value
+   **/
+  _max?: PaymentLinkMaxAggregateInputType;
+};
 
 export type GetPaymentLinkAggregateType<T extends PaymentLinkAggregateArgs> = {
-	[P in keyof T & keyof AggregatePaymentLink]: P extends '_count' | 'count'
-		? T[P] extends true
-			? number
-			: Prisma.GetScalarType<T[P], AggregatePaymentLink[P]>
-		: Prisma.GetScalarType<T[P], AggregatePaymentLink[P]>
-}
+  [P in keyof T & keyof AggregatePaymentLink]: P extends "_count" | "count"
+    ? T[P] extends true
+      ? number
+      : Prisma.GetScalarType<T[P], AggregatePaymentLink[P]>
+    : Prisma.GetScalarType<T[P], AggregatePaymentLink[P]>;
+};
 
-
-export type PaymentLinkGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	where?: Prisma.PaymentLinkWhereInput
-	orderBy?: Prisma.PaymentLinkOrderByWithAggregationInput | Prisma.PaymentLinkOrderByWithAggregationInput[]
-	by: Prisma.PaymentLinkScalarFieldEnum[] | Prisma.PaymentLinkScalarFieldEnum
-	having?: Prisma.PaymentLinkScalarWhereWithAggregatesInput
-	take?: number
-	skip?: number
-	_count?: PaymentLinkCountAggregateInputType | true
-	_min?: PaymentLinkMinAggregateInputType
-	_max?: PaymentLinkMaxAggregateInputType
-}
+export type PaymentLinkGroupByArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.PaymentLinkWhereInput;
+  orderBy?:
+    | Prisma.PaymentLinkOrderByWithAggregationInput
+    | Prisma.PaymentLinkOrderByWithAggregationInput[];
+  by: Prisma.PaymentLinkScalarFieldEnum[] | Prisma.PaymentLinkScalarFieldEnum;
+  having?: Prisma.PaymentLinkScalarWhereWithAggregatesInput;
+  take?: number;
+  skip?: number;
+  _count?: PaymentLinkCountAggregateInputType | true;
+  _min?: PaymentLinkMinAggregateInputType;
+  _max?: PaymentLinkMaxAggregateInputType;
+};
 
 export type PaymentLinkGroupByOutputType = {
-	id: string
-	createdAt: Date
-	_count: PaymentLinkCountAggregateOutputType | null
-	_min: PaymentLinkMinAggregateOutputType | null
-	_max: PaymentLinkMaxAggregateOutputType | null
-}
+  id: string;
+  createdAt: Date;
+  _count: PaymentLinkCountAggregateOutputType | null;
+  _min: PaymentLinkMinAggregateOutputType | null;
+  _max: PaymentLinkMaxAggregateOutputType | null;
+};
 
-type GetPaymentLinkGroupByPayload<T extends PaymentLinkGroupByArgs> = Prisma.PrismaPromise<
-	Array<
-		Prisma.PickEnumerable<PaymentLinkGroupByOutputType, T['by']> &
-		{
-			[P in ((keyof T) & (keyof PaymentLinkGroupByOutputType))]: P extends '_count'
-			? T[P] extends boolean
-				? number
-				: Prisma.GetScalarType<T[P], PaymentLinkGroupByOutputType[P]>
-			: Prisma.GetScalarType<T[P], PaymentLinkGroupByOutputType[P]>
-		}
-	>
->
-
+type GetPaymentLinkGroupByPayload<T extends PaymentLinkGroupByArgs> =
+  Prisma.PrismaPromise<
+    Array<
+      Prisma.PickEnumerable<PaymentLinkGroupByOutputType, T["by"]> & {
+        [P in keyof T & keyof PaymentLinkGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : Prisma.GetScalarType<T[P], PaymentLinkGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], PaymentLinkGroupByOutputType[P]>;
+      }
+    >
+  >;
 
 export type PaymentLinkWhereInput = {
-	AND?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[]
-	OR?: Prisma.PaymentLinkWhereInput[]
-	NOT?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[]
-	id?: Prisma.StringFilter<"PaymentLink"> | string
-	createdAt?: Prisma.DateTimeFilter<"PaymentLink"> | Date | string
-}
+  AND?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[];
+  OR?: Prisma.PaymentLinkWhereInput[];
+  NOT?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[];
+  id?: Prisma.StringFilter<"PaymentLink"> | string;
+  createdAt?: Prisma.DateTimeFilter<"PaymentLink"> | Date | string;
+};
 
 export type PaymentLinkOrderByWithRelationInput = {
-	id?: Prisma.SortOrder
-	createdAt?: Prisma.SortOrder
-}
+  id?: Prisma.SortOrder;
+  createdAt?: Prisma.SortOrder;
+};
 
-export type PaymentLinkWhereUniqueInput = Prisma.AtLeast<{
-	id?: string
-	AND?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[]
-	OR?: Prisma.PaymentLinkWhereInput[]
-	NOT?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[]
-	createdAt?: Prisma.DateTimeFilter<"PaymentLink"> | Date | string
-}, "id">
+export type PaymentLinkWhereUniqueInput = Prisma.AtLeast<
+  {
+    id?: string;
+    AND?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[];
+    OR?: Prisma.PaymentLinkWhereInput[];
+    NOT?: Prisma.PaymentLinkWhereInput | Prisma.PaymentLinkWhereInput[];
+    createdAt?: Prisma.DateTimeFilter<"PaymentLink"> | Date | string;
+  },
+  "id"
+>;
 
 export type PaymentLinkOrderByWithAggregationInput = {
-	id?: Prisma.SortOrder
-	createdAt?: Prisma.SortOrder
-	_count?: Prisma.PaymentLinkCountOrderByAggregateInput
-	_max?: Prisma.PaymentLinkMaxOrderByAggregateInput
-	_min?: Prisma.PaymentLinkMinOrderByAggregateInput
-}
+  id?: Prisma.SortOrder;
+  createdAt?: Prisma.SortOrder;
+  _count?: Prisma.PaymentLinkCountOrderByAggregateInput;
+  _max?: Prisma.PaymentLinkMaxOrderByAggregateInput;
+  _min?: Prisma.PaymentLinkMinOrderByAggregateInput;
+};
 
 export type PaymentLinkScalarWhereWithAggregatesInput = {
-	AND?: Prisma.PaymentLinkScalarWhereWithAggregatesInput | Prisma.PaymentLinkScalarWhereWithAggregatesInput[]
-	OR?: Prisma.PaymentLinkScalarWhereWithAggregatesInput[]
-	NOT?: Prisma.PaymentLinkScalarWhereWithAggregatesInput | Prisma.PaymentLinkScalarWhereWithAggregatesInput[]
-	id?: Prisma.StringWithAggregatesFilter<"PaymentLink"> | string
-	createdAt?: Prisma.DateTimeWithAggregatesFilter<"PaymentLink"> | Date | string
-}
+  AND?:
+    | Prisma.PaymentLinkScalarWhereWithAggregatesInput
+    | Prisma.PaymentLinkScalarWhereWithAggregatesInput[];
+  OR?: Prisma.PaymentLinkScalarWhereWithAggregatesInput[];
+  NOT?:
+    | Prisma.PaymentLinkScalarWhereWithAggregatesInput
+    | Prisma.PaymentLinkScalarWhereWithAggregatesInput[];
+  id?: Prisma.StringWithAggregatesFilter<"PaymentLink"> | string;
+  createdAt?:
+    | Prisma.DateTimeWithAggregatesFilter<"PaymentLink">
+    | Date
+    | string;
+};
 
 export type PaymentLinkCreateInput = {
-	id?: string
-	createdAt?: Date | string
-}
+  id?: string;
+  createdAt?: Date | string;
+};
 
 export type PaymentLinkUncheckedCreateInput = {
-	id?: string
-	createdAt?: Date | string
-}
+  id?: string;
+  createdAt?: Date | string;
+};
 
 export type PaymentLinkUpdateInput = {
-	id?: Prisma.StringFieldUpdateOperationsInput | string
-	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
 
 export type PaymentLinkUncheckedUpdateInput = {
-	id?: Prisma.StringFieldUpdateOperationsInput | string
-	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
 
 export type PaymentLinkCreateManyInput = {
-	id?: string
-	createdAt?: Date | string
-}
+  id?: string;
+  createdAt?: Date | string;
+};
 
 export type PaymentLinkUpdateManyMutationInput = {
-	id?: Prisma.StringFieldUpdateOperationsInput | string
-	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
 
 export type PaymentLinkUncheckedUpdateManyInput = {
-	id?: Prisma.StringFieldUpdateOperationsInput | string
-	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
 
 export type PaymentLinkCountOrderByAggregateInput = {
-	id?: Prisma.SortOrder
-	createdAt?: Prisma.SortOrder
-}
+  id?: Prisma.SortOrder;
+  createdAt?: Prisma.SortOrder;
+};
 
 export type PaymentLinkMaxOrderByAggregateInput = {
-	id?: Prisma.SortOrder
-	createdAt?: Prisma.SortOrder
-}
+  id?: Prisma.SortOrder;
+  createdAt?: Prisma.SortOrder;
+};
 
 export type PaymentLinkMinOrderByAggregateInput = {
-	id?: Prisma.SortOrder
-	createdAt?: Prisma.SortOrder
-}
+  id?: Prisma.SortOrder;
+  createdAt?: Prisma.SortOrder;
+};
 
+export type PaymentLinkSelect<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    createdAt?: boolean;
+  },
+  ExtArgs["result"]["paymentLink"]
+>;
 
-export type PaymentLinkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-	id?: boolean
-	createdAt?: boolean
-}, ExtArgs["result"]["paymentLink"]>
+export type PaymentLinkSelectCreateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    createdAt?: boolean;
+  },
+  ExtArgs["result"]["paymentLink"]
+>;
 
-export type PaymentLinkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-	id?: boolean
-	createdAt?: boolean
-}, ExtArgs["result"]["paymentLink"]>
-
-export type PaymentLinkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-	id?: boolean
-	createdAt?: boolean
-}, ExtArgs["result"]["paymentLink"]>
+export type PaymentLinkSelectUpdateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    createdAt?: boolean;
+  },
+  ExtArgs["result"]["paymentLink"]
+>;
 
 export type PaymentLinkSelectScalar = {
-	id?: boolean
-	createdAt?: boolean
-}
+  id?: boolean;
+  createdAt?: boolean;
+};
 
-export type PaymentLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt", ExtArgs["result"]["paymentLink"]>
+export type PaymentLinkOmit<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetOmit<
+  "id" | "createdAt",
+  ExtArgs["result"]["paymentLink"]
+>;
 
-export type $PaymentLinkPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	name: "PaymentLink"
-	objects: {}
-	scalars: runtime.Types.Extensions.GetPayloadResult<{
-		id: string
-		createdAt: Date
-	}, ExtArgs["result"]["paymentLink"]>
-	composites: {}
-}
+export type $PaymentLinkPayload<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  name: "PaymentLink";
+  objects: {};
+  scalars: runtime.Types.Extensions.GetPayloadResult<
+    {
+      id: string;
+      createdAt: Date;
+    },
+    ExtArgs["result"]["paymentLink"]
+  >;
+  composites: {};
+};
 
-export type PaymentLinkGetPayload<S extends boolean | null | undefined | PaymentLinkDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload, S>
+export type PaymentLinkGetPayload<
+  S extends boolean | null | undefined | PaymentLinkDefaultArgs,
+> = runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload, S>;
 
-export type PaymentLinkCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
-	Omit<PaymentLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-	select?: PaymentLinkCountAggregateInputType | true
-}
+export type PaymentLinkCountArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = Omit<
+  PaymentLinkFindManyArgs,
+  "select" | "include" | "distinct" | "omit"
+> & {
+  select?: PaymentLinkCountAggregateInputType | true;
+};
 
-export interface PaymentLinkDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-	/**
-	 * Fields of the PaymentLink model
-	 */
-	readonly fields: PaymentLinkFieldRefs;
+export interface PaymentLinkDelegate<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+  GlobalOmitOptions = {},
+> {
+  /**
+   * Fields of the PaymentLink model
+   */
+  readonly fields: PaymentLinkFieldRefs;
 
-	[K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PaymentLink'], meta: { name: 'PaymentLink' } }
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>["model"]["PaymentLink"];
+    meta: { name: "PaymentLink" };
+  };
 
-	/**
-	 * Find zero or one PaymentLink that matches the filter.
-	 * @param {PaymentLinkFindUniqueArgs} args - Arguments to find a PaymentLink
-	 * @example
-	 * // Get one PaymentLink
-	 * const paymentLink = await prisma.paymentLink.findUnique({
-	 *   where: {
-	 *     // ... provide filter here
-	 *   }
-	 * })
-	 */
-	findUnique<T extends PaymentLinkFindUniqueArgs>(args: Prisma.SelectSubset<T, PaymentLinkFindUniqueArgs<ExtArgs>>): Prisma.Prisma__PaymentLinkClient<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  /**
+   * Find zero or one PaymentLink that matches the filter.
+   * @param {PaymentLinkFindUniqueArgs} args - Arguments to find a PaymentLink
+   * @example
+   * // Get one PaymentLink
+   * const paymentLink = await prisma.paymentLink.findUnique({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   */
+  findUnique<T extends PaymentLinkFindUniqueArgs>(
+    args: Prisma.SelectSubset<T, PaymentLinkFindUniqueArgs<ExtArgs>>,
+  ): Prisma.Prisma__PaymentLinkClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "findUnique",
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
 
-	/**
-	 * Find one PaymentLink that matches the filter or throw an error with `error.code='P2025'`
-	 * if no matches were found.
-	 * @param {PaymentLinkFindUniqueOrThrowArgs} args - Arguments to find a PaymentLink
-	 * @example
-	 * // Get one PaymentLink
-	 * const paymentLink = await prisma.paymentLink.findUniqueOrThrow({
-	 *   where: {
-	 *     // ... provide filter here
-	 *   }
-	 * })
-	 */
-	findUniqueOrThrow<T extends PaymentLinkFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, PaymentLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__PaymentLinkClient<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  /**
+   * Find one PaymentLink that matches the filter or throw an error with `error.code='P2025'`
+   * if no matches were found.
+   * @param {PaymentLinkFindUniqueOrThrowArgs} args - Arguments to find a PaymentLink
+   * @example
+   * // Get one PaymentLink
+   * const paymentLink = await prisma.paymentLink.findUniqueOrThrow({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   */
+  findUniqueOrThrow<T extends PaymentLinkFindUniqueOrThrowArgs>(
+    args: Prisma.SelectSubset<T, PaymentLinkFindUniqueOrThrowArgs<ExtArgs>>,
+  ): Prisma.Prisma__PaymentLinkClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "findUniqueOrThrow",
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
 
-	/**
-	 * Find the first PaymentLink that matches the filter.
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 * @param {PaymentLinkFindFirstArgs} args - Arguments to find a PaymentLink
-	 * @example
-	 * // Get one PaymentLink
-	 * const paymentLink = await prisma.paymentLink.findFirst({
-	 *   where: {
-	 *     // ... provide filter here
-	 *   }
-	 * })
-	 */
-	findFirst<T extends PaymentLinkFindFirstArgs>(args?: Prisma.SelectSubset<T, PaymentLinkFindFirstArgs<ExtArgs>>): Prisma.Prisma__PaymentLinkClient<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  /**
+   * Find the first PaymentLink that matches the filter.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {PaymentLinkFindFirstArgs} args - Arguments to find a PaymentLink
+   * @example
+   * // Get one PaymentLink
+   * const paymentLink = await prisma.paymentLink.findFirst({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   */
+  findFirst<T extends PaymentLinkFindFirstArgs>(
+    args?: Prisma.SelectSubset<T, PaymentLinkFindFirstArgs<ExtArgs>>,
+  ): Prisma.Prisma__PaymentLinkClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "findFirst",
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
 
-	/**
-	 * Find the first PaymentLink that matches the filter or
-	 * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 * @param {PaymentLinkFindFirstOrThrowArgs} args - Arguments to find a PaymentLink
-	 * @example
-	 * // Get one PaymentLink
-	 * const paymentLink = await prisma.paymentLink.findFirstOrThrow({
-	 *   where: {
-	 *     // ... provide filter here
-	 *   }
-	 * })
-	 */
-	findFirstOrThrow<T extends PaymentLinkFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, PaymentLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__PaymentLinkClient<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  /**
+   * Find the first PaymentLink that matches the filter or
+   * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {PaymentLinkFindFirstOrThrowArgs} args - Arguments to find a PaymentLink
+   * @example
+   * // Get one PaymentLink
+   * const paymentLink = await prisma.paymentLink.findFirstOrThrow({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   */
+  findFirstOrThrow<T extends PaymentLinkFindFirstOrThrowArgs>(
+    args?: Prisma.SelectSubset<T, PaymentLinkFindFirstOrThrowArgs<ExtArgs>>,
+  ): Prisma.Prisma__PaymentLinkClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "findFirstOrThrow",
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
 
-	/**
-	 * Find zero or more PaymentLinks that matches the filter.
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 * @param {PaymentLinkFindManyArgs} args - Arguments to filter and select certain fields only.
-	 * @example
-	 * // Get all PaymentLinks
-	 * const paymentLinks = await prisma.paymentLink.findMany()
-	 *
-	 * // Get first 10 PaymentLinks
-	 * const paymentLinks = await prisma.paymentLink.findMany({ take: 10 })
-	 *
-	 * // Only select the `id`
-	 * const paymentLinkWithIdOnly = await prisma.paymentLink.findMany({ select: { id: true } })
-	 *
-	 */
-	findMany<T extends PaymentLinkFindManyArgs>(args?: Prisma.SelectSubset<T, PaymentLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+  /**
+   * Find zero or more PaymentLinks that matches the filter.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {PaymentLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+   * @example
+   * // Get all PaymentLinks
+   * const paymentLinks = await prisma.paymentLink.findMany()
+   *
+   * // Get first 10 PaymentLinks
+   * const paymentLinks = await prisma.paymentLink.findMany({ take: 10 })
+   *
+   * // Only select the `id`
+   * const paymentLinkWithIdOnly = await prisma.paymentLink.findMany({ select: { id: true } })
+   *
+   */
+  findMany<T extends PaymentLinkFindManyArgs>(
+    args?: Prisma.SelectSubset<T, PaymentLinkFindManyArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "findMany",
+      GlobalOmitOptions
+    >
+  >;
 
-	/**
-	 * Create a PaymentLink.
-	 * @param {PaymentLinkCreateArgs} args - Arguments to create a PaymentLink.
-	 * @example
-	 * // Create one PaymentLink
-	 * const PaymentLink = await prisma.paymentLink.create({
-	 *   data: {
-	 *     // ... data to create a PaymentLink
-	 *   }
-	 * })
-	 *
-	 */
-	create<T extends PaymentLinkCreateArgs>(args: Prisma.SelectSubset<T, PaymentLinkCreateArgs<ExtArgs>>): Prisma.Prisma__PaymentLinkClient<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  /**
+   * Create a PaymentLink.
+   * @param {PaymentLinkCreateArgs} args - Arguments to create a PaymentLink.
+   * @example
+   * // Create one PaymentLink
+   * const PaymentLink = await prisma.paymentLink.create({
+   *   data: {
+   *     // ... data to create a PaymentLink
+   *   }
+   * })
+   *
+   */
+  create<T extends PaymentLinkCreateArgs>(
+    args: Prisma.SelectSubset<T, PaymentLinkCreateArgs<ExtArgs>>,
+  ): Prisma.Prisma__PaymentLinkClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "create",
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
 
-	/**
-	 * Create many PaymentLinks.
-	 * @param {PaymentLinkCreateManyArgs} args - Arguments to create many PaymentLinks.
-	 * @example
-	 * // Create many PaymentLinks
-	 * const paymentLink = await prisma.paymentLink.createMany({
-	 *   data: [
-	 *     // ... provide data here
-	 *   ]
-	 * })
-	 *
-	 */
-	createMany<T extends PaymentLinkCreateManyArgs>(args?: Prisma.SelectSubset<T, PaymentLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  /**
+   * Create many PaymentLinks.
+   * @param {PaymentLinkCreateManyArgs} args - Arguments to create many PaymentLinks.
+   * @example
+   * // Create many PaymentLinks
+   * const paymentLink = await prisma.paymentLink.createMany({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   */
+  createMany<T extends PaymentLinkCreateManyArgs>(
+    args?: Prisma.SelectSubset<T, PaymentLinkCreateManyArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
-	/**
-	 * Create many PaymentLinks and returns the data saved in the database.
-	 * @param {PaymentLinkCreateManyAndReturnArgs} args - Arguments to create many PaymentLinks.
-	 * @example
-	 * // Create many PaymentLinks
-	 * const paymentLink = await prisma.paymentLink.createManyAndReturn({
-	 *   data: [
-	 *     // ... provide data here
-	 *   ]
-	 * })
-	 *
-	 * // Create many PaymentLinks and only return the `id`
-	 * const paymentLinkWithIdOnly = await prisma.paymentLink.createManyAndReturn({
-	 *   select: { id: true },
-	 *   data: [
-	 *     // ... provide data here
-	 *   ]
-	 * })
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 *
-	 */
-	createManyAndReturn<T extends PaymentLinkCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, PaymentLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+  /**
+   * Create many PaymentLinks and returns the data saved in the database.
+   * @param {PaymentLinkCreateManyAndReturnArgs} args - Arguments to create many PaymentLinks.
+   * @example
+   * // Create many PaymentLinks
+   * const paymentLink = await prisma.paymentLink.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Create many PaymentLinks and only return the `id`
+   * const paymentLinkWithIdOnly = await prisma.paymentLink.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  createManyAndReturn<T extends PaymentLinkCreateManyAndReturnArgs>(
+    args?: Prisma.SelectSubset<T, PaymentLinkCreateManyAndReturnArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "createManyAndReturn",
+      GlobalOmitOptions
+    >
+  >;
 
-	/**
-	 * Delete a PaymentLink.
-	 * @param {PaymentLinkDeleteArgs} args - Arguments to delete one PaymentLink.
-	 * @example
-	 * // Delete one PaymentLink
-	 * const PaymentLink = await prisma.paymentLink.delete({
-	 *   where: {
-	 *     // ... filter to delete one PaymentLink
-	 *   }
-	 * })
-	 *
-	 */
-	delete<T extends PaymentLinkDeleteArgs>(args: Prisma.SelectSubset<T, PaymentLinkDeleteArgs<ExtArgs>>): Prisma.Prisma__PaymentLinkClient<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  /**
+   * Delete a PaymentLink.
+   * @param {PaymentLinkDeleteArgs} args - Arguments to delete one PaymentLink.
+   * @example
+   * // Delete one PaymentLink
+   * const PaymentLink = await prisma.paymentLink.delete({
+   *   where: {
+   *     // ... filter to delete one PaymentLink
+   *   }
+   * })
+   *
+   */
+  delete<T extends PaymentLinkDeleteArgs>(
+    args: Prisma.SelectSubset<T, PaymentLinkDeleteArgs<ExtArgs>>,
+  ): Prisma.Prisma__PaymentLinkClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "delete",
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
 
-	/**
-	 * Update one PaymentLink.
-	 * @param {PaymentLinkUpdateArgs} args - Arguments to update one PaymentLink.
-	 * @example
-	 * // Update one PaymentLink
-	 * const paymentLink = await prisma.paymentLink.update({
-	 *   where: {
-	 *     // ... provide filter here
-	 *   },
-	 *   data: {
-	 *     // ... provide data here
-	 *   }
-	 * })
-	 *
-	 */
-	update<T extends PaymentLinkUpdateArgs>(args: Prisma.SelectSubset<T, PaymentLinkUpdateArgs<ExtArgs>>): Prisma.Prisma__PaymentLinkClient<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  /**
+   * Update one PaymentLink.
+   * @param {PaymentLinkUpdateArgs} args - Arguments to update one PaymentLink.
+   * @example
+   * // Update one PaymentLink
+   * const paymentLink = await prisma.paymentLink.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  update<T extends PaymentLinkUpdateArgs>(
+    args: Prisma.SelectSubset<T, PaymentLinkUpdateArgs<ExtArgs>>,
+  ): Prisma.Prisma__PaymentLinkClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "update",
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
 
-	/**
-	 * Delete zero or more PaymentLinks.
-	 * @param {PaymentLinkDeleteManyArgs} args - Arguments to filter PaymentLinks to delete.
-	 * @example
-	 * // Delete a few PaymentLinks
-	 * const { count } = await prisma.paymentLink.deleteMany({
-	 *   where: {
-	 *     // ... provide filter here
-	 *   }
-	 * })
-	 *
-	 */
-	deleteMany<T extends PaymentLinkDeleteManyArgs>(args?: Prisma.SelectSubset<T, PaymentLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  /**
+   * Delete zero or more PaymentLinks.
+   * @param {PaymentLinkDeleteManyArgs} args - Arguments to filter PaymentLinks to delete.
+   * @example
+   * // Delete a few PaymentLinks
+   * const { count } = await prisma.paymentLink.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   *
+   */
+  deleteMany<T extends PaymentLinkDeleteManyArgs>(
+    args?: Prisma.SelectSubset<T, PaymentLinkDeleteManyArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
-	/**
-	 * Update zero or more PaymentLinks.
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 * @param {PaymentLinkUpdateManyArgs} args - Arguments to update one or more rows.
-	 * @example
-	 * // Update many PaymentLinks
-	 * const paymentLink = await prisma.paymentLink.updateMany({
-	 *   where: {
-	 *     // ... provide filter here
-	 *   },
-	 *   data: {
-	 *     // ... provide data here
-	 *   }
-	 * })
-	 *
-	 */
-	updateMany<T extends PaymentLinkUpdateManyArgs>(args: Prisma.SelectSubset<T, PaymentLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  /**
+   * Update zero or more PaymentLinks.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {PaymentLinkUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many PaymentLinks
+   * const paymentLink = await prisma.paymentLink.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   *
+   */
+  updateMany<T extends PaymentLinkUpdateManyArgs>(
+    args: Prisma.SelectSubset<T, PaymentLinkUpdateManyArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
-	/**
-	 * Update zero or more PaymentLinks and returns the data updated in the database.
-	 * @param {PaymentLinkUpdateManyAndReturnArgs} args - Arguments to update many PaymentLinks.
-	 * @example
-	 * // Update many PaymentLinks
-	 * const paymentLink = await prisma.paymentLink.updateManyAndReturn({
-	 *   where: {
-	 *     // ... provide filter here
-	 *   },
-	 *   data: [
-	 *     // ... provide data here
-	 *   ]
-	 * })
-	 *
-	 * // Update zero or more PaymentLinks and only return the `id`
-	 * const paymentLinkWithIdOnly = await prisma.paymentLink.updateManyAndReturn({
-	 *   select: { id: true },
-	 *   where: {
-	 *     // ... provide filter here
-	 *   },
-	 *   data: [
-	 *     // ... provide data here
-	 *   ]
-	 * })
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 *
-	 */
-	updateManyAndReturn<T extends PaymentLinkUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, PaymentLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+  /**
+   * Update zero or more PaymentLinks and returns the data updated in the database.
+   * @param {PaymentLinkUpdateManyAndReturnArgs} args - Arguments to update many PaymentLinks.
+   * @example
+   * // Update many PaymentLinks
+   * const paymentLink = await prisma.paymentLink.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   *
+   * // Update zero or more PaymentLinks and only return the `id`
+   * const paymentLinkWithIdOnly = await prisma.paymentLink.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   *
+   */
+  updateManyAndReturn<T extends PaymentLinkUpdateManyAndReturnArgs>(
+    args: Prisma.SelectSubset<T, PaymentLinkUpdateManyAndReturnArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "updateManyAndReturn",
+      GlobalOmitOptions
+    >
+  >;
 
-	/**
-	 * Create or update one PaymentLink.
-	 * @param {PaymentLinkUpsertArgs} args - Arguments to update or create a PaymentLink.
-	 * @example
-	 * // Update or create a PaymentLink
-	 * const paymentLink = await prisma.paymentLink.upsert({
-	 *   create: {
-	 *     // ... data to create a PaymentLink
-	 *   },
-	 *   update: {
-	 *     // ... in case it already exists, update
-	 *   },
-	 *   where: {
-	 *     // ... the filter for the PaymentLink we want to update
-	 *   }
-	 * })
-	 */
-	upsert<T extends PaymentLinkUpsertArgs>(args: Prisma.SelectSubset<T, PaymentLinkUpsertArgs<ExtArgs>>): Prisma.Prisma__PaymentLinkClient<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  /**
+   * Create or update one PaymentLink.
+   * @param {PaymentLinkUpsertArgs} args - Arguments to update or create a PaymentLink.
+   * @example
+   * // Update or create a PaymentLink
+   * const paymentLink = await prisma.paymentLink.upsert({
+   *   create: {
+   *     // ... data to create a PaymentLink
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the PaymentLink we want to update
+   *   }
+   * })
+   */
+  upsert<T extends PaymentLinkUpsertArgs>(
+    args: Prisma.SelectSubset<T, PaymentLinkUpsertArgs<ExtArgs>>,
+  ): Prisma.Prisma__PaymentLinkClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$PaymentLinkPayload<ExtArgs>,
+      T,
+      "upsert",
+      GlobalOmitOptions
+    >,
+    never,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
 
-	/**
-	 * Count the number of PaymentLinks.
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 * @param {PaymentLinkCountArgs} args - Arguments to filter PaymentLinks to count.
-	 * @example
-	 * // Count the number of PaymentLinks
-	 * const count = await prisma.paymentLink.count({
-	 *   where: {
-	 *     // ... the filter for the PaymentLinks we want to count
-	 *   }
-	 * })
-	 **/
-	count<T extends PaymentLinkCountArgs>(
-		args?: Prisma.Subset<T, PaymentLinkCountArgs>,
-	): Prisma.PrismaPromise<
-		T extends runtime.Types.Utils.Record<'select', any>
-			? T['select'] extends true
-				? number
-				: Prisma.GetScalarType<T['select'], PaymentLinkCountAggregateOutputType>
-			: number
-	>
+  /**
+   * Count the number of PaymentLinks.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {PaymentLinkCountArgs} args - Arguments to filter PaymentLinks to count.
+   * @example
+   * // Count the number of PaymentLinks
+   * const count = await prisma.paymentLink.count({
+   *   where: {
+   *     // ... the filter for the PaymentLinks we want to count
+   *   }
+   * })
+   **/
+  count<T extends PaymentLinkCountArgs>(
+    args?: Prisma.Subset<T, PaymentLinkCountArgs>,
+  ): Prisma.PrismaPromise<
+    T extends runtime.Types.Utils.Record<"select", any>
+      ? T["select"] extends true
+        ? number
+        : Prisma.GetScalarType<T["select"], PaymentLinkCountAggregateOutputType>
+      : number
+  >;
 
-	/**
-	 * Allows you to perform aggregations operations on a PaymentLink.
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 * @param {PaymentLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-	 * @example
-	 * // Ordered by age ascending
-	 * // Where email contains prisma.io
-	 * // Limited to the 10 users
-	 * const aggregations = await prisma.user.aggregate({
-	 *   _avg: {
-	 *     age: true,
-	 *   },
-	 *   where: {
-	 *     email: {
-	 *       contains: "prisma.io",
-	 *     },
-	 *   },
-	 *   orderBy: {
-	 *     age: "asc",
-	 *   },
-	 *   take: 10,
-	 * })
-	 **/
-	aggregate<T extends PaymentLinkAggregateArgs>(args: Prisma.Subset<T, PaymentLinkAggregateArgs>): Prisma.PrismaPromise<GetPaymentLinkAggregateType<T>>
+  /**
+   * Allows you to perform aggregations operations on a PaymentLink.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {PaymentLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+   * @example
+   * // Ordered by age ascending
+   * // Where email contains prisma.io
+   * // Limited to the 10 users
+   * const aggregations = await prisma.user.aggregate({
+   *   _avg: {
+   *     age: true,
+   *   },
+   *   where: {
+   *     email: {
+   *       contains: "prisma.io",
+   *     },
+   *   },
+   *   orderBy: {
+   *     age: "asc",
+   *   },
+   *   take: 10,
+   * })
+   **/
+  aggregate<T extends PaymentLinkAggregateArgs>(
+    args: Prisma.Subset<T, PaymentLinkAggregateArgs>,
+  ): Prisma.PrismaPromise<GetPaymentLinkAggregateType<T>>;
 
-	/**
-	 * Group by PaymentLink.
-	 * Note, that providing `undefined` is treated as the value not being there.
-	 * Read more here: https://pris.ly/d/null-undefined
-	 * @param {PaymentLinkGroupByArgs} args - Group by arguments.
-	 * @example
-	 * // Group by city, order by createdAt, get count
-	 * const result = await prisma.user.groupBy({
-	 *   by: ['city', 'createdAt'],
-	 *   orderBy: {
-	 *     createdAt: true
-	 *   },
-	 *   _count: {
-	 *     _all: true
-	 *   },
-	 * })
-	 *
-	 **/
-	groupBy<
-		T extends PaymentLinkGroupByArgs,
-		HasSelectOrTake extends Prisma.Or<
-			Prisma.Extends<'skip', Prisma.Keys<T>>,
-			Prisma.Extends<'take', Prisma.Keys<T>>
-		>,
-		OrderByArg extends Prisma.True extends HasSelectOrTake
-			? { orderBy: PaymentLinkGroupByArgs['orderBy'] }
-			: { orderBy?: PaymentLinkGroupByArgs['orderBy'] },
-		OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
-		ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
-		ByValid extends Prisma.Has<ByFields, OrderFields>,
-		HavingFields extends Prisma.GetHavingFields<T['having']>,
-		HavingValid extends Prisma.Has<ByFields, HavingFields>,
-		ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False,
-		InputErrors extends ByEmpty extends Prisma.True
-			? `Error: "by" must not be empty.`
-			: HavingValid extends Prisma.False
-				? {
-					[P in HavingFields]: P extends ByFields
-						? never
-						: P extends string
-							? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-							: [
-								Error,
-								'Field ',
-								P,
-								` in "having" needs to be provided in "by"`,
-							]
-				}[HavingFields]
-				: 'take' extends Prisma.Keys<T>
-					? 'orderBy' extends Prisma.Keys<T>
-						? ByValid extends Prisma.True
-							? {}
-							: {
-								[P in OrderFields]: P extends ByFields
-									? never
-									: `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-							}[OrderFields]
-						: 'Error: If you provide "take", you also need to provide "orderBy"'
-					: 'skip' extends Prisma.Keys<T>
-						? 'orderBy' extends Prisma.Keys<T>
-							? ByValid extends Prisma.True
-								? {}
-								: {
-									[P in OrderFields]: P extends ByFields
-										? never
-										: `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-								}[OrderFields]
-							: 'Error: If you provide "skip", you also need to provide "orderBy"'
-						: ByValid extends Prisma.True
-							? {}
-							: {
-								[P in OrderFields]: P extends ByFields
-									? never
-									: `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-							}[OrderFields]
-	>(args: Prisma.SubsetIntersection<T, PaymentLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Group by PaymentLink.
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * @param {PaymentLinkGroupByArgs} args - Group by arguments.
+   * @example
+   * // Group by city, order by createdAt, get count
+   * const result = await prisma.user.groupBy({
+   *   by: ['city', 'createdAt'],
+   *   orderBy: {
+   *     createdAt: true
+   *   },
+   *   _count: {
+   *     _all: true
+   *   },
+   * })
+   *
+   **/
+  groupBy<
+    T extends PaymentLinkGroupByArgs,
+    HasSelectOrTake extends Prisma.Or<
+      Prisma.Extends<"skip", Prisma.Keys<T>>,
+      Prisma.Extends<"take", Prisma.Keys<T>>
+    >,
+    OrderByArg extends Prisma.True extends HasSelectOrTake
+      ? { orderBy: PaymentLinkGroupByArgs["orderBy"] }
+      : { orderBy?: PaymentLinkGroupByArgs["orderBy"] },
+    OrderFields extends Prisma.ExcludeUnderscoreKeys<
+      Prisma.Keys<Prisma.MaybeTupleToUnion<T["orderBy"]>>
+    >,
+    ByFields extends Prisma.MaybeTupleToUnion<T["by"]>,
+    ByValid extends Prisma.Has<ByFields, OrderFields>,
+    HavingFields extends Prisma.GetHavingFields<T["having"]>,
+    HavingValid extends Prisma.Has<ByFields, HavingFields>,
+    ByEmpty extends T["by"] extends never[] ? Prisma.True : Prisma.False,
+    InputErrors extends ByEmpty extends Prisma.True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends Prisma.False
+        ? {
+            [P in HavingFields]: P extends ByFields
+              ? never
+              : P extends string
+                ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`,
+                  ];
+          }[HavingFields]
+        : "take" extends Prisma.Keys<T>
+          ? "orderBy" extends Prisma.Keys<T>
+            ? ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields]
+            : 'Error: If you provide "take", you also need to provide "orderBy"'
+          : "skip" extends Prisma.Keys<T>
+            ? "orderBy" extends Prisma.Keys<T>
+              ? ByValid extends Prisma.True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "skip", you also need to provide "orderBy"'
+            : ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields],
+  >(
+    args: Prisma.SubsetIntersection<T, PaymentLinkGroupByArgs, OrderByArg> &
+      InputErrors,
+  ): {} extends InputErrors
+    ? GetPaymentLinkGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
 }
 
 /**
@@ -656,401 +855,496 @@ export interface PaymentLinkDelegate<ExtArgs extends runtime.Types.Extensions.In
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
-export interface Prisma__PaymentLinkClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-	readonly [Symbol.toStringTag]: "PrismaPromise"
+export interface Prisma__PaymentLinkClient<
+  T,
+  Null = never,
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+  GlobalOmitOptions = {},
+> extends Prisma.PrismaPromise<T> {
+  readonly [Symbol.toStringTag]: "PrismaPromise";
 
-	/**
-	 * Attaches callbacks for the resolution and/or rejection of the Promise.
-	 * @param onfulfilled The callback to execute when the Promise is resolved.
-	 * @param onrejected The callback to execute when the Promise is rejected.
-	 * @returns A Promise for the completion of which ever callback is executed.
-	 */
-	then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null,
+  ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
 
-	/**
-	 * Attaches a callback for only the rejection of the Promise.
-	 * @param onrejected The callback to execute when the Promise is rejected.
-	 * @returns A Promise for the completion of the callback.
-	 */
-	catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null,
+  ): runtime.Types.Utils.JsPromise<T | TResult>;
 
-	/**
-	 * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-	 * resolved value cannot be modified from the callback.
-	 * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-	 * @returns A Promise for the completion of the callback.
-	 */
-	finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(
+    onfinally?: (() => void) | undefined | null,
+  ): runtime.Types.Utils.JsPromise<T>;
 }
-
 
 /**
  * Fields of the PaymentLink model
  */
 export interface PaymentLinkFieldRefs {
-	readonly id: Prisma.FieldRef<"PaymentLink", 'String'>
-	readonly createdAt: Prisma.FieldRef<"PaymentLink", 'DateTime'>
+  readonly id: Prisma.FieldRef<"PaymentLink", "String">;
+  readonly createdAt: Prisma.FieldRef<"PaymentLink", "DateTime">;
 }
-
 
 // Custom InputTypes
 /**
  * PaymentLink findUnique
  */
-export type PaymentLinkFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * Filter, which PaymentLink to fetch.
-	 */
-	where: Prisma.PaymentLinkWhereUniqueInput
-}
+export type PaymentLinkFindUniqueArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * Filter, which PaymentLink to fetch.
+   */
+  where: Prisma.PaymentLinkWhereUniqueInput;
+};
 
 /**
  * PaymentLink findUniqueOrThrow
  */
-export type PaymentLinkFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * Filter, which PaymentLink to fetch.
-	 */
-	where: Prisma.PaymentLinkWhereUniqueInput
-}
+export type PaymentLinkFindUniqueOrThrowArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * Filter, which PaymentLink to fetch.
+   */
+  where: Prisma.PaymentLinkWhereUniqueInput;
+};
 
 /**
  * PaymentLink findFirst
  */
-export type PaymentLinkFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * Filter, which PaymentLink to fetch.
-	 */
-	where?: Prisma.PaymentLinkWhereInput
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-	 *
-	 * Determine the order of PaymentLinks to fetch.
-	 */
-	orderBy?: Prisma.PaymentLinkOrderByWithRelationInput | Prisma.PaymentLinkOrderByWithRelationInput[]
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-	 *
-	 * Sets the position for searching for PaymentLinks.
-	 */
-	cursor?: Prisma.PaymentLinkWhereUniqueInput
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-	 *
-	 * Take `±n` PaymentLinks from the position of the cursor.
-	 */
-	take?: number
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-	 *
-	 * Skip the first `n` PaymentLinks.
-	 */
-	skip?: number
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-	 *
-	 * Filter by unique combinations of PaymentLinks.
-	 */
-	distinct?: Prisma.PaymentLinkScalarFieldEnum | Prisma.PaymentLinkScalarFieldEnum[]
-}
+export type PaymentLinkFindFirstArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * Filter, which PaymentLink to fetch.
+   */
+  where?: Prisma.PaymentLinkWhereInput;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+   *
+   * Determine the order of PaymentLinks to fetch.
+   */
+  orderBy?:
+    | Prisma.PaymentLinkOrderByWithRelationInput
+    | Prisma.PaymentLinkOrderByWithRelationInput[];
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+   *
+   * Sets the position for searching for PaymentLinks.
+   */
+  cursor?: Prisma.PaymentLinkWhereUniqueInput;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+   *
+   * Take `±n` PaymentLinks from the position of the cursor.
+   */
+  take?: number;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+   *
+   * Skip the first `n` PaymentLinks.
+   */
+  skip?: number;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   *
+   * Filter by unique combinations of PaymentLinks.
+   */
+  distinct?:
+    | Prisma.PaymentLinkScalarFieldEnum
+    | Prisma.PaymentLinkScalarFieldEnum[];
+};
 
 /**
  * PaymentLink findFirstOrThrow
  */
-export type PaymentLinkFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * Filter, which PaymentLink to fetch.
-	 */
-	where?: Prisma.PaymentLinkWhereInput
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-	 *
-	 * Determine the order of PaymentLinks to fetch.
-	 */
-	orderBy?: Prisma.PaymentLinkOrderByWithRelationInput | Prisma.PaymentLinkOrderByWithRelationInput[]
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-	 *
-	 * Sets the position for searching for PaymentLinks.
-	 */
-	cursor?: Prisma.PaymentLinkWhereUniqueInput
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-	 *
-	 * Take `±n` PaymentLinks from the position of the cursor.
-	 */
-	take?: number
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-	 *
-	 * Skip the first `n` PaymentLinks.
-	 */
-	skip?: number
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-	 *
-	 * Filter by unique combinations of PaymentLinks.
-	 */
-	distinct?: Prisma.PaymentLinkScalarFieldEnum | Prisma.PaymentLinkScalarFieldEnum[]
-}
+export type PaymentLinkFindFirstOrThrowArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * Filter, which PaymentLink to fetch.
+   */
+  where?: Prisma.PaymentLinkWhereInput;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+   *
+   * Determine the order of PaymentLinks to fetch.
+   */
+  orderBy?:
+    | Prisma.PaymentLinkOrderByWithRelationInput
+    | Prisma.PaymentLinkOrderByWithRelationInput[];
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+   *
+   * Sets the position for searching for PaymentLinks.
+   */
+  cursor?: Prisma.PaymentLinkWhereUniqueInput;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+   *
+   * Take `±n` PaymentLinks from the position of the cursor.
+   */
+  take?: number;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+   *
+   * Skip the first `n` PaymentLinks.
+   */
+  skip?: number;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   *
+   * Filter by unique combinations of PaymentLinks.
+   */
+  distinct?:
+    | Prisma.PaymentLinkScalarFieldEnum
+    | Prisma.PaymentLinkScalarFieldEnum[];
+};
 
 /**
  * PaymentLink findMany
  */
-export type PaymentLinkFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * Filter, which PaymentLinks to fetch.
-	 */
-	where?: Prisma.PaymentLinkWhereInput
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-	 *
-	 * Determine the order of PaymentLinks to fetch.
-	 */
-	orderBy?: Prisma.PaymentLinkOrderByWithRelationInput | Prisma.PaymentLinkOrderByWithRelationInput[]
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-	 *
-	 * Sets the position for listing PaymentLinks.
-	 */
-	cursor?: Prisma.PaymentLinkWhereUniqueInput
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-	 *
-	 * Take `±n` PaymentLinks from the position of the cursor.
-	 */
-	take?: number
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-	 *
-	 * Skip the first `n` PaymentLinks.
-	 */
-	skip?: number
-	distinct?: Prisma.PaymentLinkScalarFieldEnum | Prisma.PaymentLinkScalarFieldEnum[]
-}
+export type PaymentLinkFindManyArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * Filter, which PaymentLinks to fetch.
+   */
+  where?: Prisma.PaymentLinkWhereInput;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+   *
+   * Determine the order of PaymentLinks to fetch.
+   */
+  orderBy?:
+    | Prisma.PaymentLinkOrderByWithRelationInput
+    | Prisma.PaymentLinkOrderByWithRelationInput[];
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+   *
+   * Sets the position for listing PaymentLinks.
+   */
+  cursor?: Prisma.PaymentLinkWhereUniqueInput;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+   *
+   * Take `±n` PaymentLinks from the position of the cursor.
+   */
+  take?: number;
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+   *
+   * Skip the first `n` PaymentLinks.
+   */
+  skip?: number;
+  distinct?:
+    | Prisma.PaymentLinkScalarFieldEnum
+    | Prisma.PaymentLinkScalarFieldEnum[];
+};
 
 /**
  * PaymentLink create
  */
-export type PaymentLinkCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * The data needed to create a PaymentLink.
-	 */
-	data?: Prisma.XOR<Prisma.PaymentLinkCreateInput, Prisma.PaymentLinkUncheckedCreateInput>
-}
+export type PaymentLinkCreateArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * The data needed to create a PaymentLink.
+   */
+  data?: Prisma.XOR<
+    Prisma.PaymentLinkCreateInput,
+    Prisma.PaymentLinkUncheckedCreateInput
+  >;
+};
 
 /**
  * PaymentLink createMany
  */
-export type PaymentLinkCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * The data used to create many PaymentLinks.
-	 */
-	data: Prisma.PaymentLinkCreateManyInput | Prisma.PaymentLinkCreateManyInput[]
-	skipDuplicates?: boolean
-}
+export type PaymentLinkCreateManyArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * The data used to create many PaymentLinks.
+   */
+  data: Prisma.PaymentLinkCreateManyInput | Prisma.PaymentLinkCreateManyInput[];
+  skipDuplicates?: boolean;
+};
 
 /**
  * PaymentLink createManyAndReturn
  */
-export type PaymentLinkCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelectCreateManyAndReturn<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * The data used to create many PaymentLinks.
-	 */
-	data: Prisma.PaymentLinkCreateManyInput | Prisma.PaymentLinkCreateManyInput[]
-	skipDuplicates?: boolean
-}
+export type PaymentLinkCreateManyAndReturnArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelectCreateManyAndReturn<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * The data used to create many PaymentLinks.
+   */
+  data: Prisma.PaymentLinkCreateManyInput | Prisma.PaymentLinkCreateManyInput[];
+  skipDuplicates?: boolean;
+};
 
 /**
  * PaymentLink update
  */
-export type PaymentLinkUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * The data needed to update a PaymentLink.
-	 */
-	data: Prisma.XOR<Prisma.PaymentLinkUpdateInput, Prisma.PaymentLinkUncheckedUpdateInput>
-	/**
-	 * Choose, which PaymentLink to update.
-	 */
-	where: Prisma.PaymentLinkWhereUniqueInput
-}
+export type PaymentLinkUpdateArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * The data needed to update a PaymentLink.
+   */
+  data: Prisma.XOR<
+    Prisma.PaymentLinkUpdateInput,
+    Prisma.PaymentLinkUncheckedUpdateInput
+  >;
+  /**
+   * Choose, which PaymentLink to update.
+   */
+  where: Prisma.PaymentLinkWhereUniqueInput;
+};
 
 /**
  * PaymentLink updateMany
  */
-export type PaymentLinkUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * The data used to update PaymentLinks.
-	 */
-	data: Prisma.XOR<Prisma.PaymentLinkUpdateManyMutationInput, Prisma.PaymentLinkUncheckedUpdateManyInput>
-	/**
-	 * Filter which PaymentLinks to update
-	 */
-	where?: Prisma.PaymentLinkWhereInput
-	/**
-	 * Limit how many PaymentLinks to update.
-	 */
-	limit?: number
-}
+export type PaymentLinkUpdateManyArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * The data used to update PaymentLinks.
+   */
+  data: Prisma.XOR<
+    Prisma.PaymentLinkUpdateManyMutationInput,
+    Prisma.PaymentLinkUncheckedUpdateManyInput
+  >;
+  /**
+   * Filter which PaymentLinks to update
+   */
+  where?: Prisma.PaymentLinkWhereInput;
+  /**
+   * Limit how many PaymentLinks to update.
+   */
+  limit?: number;
+};
 
 /**
  * PaymentLink updateManyAndReturn
  */
-export type PaymentLinkUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelectUpdateManyAndReturn<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * The data used to update PaymentLinks.
-	 */
-	data: Prisma.XOR<Prisma.PaymentLinkUpdateManyMutationInput, Prisma.PaymentLinkUncheckedUpdateManyInput>
-	/**
-	 * Filter which PaymentLinks to update
-	 */
-	where?: Prisma.PaymentLinkWhereInput
-	/**
-	 * Limit how many PaymentLinks to update.
-	 */
-	limit?: number
-}
+export type PaymentLinkUpdateManyAndReturnArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelectUpdateManyAndReturn<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * The data used to update PaymentLinks.
+   */
+  data: Prisma.XOR<
+    Prisma.PaymentLinkUpdateManyMutationInput,
+    Prisma.PaymentLinkUncheckedUpdateManyInput
+  >;
+  /**
+   * Filter which PaymentLinks to update
+   */
+  where?: Prisma.PaymentLinkWhereInput;
+  /**
+   * Limit how many PaymentLinks to update.
+   */
+  limit?: number;
+};
 
 /**
  * PaymentLink upsert
  */
-export type PaymentLinkUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * The filter to search for the PaymentLink to update in case it exists.
-	 */
-	where: Prisma.PaymentLinkWhereUniqueInput
-	/**
-	 * In case the PaymentLink found by the `where` argument doesn't exist, create a new PaymentLink with this data.
-	 */
-	create: Prisma.XOR<Prisma.PaymentLinkCreateInput, Prisma.PaymentLinkUncheckedCreateInput>
-	/**
-	 * In case the PaymentLink was found with the provided `where` argument, update it with this data.
-	 */
-	update: Prisma.XOR<Prisma.PaymentLinkUpdateInput, Prisma.PaymentLinkUncheckedUpdateInput>
-}
+export type PaymentLinkUpsertArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * The filter to search for the PaymentLink to update in case it exists.
+   */
+  where: Prisma.PaymentLinkWhereUniqueInput;
+  /**
+   * In case the PaymentLink found by the `where` argument doesn't exist, create a new PaymentLink with this data.
+   */
+  create: Prisma.XOR<
+    Prisma.PaymentLinkCreateInput,
+    Prisma.PaymentLinkUncheckedCreateInput
+  >;
+  /**
+   * In case the PaymentLink was found with the provided `where` argument, update it with this data.
+   */
+  update: Prisma.XOR<
+    Prisma.PaymentLinkUpdateInput,
+    Prisma.PaymentLinkUncheckedUpdateInput
+  >;
+};
 
 /**
  * PaymentLink delete
  */
-export type PaymentLinkDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-	/**
-	 * Filter which PaymentLink to delete.
-	 */
-	where: Prisma.PaymentLinkWhereUniqueInput
-}
+export type PaymentLinkDeleteArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+  /**
+   * Filter which PaymentLink to delete.
+   */
+  where: Prisma.PaymentLinkWhereUniqueInput;
+};
 
 /**
  * PaymentLink deleteMany
  */
-export type PaymentLinkDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Filter which PaymentLinks to delete
-	 */
-	where?: Prisma.PaymentLinkWhereInput
-	/**
-	 * Limit how many PaymentLinks to delete.
-	 */
-	limit?: number
-}
+export type PaymentLinkDeleteManyArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Filter which PaymentLinks to delete
+   */
+  where?: Prisma.PaymentLinkWhereInput;
+  /**
+   * Limit how many PaymentLinks to delete.
+   */
+  limit?: number;
+};
 
 /**
  * PaymentLink without action
  */
-export type PaymentLinkDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-	/**
-	 * Select specific fields to fetch from the PaymentLink
-	 */
-	select?: Prisma.PaymentLinkSelect<ExtArgs> | null
-	/**
-	 * Omit specific fields from the PaymentLink
-	 */
-	omit?: Prisma.PaymentLinkOmit<ExtArgs> | null
-}
+export type PaymentLinkDefaultArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the PaymentLink
+   */
+  select?: Prisma.PaymentLinkSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the PaymentLink
+   */
+  omit?: Prisma.PaymentLinkOmit<ExtArgs> | null;
+};

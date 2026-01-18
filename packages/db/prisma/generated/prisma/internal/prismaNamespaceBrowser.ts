@@ -14,246 +14,247 @@
  * model files in the `model` directory!
  */
 
-import * as runtime from "@prisma/client/runtime/index-browser"
+import * as runtime from "@prisma/client/runtime/index-browser";
 
-export type * from '../models.ts'
-export type * from './prismaNamespace.ts'
+export type * from "../models.ts";
+export type * from "./prismaNamespace.ts";
 
-export const Decimal = runtime.Decimal
-
+export const Decimal = runtime.Decimal;
 
 export const NullTypes = {
-	DbNull: runtime.NullTypes.DbNull as (new (secret: never) => typeof runtime.DbNull),
-	JsonNull: runtime.NullTypes.JsonNull as (new (secret: never) => typeof runtime.JsonNull),
-	AnyNull: runtime.NullTypes.AnyNull as (new (secret: never) => typeof runtime.AnyNull),
-}
+  DbNull: runtime.NullTypes.DbNull as new (
+    secret: never,
+  ) => typeof runtime.DbNull,
+  JsonNull: runtime.NullTypes.JsonNull as new (
+    secret: never,
+  ) => typeof runtime.JsonNull,
+  AnyNull: runtime.NullTypes.AnyNull as new (
+    secret: never,
+  ) => typeof runtime.AnyNull,
+};
 /**
  * Helper for filtering JSON entries that have `null` on the database (empty on the db)
  *
  * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
  */
-export const DbNull = runtime.DbNull
+export const DbNull = runtime.DbNull;
 
 /**
  * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
  *
  * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
  */
-export const JsonNull = runtime.JsonNull
+export const JsonNull = runtime.JsonNull;
 
 /**
  * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
  *
  * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
  */
-export const AnyNull = runtime.AnyNull
-
+export const AnyNull = runtime.AnyNull;
 
 export const ModelName = {
-	User: 'User',
-	Event: 'Event',
-	TicketType: 'TicketType',
-	Notification: 'Notification',
-	Coupon: 'Coupon',
-	Booking: 'Booking',
-	BookingItem: 'BookingItem',
-	Bookmark: 'Bookmark',
-	Subscribe: 'Subscribe',
-	TicketLock: 'TicketLock',
-	EventType: 'EventType',
-	PaymentLink: 'PaymentLink'
-} as const
+  User: "User",
+  Event: "Event",
+  TicketType: "TicketType",
+  Notification: "Notification",
+  Coupon: "Coupon",
+  Booking: "Booking",
+  BookingItem: "BookingItem",
+  Bookmark: "Bookmark",
+  Subscribe: "Subscribe",
+  TicketLock: "TicketLock",
+  EventType: "EventType",
+  PaymentLink: "PaymentLink",
+} as const;
 
-export type ModelName = (typeof ModelName)[keyof typeof ModelName]
+export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 
 /*
  * Enums
  */
 
 export const TransactionIsolationLevel = {
-	ReadUncommitted: 'ReadUncommitted',
-	ReadCommitted: 'ReadCommitted',
-	RepeatableRead: 'RepeatableRead',
-	Serializable: 'Serializable'
-} as const
+  ReadUncommitted: "ReadUncommitted",
+  ReadCommitted: "ReadCommitted",
+  RepeatableRead: "RepeatableRead",
+  Serializable: "Serializable",
+} as const;
 
-export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
+export type TransactionIsolationLevel =
+  (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
 
 export const UserScalarFieldEnum = {
-	id: 'id',
-	email: 'email',
-	firstName: 'firstName',
-	lastName: 'lastName',
-	profilePicUrl: 'profilePicUrl',
-	password: 'password',
-	verified: 'verified',
-	isOrganizer: 'isOrganizer',
-	refreshToken: 'refreshToken',
-	createdAt: 'createdAt',
-	updatedAt: 'updatedAt'
-} as const
+  id: "id",
+  email: "email",
+  firstName: "firstName",
+  lastName: "lastName",
+  profilePicUrl: "profilePicUrl",
+  password: "password",
+  verified: "verified",
+  isOrganizer: "isOrganizer",
+  refreshToken: "refreshToken",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+} as const;
 
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
+export type UserScalarFieldEnum =
+  (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
 
 export const EventScalarFieldEnum = {
-	id: 'id',
-	title: 'title',
-	description: 'description',
-	imageUrl: 'imageUrl',
-	location: 'location',
-	dateTime: 'dateTime',
-	duration: 'duration',
-	eventBookingStatus: 'eventBookingStatus',
-	eventStatus: 'eventStatus',
-	createdAt: 'createdAt',
-	updatedAt: 'updatedAt',
-	eventTypeId: 'eventTypeId',
-	organizerId: 'organizerId',
-	couponId: 'couponId'
-} as const
+  id: "id",
+  title: "title",
+  description: "description",
+  imageUrl: "imageUrl",
+  location: "location",
+  dateTime: "dateTime",
+  duration: "duration",
+  eventBookingStatus: "eventBookingStatus",
+  eventStatus: "eventStatus",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+  eventTypeId: "eventTypeId",
+  organizerId: "organizerId",
+  couponId: "couponId",
+} as const;
 
-export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
-
+export type EventScalarFieldEnum =
+  (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum];
 
 export const TicketTypeScalarFieldEnum = {
-	id: 'id',
-	typeName: 'typeName',
-	available: 'available',
-	total: 'total',
-	imageUrl: 'imageUrl',
-	price: 'price',
-	eventId: 'eventId',
-	createdAt: 'createdAt',
-	updatedAt: 'updatedAt'
-} as const
+  id: "id",
+  typeName: "typeName",
+  available: "available",
+  total: "total",
+  imageUrl: "imageUrl",
+  price: "price",
+  eventId: "eventId",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+} as const;
 
-export type TicketTypeScalarFieldEnum = (typeof TicketTypeScalarFieldEnum)[keyof typeof TicketTypeScalarFieldEnum]
-
+export type TicketTypeScalarFieldEnum =
+  (typeof TicketTypeScalarFieldEnum)[keyof typeof TicketTypeScalarFieldEnum];
 
 export const NotificationScalarFieldEnum = {
-	id: 'id',
-	message: 'message',
-	seen: 'seen',
-	createdAt: 'createdAt',
-	userId: 'userId'
-} as const
+  id: "id",
+  message: "message",
+  seen: "seen",
+  createdAt: "createdAt",
+  userId: "userId",
+} as const;
 
-export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
-
+export type NotificationScalarFieldEnum =
+  (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum];
 
 export const CouponScalarFieldEnum = {
-	id: 'id',
-	code: 'code',
-	description: 'description',
-	minPrice: 'minPrice',
-	maxDiscount: 'maxDiscount',
-	discountPercent: 'discountPercent',
-	createdAt: 'createdAt',
-	updatedAt: 'updatedAt'
-} as const
+  id: "id",
+  code: "code",
+  description: "description",
+  minPrice: "minPrice",
+  maxDiscount: "maxDiscount",
+  discountPercent: "discountPercent",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+} as const;
 
-export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
-
+export type CouponScalarFieldEnum =
+  (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum];
 
 export const BookingScalarFieldEnum = {
-	id: 'id',
-	totalAmount: 'totalAmount',
-	discountPercent: 'discountPercent',
-	finalAmount: 'finalAmount',
-	paymentStatus: 'paymentStatus',
-	expiresAt: 'expiresAt',
-	createdAt: 'createdAt',
-	updatedAt: 'updatedAt',
-	userId: 'userId',
-	eventId: 'eventId',
-	couponId: 'couponId'
-} as const
+  id: "id",
+  totalAmount: "totalAmount",
+  discountPercent: "discountPercent",
+  finalAmount: "finalAmount",
+  paymentStatus: "paymentStatus",
+  expiresAt: "expiresAt",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+  userId: "userId",
+  eventId: "eventId",
+  couponId: "couponId",
+} as const;
 
-export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
-
+export type BookingScalarFieldEnum =
+  (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum];
 
 export const BookingItemScalarFieldEnum = {
-	id: 'id',
-	quantity: 'quantity',
-	createdAt: 'createdAt',
-	bookingId: 'bookingId',
-	ticketTypeId: 'ticketTypeId'
-} as const
+  id: "id",
+  quantity: "quantity",
+  createdAt: "createdAt",
+  bookingId: "bookingId",
+  ticketTypeId: "ticketTypeId",
+} as const;
 
-export type BookingItemScalarFieldEnum = (typeof BookingItemScalarFieldEnum)[keyof typeof BookingItemScalarFieldEnum]
-
+export type BookingItemScalarFieldEnum =
+  (typeof BookingItemScalarFieldEnum)[keyof typeof BookingItemScalarFieldEnum];
 
 export const BookmarkScalarFieldEnum = {
-	id: 'id',
-	createdAt: 'createdAt',
-	eventId: 'eventId',
-	userId: 'userId'
-} as const
+  id: "id",
+  createdAt: "createdAt",
+  eventId: "eventId",
+  userId: "userId",
+} as const;
 
-export type BookmarkScalarFieldEnum = (typeof BookmarkScalarFieldEnum)[keyof typeof BookmarkScalarFieldEnum]
-
+export type BookmarkScalarFieldEnum =
+  (typeof BookmarkScalarFieldEnum)[keyof typeof BookmarkScalarFieldEnum];
 
 export const SubscribeScalarFieldEnum = {
-	id: 'id',
-	createdAt: 'createdAt',
-	eventId: 'eventId',
-	userId: 'userId'
-} as const
+  id: "id",
+  createdAt: "createdAt",
+  eventId: "eventId",
+  userId: "userId",
+} as const;
 
-export type SubscribeScalarFieldEnum = (typeof SubscribeScalarFieldEnum)[keyof typeof SubscribeScalarFieldEnum]
-
+export type SubscribeScalarFieldEnum =
+  (typeof SubscribeScalarFieldEnum)[keyof typeof SubscribeScalarFieldEnum];
 
 export const TicketLockScalarFieldEnum = {
-	id: 'id',
-	quantity: 'quantity',
-	expiresAt: 'expiresAt',
-	createdAt: 'createdAt',
-	userId: 'userId',
-	ticketTypeId: 'ticketTypeId'
-} as const
+  id: "id",
+  quantity: "quantity",
+  expiresAt: "expiresAt",
+  createdAt: "createdAt",
+  userId: "userId",
+  ticketTypeId: "ticketTypeId",
+} as const;
 
-export type TicketLockScalarFieldEnum = (typeof TicketLockScalarFieldEnum)[keyof typeof TicketLockScalarFieldEnum]
-
+export type TicketLockScalarFieldEnum =
+  (typeof TicketLockScalarFieldEnum)[keyof typeof TicketLockScalarFieldEnum];
 
 export const EventTypeScalarFieldEnum = {
-	id: 'id',
-	typeName: 'typeName',
-	createdAt: 'createdAt'
-} as const
+  id: "id",
+  typeName: "typeName",
+  createdAt: "createdAt",
+} as const;
 
-export type EventTypeScalarFieldEnum = (typeof EventTypeScalarFieldEnum)[keyof typeof EventTypeScalarFieldEnum]
-
+export type EventTypeScalarFieldEnum =
+  (typeof EventTypeScalarFieldEnum)[keyof typeof EventTypeScalarFieldEnum];
 
 export const PaymentLinkScalarFieldEnum = {
-	id: 'id',
-	createdAt: 'createdAt'
-} as const
+  id: "id",
+  createdAt: "createdAt",
+} as const;
 
-export type PaymentLinkScalarFieldEnum = (typeof PaymentLinkScalarFieldEnum)[keyof typeof PaymentLinkScalarFieldEnum]
-
+export type PaymentLinkScalarFieldEnum =
+  (typeof PaymentLinkScalarFieldEnum)[keyof typeof PaymentLinkScalarFieldEnum];
 
 export const SortOrder = {
-	asc: 'asc',
-	desc: 'desc'
-} as const
+  asc: "asc",
+  desc: "desc",
+} as const;
 
-export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
+export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
 
 export const QueryMode = {
-	default: 'default',
-	insensitive: 'insensitive'
-} as const
+  default: "default",
+  insensitive: "insensitive",
+} as const;
 
-export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode];
 
 export const NullsOrder = {
-	first: 'first',
-	last: 'last'
-} as const
+  first: "first",
+  last: "last",
+} as const;
 
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];

@@ -10,67 +10,81 @@
  * Please import the `PrismaClient` class from the `client.ts` file instead.
  */
 
-import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "./prismaNamespace.ts"
-
+import * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "./prismaNamespace.ts";
 
 const config: runtime.GetPrismaClientConfig = {
-	"previewFeatures": [],
-	"clientVersion": "7.2.0",
-	"engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
-	"activeProvider": "postgresql",
-	"inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// -- ENUMS\n\nenum EventBookingStatus {\n  WAITING\n  STARTED\n  CLOSED\n}\n\nenum EventStatus {\n  OPEN\n  CLOSED\n}\n\nenum PaymentStatus {\n  PENDING\n  COMPLETED\n  FAILED\n  REFUNDED\n}\n\n// -- MODELS\n\nmodel User {\n  id            String         @id @default(cuid())\n  email         String         @unique\n  firstName     String\n  lastName      String\n  profilePicUrl String\n  password      String\n  verified      Boolean        @default(false)\n  isOrganizer   Boolean        @default(false)\n  refreshToken  String?        @unique\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n  events        Event[]\n  bookings      Booking[]\n  subscribes    Subscribe[]\n  bookmarks     Bookmark[]\n  notifications Notification[]\n  ticketLocks   TicketLock[]\n\n  @@index([email])\n}\n\nmodel Event {\n  id                 String             @id @default(cuid())\n  title              String\n  description        String\n  imageUrl           String\n  location           String\n  dateTime           DateTime\n  duration           Int // duration in minutes\n  eventBookingStatus EventBookingStatus\n  eventStatus        EventStatus\n  createdAt          DateTime           @default(now())\n  updatedAt          DateTime           @updatedAt\n  eventTypeId        String\n  organizerId        String\n  couponId           String?\n  eventType          EventType          @relation(fields: [eventTypeId], references: [id])\n  organizer          User               @relation(fields: [organizerId], references: [id], onDelete: Cascade)\n  coupon             Coupon?            @relation(fields: [couponId], references: [id], onDelete: SetNull)\n  ticketTypes        TicketType[]\n  bookings           Booking[]\n  subscribes         Subscribe[]\n  bookmarks          Bookmark[]\n\n  @@index([eventTypeId])\n  @@index([organizerId])\n  @@index([dateTime])\n  @@index([eventStatus])\n}\n\nmodel TicketType {\n  id           String        @id @default(cuid())\n  typeName     String\n  available    Int\n  total        Int\n  imageUrl     String\n  price        Float\n  eventId      String\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime      @updatedAt\n  event        Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  bookingItems BookingItem[]\n  ticketLocks  TicketLock[]\n\n  @@unique([eventId, typeName])\n  @@index([eventId])\n}\n\nmodel Notification {\n  id        String   @id @default(cuid())\n  message   String\n  seen      Boolean  @default(false)\n  createdAt DateTime @default(now())\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId, seen])\n}\n\nmodel Coupon {\n  id              String    @id @default(cuid())\n  code            String    @unique\n  description     String\n  minPrice        Float\n  maxDiscount     Float\n  discountPercent Float\n  createdAt       DateTime  @default(now())\n  updatedAt       DateTime  @updatedAt\n  events          Event[]\n  bookings        Booking[]\n\n  @@index([code])\n}\n\nmodel Booking {\n  id              String        @id @default(cuid())\n  totalAmount     Float\n  discountPercent Float         @default(0)\n  finalAmount     Float\n  paymentStatus   PaymentStatus @default(PENDING)\n  expiresAt       DateTime\n  createdAt       DateTime      @default(now())\n  updatedAt       DateTime      @updatedAt\n  userId          String\n  eventId         String\n  couponId        String?\n  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)\n  event           Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  coupon          Coupon?       @relation(fields: [couponId], references: [id], onDelete: SetNull)\n  bookingItems    BookingItem[]\n\n  @@index([userId])\n  @@index([eventId])\n  @@index([paymentStatus])\n  @@index([expiresAt])\n}\n\nmodel BookingItem {\n  id           String     @id @default(cuid())\n  quantity     Int\n  createdAt    DateTime   @default(now())\n  bookingId    String\n  ticketTypeId String\n  booking      Booking    @relation(fields: [bookingId], references: [id], onDelete: Cascade)\n  ticketType   TicketType @relation(fields: [ticketTypeId], references: [id], onDelete: Restrict)\n\n  @@index([bookingId])\n  @@index([ticketTypeId])\n}\n\nmodel Bookmark {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n  eventId   String\n  userId    String\n  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([userId, eventId])\n  @@index([userId])\n  @@index([eventId])\n}\n\nmodel Subscribe {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n  eventId   String\n  userId    String\n  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([userId, eventId])\n  @@index([userId])\n  @@index([eventId])\n}\n\nmodel TicketLock {\n  id           String     @id @default(cuid())\n  quantity     Int\n  expiresAt    DateTime\n  createdAt    DateTime   @default(now())\n  userId       String\n  ticketTypeId String\n  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)\n  ticketType   TicketType @relation(fields: [ticketTypeId], references: [id], onDelete: Cascade)\n\n  @@index([expiresAt])\n  @@index([userId])\n  @@index([ticketTypeId])\n}\n\nmodel EventType {\n  id        String   @id @default(cuid())\n  typeName  String   @unique\n  createdAt DateTime @default(now())\n  events    Event[]\n\n  @@index([typeName])\n}\n\nmodel PaymentLink {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n  // You'll handle this later\n}\n",
-	"runtimeDataModel": {
-		"models": {},
-		"enums": {},
-		"types": {}
-	}
-}
+  previewFeatures: [],
+  clientVersion: "7.2.0",
+  engineVersion: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
+  activeProvider: "postgresql",
+  inlineSchema:
+    'generator client {\n  provider = "prisma-client"\n  output   = "./generated/prisma"\n}\n\ndatasource db {\n  provider = "postgresql"\n}\n\n// -- ENUMS\n\nenum EventBookingStatus {\n  WAITING\n  STARTED\n  CLOSED\n}\n\nenum EventStatus {\n  OPEN\n  CLOSED\n}\n\nenum PaymentStatus {\n  PENDING\n  COMPLETED\n  FAILED\n  REFUNDED\n}\n\n// -- MODELS\n\nmodel User {\n  id            String         @id @default(cuid())\n  email         String         @unique\n  firstName     String\n  lastName      String\n  profilePicUrl String\n  password      String\n  verified      Boolean        @default(false)\n  isOrganizer   Boolean        @default(false)\n  refreshToken  String?        @unique\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n  events        Event[]\n  bookings      Booking[]\n  subscribes    Subscribe[]\n  bookmarks     Bookmark[]\n  notifications Notification[]\n  ticketLocks   TicketLock[]\n\n  @@index([email])\n}\n\nmodel Event {\n  id                 String             @id @default(cuid())\n  title              String\n  description        String\n  imageUrl           String\n  location           String\n  dateTime           DateTime\n  duration           Int // duration in minutes\n  eventBookingStatus EventBookingStatus\n  eventStatus        EventStatus\n  createdAt          DateTime           @default(now())\n  updatedAt          DateTime           @updatedAt\n  eventTypeId        String\n  organizerId        String\n  couponId           String?\n  eventType          EventType          @relation(fields: [eventTypeId], references: [id])\n  organizer          User               @relation(fields: [organizerId], references: [id], onDelete: Cascade)\n  coupon             Coupon?            @relation(fields: [couponId], references: [id], onDelete: SetNull)\n  ticketTypes        TicketType[]\n  bookings           Booking[]\n  subscribes         Subscribe[]\n  bookmarks          Bookmark[]\n\n  @@index([eventTypeId])\n  @@index([organizerId])\n  @@index([dateTime])\n  @@index([eventStatus])\n}\n\nmodel TicketType {\n  id           String        @id @default(cuid())\n  typeName     String\n  available    Int\n  total        Int\n  imageUrl     String\n  price        Float\n  eventId      String\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime      @updatedAt\n  event        Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  bookingItems BookingItem[]\n  ticketLocks  TicketLock[]\n\n  @@unique([eventId, typeName])\n  @@index([eventId])\n}\n\nmodel Notification {\n  id        String   @id @default(cuid())\n  message   String\n  seen      Boolean  @default(false)\n  createdAt DateTime @default(now())\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId, seen])\n}\n\nmodel Coupon {\n  id              String    @id @default(cuid())\n  code            String    @unique\n  description     String\n  minPrice        Float\n  maxDiscount     Float\n  discountPercent Float\n  createdAt       DateTime  @default(now())\n  updatedAt       DateTime  @updatedAt\n  events          Event[]\n  bookings        Booking[]\n\n  @@index([code])\n}\n\nmodel Booking {\n  id              String        @id @default(cuid())\n  totalAmount     Float\n  discountPercent Float         @default(0)\n  finalAmount     Float\n  paymentStatus   PaymentStatus @default(PENDING)\n  expiresAt       DateTime\n  createdAt       DateTime      @default(now())\n  updatedAt       DateTime      @updatedAt\n  userId          String\n  eventId         String\n  couponId        String?\n  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)\n  event           Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  coupon          Coupon?       @relation(fields: [couponId], references: [id], onDelete: SetNull)\n  bookingItems    BookingItem[]\n\n  @@index([userId])\n  @@index([eventId])\n  @@index([paymentStatus])\n  @@index([expiresAt])\n}\n\nmodel BookingItem {\n  id           String     @id @default(cuid())\n  quantity     Int\n  createdAt    DateTime   @default(now())\n  bookingId    String\n  ticketTypeId String\n  booking      Booking    @relation(fields: [bookingId], references: [id], onDelete: Cascade)\n  ticketType   TicketType @relation(fields: [ticketTypeId], references: [id], onDelete: Restrict)\n\n  @@index([bookingId])\n  @@index([ticketTypeId])\n}\n\nmodel Bookmark {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n  eventId   String\n  userId    String\n  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([userId, eventId])\n  @@index([userId])\n  @@index([eventId])\n}\n\nmodel Subscribe {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n  eventId   String\n  userId    String\n  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([userId, eventId])\n  @@index([userId])\n  @@index([eventId])\n}\n\nmodel TicketLock {\n  id           String     @id @default(cuid())\n  quantity     Int\n  expiresAt    DateTime\n  createdAt    DateTime   @default(now())\n  userId       String\n  ticketTypeId String\n  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)\n  ticketType   TicketType @relation(fields: [ticketTypeId], references: [id], onDelete: Cascade)\n\n  @@index([expiresAt])\n  @@index([userId])\n  @@index([ticketTypeId])\n}\n\nmodel EventType {\n  id        String   @id @default(cuid())\n  typeName  String   @unique\n  createdAt DateTime @default(now())\n  events    Event[]\n\n  @@index([typeName])\n}\n\nmodel PaymentLink {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n  // You\'ll handle this later\n}\n',
+  runtimeDataModel: {
+    models: {},
+    enums: {},
+    types: {},
+  },
+};
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profilePicUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"verified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isOrganizer\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"events\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventToUser\"},{\"name\":\"bookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingToUser\"},{\"name\":\"subscribes\",\"kind\":\"object\",\"type\":\"Subscribe\",\"relationName\":\"SubscribeToUser\"},{\"name\":\"bookmarks\",\"kind\":\"object\",\"type\":\"Bookmark\",\"relationName\":\"BookmarkToUser\"},{\"name\":\"notifications\",\"kind\":\"object\",\"type\":\"Notification\",\"relationName\":\"NotificationToUser\"},{\"name\":\"ticketLocks\",\"kind\":\"object\",\"type\":\"TicketLock\",\"relationName\":\"TicketLockToUser\"}],\"dbName\":null},\"Event\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"eventBookingStatus\",\"kind\":\"enum\",\"type\":\"EventBookingStatus\"},{\"name\":\"eventStatus\",\"kind\":\"enum\",\"type\":\"EventStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"eventTypeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"organizerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"couponId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"eventType\",\"kind\":\"object\",\"type\":\"EventType\",\"relationName\":\"EventToEventType\"},{\"name\":\"organizer\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EventToUser\"},{\"name\":\"coupon\",\"kind\":\"object\",\"type\":\"Coupon\",\"relationName\":\"CouponToEvent\"},{\"name\":\"ticketTypes\",\"kind\":\"object\",\"type\":\"TicketType\",\"relationName\":\"EventToTicketType\"},{\"name\":\"bookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingToEvent\"},{\"name\":\"subscribes\",\"kind\":\"object\",\"type\":\"Subscribe\",\"relationName\":\"EventToSubscribe\"},{\"name\":\"bookmarks\",\"kind\":\"object\",\"type\":\"Bookmark\",\"relationName\":\"BookmarkToEvent\"}],\"dbName\":null},\"TicketType\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"typeName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"available\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"eventId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"event\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventToTicketType\"},{\"name\":\"bookingItems\",\"kind\":\"object\",\"type\":\"BookingItem\",\"relationName\":\"BookingItemToTicketType\"},{\"name\":\"ticketLocks\",\"kind\":\"object\",\"type\":\"TicketLock\",\"relationName\":\"TicketLockToTicketType\"}],\"dbName\":null},\"Notification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"seen\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"NotificationToUser\"}],\"dbName\":null},\"Coupon\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"minPrice\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"maxDiscount\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"discountPercent\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"events\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"CouponToEvent\"},{\"name\":\"bookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingToCoupon\"}],\"dbName\":null},\"Booking\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"totalAmount\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"discountPercent\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"finalAmount\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"paymentStatus\",\"kind\":\"enum\",\"type\":\"PaymentStatus\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"eventId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"couponId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"BookingToUser\"},{\"name\":\"event\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"BookingToEvent\"},{\"name\":\"coupon\",\"kind\":\"object\",\"type\":\"Coupon\",\"relationName\":\"BookingToCoupon\"},{\"name\":\"bookingItems\",\"kind\":\"object\",\"type\":\"BookingItem\",\"relationName\":\"BookingToBookingItem\"}],\"dbName\":null},\"BookingItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"bookingId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ticketTypeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"booking\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingToBookingItem\"},{\"name\":\"ticketType\",\"kind\":\"object\",\"type\":\"TicketType\",\"relationName\":\"BookingItemToTicketType\"}],\"dbName\":null},\"Bookmark\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"eventId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"event\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"BookmarkToEvent\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"BookmarkToUser\"}],\"dbName\":null},\"Subscribe\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"eventId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"event\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventToSubscribe\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SubscribeToUser\"}],\"dbName\":null},\"TicketLock\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ticketTypeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"TicketLockToUser\"},{\"name\":\"ticketType\",\"kind\":\"object\",\"type\":\"TicketType\",\"relationName\":\"TicketLockToTicketType\"}],\"dbName\":null},\"EventType\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"typeName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"events\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventToEventType\"}],\"dbName\":null},\"PaymentLink\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse(
+  '{"models":{"User":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"email","kind":"scalar","type":"String"},{"name":"firstName","kind":"scalar","type":"String"},{"name":"lastName","kind":"scalar","type":"String"},{"name":"profilePicUrl","kind":"scalar","type":"String"},{"name":"password","kind":"scalar","type":"String"},{"name":"verified","kind":"scalar","type":"Boolean"},{"name":"isOrganizer","kind":"scalar","type":"Boolean"},{"name":"refreshToken","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"events","kind":"object","type":"Event","relationName":"EventToUser"},{"name":"bookings","kind":"object","type":"Booking","relationName":"BookingToUser"},{"name":"subscribes","kind":"object","type":"Subscribe","relationName":"SubscribeToUser"},{"name":"bookmarks","kind":"object","type":"Bookmark","relationName":"BookmarkToUser"},{"name":"notifications","kind":"object","type":"Notification","relationName":"NotificationToUser"},{"name":"ticketLocks","kind":"object","type":"TicketLock","relationName":"TicketLockToUser"}],"dbName":null},"Event":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"title","kind":"scalar","type":"String"},{"name":"description","kind":"scalar","type":"String"},{"name":"imageUrl","kind":"scalar","type":"String"},{"name":"location","kind":"scalar","type":"String"},{"name":"dateTime","kind":"scalar","type":"DateTime"},{"name":"duration","kind":"scalar","type":"Int"},{"name":"eventBookingStatus","kind":"enum","type":"EventBookingStatus"},{"name":"eventStatus","kind":"enum","type":"EventStatus"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"eventTypeId","kind":"scalar","type":"String"},{"name":"organizerId","kind":"scalar","type":"String"},{"name":"couponId","kind":"scalar","type":"String"},{"name":"eventType","kind":"object","type":"EventType","relationName":"EventToEventType"},{"name":"organizer","kind":"object","type":"User","relationName":"EventToUser"},{"name":"coupon","kind":"object","type":"Coupon","relationName":"CouponToEvent"},{"name":"ticketTypes","kind":"object","type":"TicketType","relationName":"EventToTicketType"},{"name":"bookings","kind":"object","type":"Booking","relationName":"BookingToEvent"},{"name":"subscribes","kind":"object","type":"Subscribe","relationName":"EventToSubscribe"},{"name":"bookmarks","kind":"object","type":"Bookmark","relationName":"BookmarkToEvent"}],"dbName":null},"TicketType":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"typeName","kind":"scalar","type":"String"},{"name":"available","kind":"scalar","type":"Int"},{"name":"total","kind":"scalar","type":"Int"},{"name":"imageUrl","kind":"scalar","type":"String"},{"name":"price","kind":"scalar","type":"Float"},{"name":"eventId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"event","kind":"object","type":"Event","relationName":"EventToTicketType"},{"name":"bookingItems","kind":"object","type":"BookingItem","relationName":"BookingItemToTicketType"},{"name":"ticketLocks","kind":"object","type":"TicketLock","relationName":"TicketLockToTicketType"}],"dbName":null},"Notification":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"message","kind":"scalar","type":"String"},{"name":"seen","kind":"scalar","type":"Boolean"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"userId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"NotificationToUser"}],"dbName":null},"Coupon":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"code","kind":"scalar","type":"String"},{"name":"description","kind":"scalar","type":"String"},{"name":"minPrice","kind":"scalar","type":"Float"},{"name":"maxDiscount","kind":"scalar","type":"Float"},{"name":"discountPercent","kind":"scalar","type":"Float"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"events","kind":"object","type":"Event","relationName":"CouponToEvent"},{"name":"bookings","kind":"object","type":"Booking","relationName":"BookingToCoupon"}],"dbName":null},"Booking":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"totalAmount","kind":"scalar","type":"Float"},{"name":"discountPercent","kind":"scalar","type":"Float"},{"name":"finalAmount","kind":"scalar","type":"Float"},{"name":"paymentStatus","kind":"enum","type":"PaymentStatus"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"userId","kind":"scalar","type":"String"},{"name":"eventId","kind":"scalar","type":"String"},{"name":"couponId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"BookingToUser"},{"name":"event","kind":"object","type":"Event","relationName":"BookingToEvent"},{"name":"coupon","kind":"object","type":"Coupon","relationName":"BookingToCoupon"},{"name":"bookingItems","kind":"object","type":"BookingItem","relationName":"BookingToBookingItem"}],"dbName":null},"BookingItem":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"quantity","kind":"scalar","type":"Int"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"bookingId","kind":"scalar","type":"String"},{"name":"ticketTypeId","kind":"scalar","type":"String"},{"name":"booking","kind":"object","type":"Booking","relationName":"BookingToBookingItem"},{"name":"ticketType","kind":"object","type":"TicketType","relationName":"BookingItemToTicketType"}],"dbName":null},"Bookmark":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"eventId","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"event","kind":"object","type":"Event","relationName":"BookmarkToEvent"},{"name":"user","kind":"object","type":"User","relationName":"BookmarkToUser"}],"dbName":null},"Subscribe":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"eventId","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"event","kind":"object","type":"Event","relationName":"EventToSubscribe"},{"name":"user","kind":"object","type":"User","relationName":"SubscribeToUser"}],"dbName":null},"TicketLock":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"quantity","kind":"scalar","type":"Int"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"userId","kind":"scalar","type":"String"},{"name":"ticketTypeId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"TicketLockToUser"},{"name":"ticketType","kind":"object","type":"TicketType","relationName":"TicketLockToTicketType"}],"dbName":null},"EventType":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"typeName","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"events","kind":"object","type":"Event","relationName":"EventToEventType"}],"dbName":null},"PaymentLink":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"}],"dbName":null}},"enums":{},"types":{}}',
+);
 
-async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
-	const {Buffer} = await import('node:buffer')
-	const wasmArray = Buffer.from(wasmBase64, 'base64')
-	return new WebAssembly.Module(wasmArray)
+async function decodeBase64AsWasm(
+  wasmBase64: string,
+): Promise<WebAssembly.Module> {
+  const { Buffer } = await import("node:buffer");
+  const wasmArray = Buffer.from(wasmBase64, "base64");
+  return new WebAssembly.Module(wasmArray);
 }
 
 config.compilerWasm = {
-	getRuntime: async () => await import("@prisma/client/runtime/query_compiler_bg.postgresql.mjs"),
+  getRuntime: async () =>
+    await import("@prisma/client/runtime/query_compiler_bg.postgresql.mjs"),
 
-	getQueryCompilerWasmModule: async () => {
-		const {wasm} = await import("@prisma/client/runtime/query_compiler_bg.postgresql.wasm-base64.mjs")
-		return await decodeBase64AsWasm(wasm)
-	}
-}
-
+  getQueryCompilerWasmModule: async () => {
+    const { wasm } =
+      await import("@prisma/client/runtime/query_compiler_bg.postgresql.wasm-base64.mjs");
+    return await decodeBase64AsWasm(wasm);
+  },
+};
 
 export type LogOptions<ClientOptions extends Prisma.PrismaClientOptions> =
-	'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never
+  "log" extends keyof ClientOptions
+    ? ClientOptions["log"] extends Array<Prisma.LogLevel | Prisma.LogDefinition>
+      ? Prisma.GetEvents<ClientOptions["log"]>
+      : never
+    : never;
 
 export interface PrismaClientConstructor {
-	/**
-	 * ## Prisma Client
-	 *
-	 * Type-safe database client for TypeScript
-	 * @example
-	 * ```
-	 * const prisma = new PrismaClient()
-	 * // Fetch zero or more Users
-	 * const users = await prisma.user.findMany()
-	 * ```
-	 *
-	 * Read more in our [docs](https://pris.ly/d/client).
-	 */
+  /**
+   * ## Prisma Client
+   *
+   * Type-safe database client for TypeScript
+   * @example
+   * ```
+   * const prisma = new PrismaClient()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/client).
+   */
 
-	new<
-		Options extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-		LogOpts extends LogOptions<Options> = LogOptions<Options>,
-		OmitOpts extends Prisma.PrismaClientOptions['omit'] = Options extends {
-			omit: infer U
-		} ? U : Prisma.PrismaClientOptions['omit'],
-		ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-	>(options: Prisma.Subset<Options, Prisma.PrismaClientOptions>): PrismaClient<LogOpts, OmitOpts, ExtArgs>
+  new <
+    Options extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
+    LogOpts extends LogOptions<Options> = LogOptions<Options>,
+    OmitOpts extends Prisma.PrismaClientOptions["omit"] = Options extends {
+      omit: infer U;
+    }
+      ? U
+      : Prisma.PrismaClientOptions["omit"],
+    ExtArgs extends runtime.Types.Extensions.InternalArgs =
+      runtime.Types.Extensions.DefaultArgs,
+  >(
+    options: Prisma.Subset<Options, Prisma.PrismaClientOptions>,
+  ): PrismaClient<LogOpts, OmitOpts, ExtArgs>;
 }
 
 /**
@@ -88,218 +102,252 @@ export interface PrismaClientConstructor {
  */
 
 export interface PrismaClient<
-	in LogOpts extends Prisma.LogLevel = never,
-	in out OmitOpts extends Prisma.PrismaClientOptions['omit'] = undefined,
-	in out ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  in LogOpts extends Prisma.LogLevel = never,
+  in out OmitOpts extends Prisma.PrismaClientOptions["omit"] = undefined,
+  in out ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
 > {
-	$extends: runtime.Types.Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<OmitOpts>, ExtArgs, runtime.Types.Utils.Call<Prisma.TypeMapCb<OmitOpts>, {
-		extArgs: ExtArgs
-	}>>
+  $extends: runtime.Types.Extensions.ExtendsHook<
+    "extends",
+    Prisma.TypeMapCb<OmitOpts>,
+    ExtArgs,
+    runtime.Types.Utils.Call<
+      Prisma.TypeMapCb<OmitOpts>,
+      {
+        extArgs: ExtArgs;
+      }
+    >
+  >;
 
-	[K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["other"] };
 
-	$on<V extends LogOpts>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): PrismaClient;
+  $on<V extends LogOpts>(
+    eventType: V,
+    callback: (
+      event: V extends "query" ? Prisma.QueryEvent : Prisma.LogEvent,
+    ) => void,
+  ): PrismaClient;
 
-	/**
-	 * Connect with the database
-	 */
-	$connect(): runtime.Types.Utils.JsPromise<void>;
+  /**
+   * Connect with the database
+   */
+  $connect(): runtime.Types.Utils.JsPromise<void>;
 
-	/**
-	 * Disconnect from the database
-	 */
-	$disconnect(): runtime.Types.Utils.JsPromise<void>;
+  /**
+   * Disconnect from the database
+   */
+  $disconnect(): runtime.Types.Utils.JsPromise<void>;
 
-	/**
-	 * Executes a prepared raw query and returns the number of affected rows.
-	 * @example
-	 * ```
-	 * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
-	 * ```
-	 *
-	 * Read more in our [docs](https://pris.ly/d/raw-queries).
-	 */
-	$executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
+  /**
+   * Executes a prepared raw query and returns the number of affected rows.
+   * @example
+   * ```
+   * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $executeRaw<T = unknown>(
+    query: TemplateStringsArray | Prisma.Sql,
+    ...values: any[]
+  ): Prisma.PrismaPromise<number>;
 
-	/**
-	 * Executes a raw query and returns the number of affected rows.
-	 * Susceptible to SQL injections, see documentation.
-	 * @example
-	 * ```
-	 * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
-	 * ```
-	 *
-	 * Read more in our [docs](https://pris.ly/d/raw-queries).
-	 */
-	$executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
+  /**
+   * Executes a raw query and returns the number of affected rows.
+   * Susceptible to SQL injections, see documentation.
+   * @example
+   * ```
+   * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $executeRawUnsafe<T = unknown>(
+    query: string,
+    ...values: any[]
+  ): Prisma.PrismaPromise<number>;
 
-	/**
-	 * Performs a prepared raw query and returns the `SELECT` data.
-	 * @example
-	 * ```
-	 * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
-	 * ```
-	 *
-	 * Read more in our [docs](https://pris.ly/d/raw-queries).
-	 */
-	$queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
+  /**
+   * Performs a prepared raw query and returns the `SELECT` data.
+   * @example
+   * ```
+   * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $queryRaw<T = unknown>(
+    query: TemplateStringsArray | Prisma.Sql,
+    ...values: any[]
+  ): Prisma.PrismaPromise<T>;
 
-	/**
-	 * Performs a raw query and returns the `SELECT` data.
-	 * Susceptible to SQL injections, see documentation.
-	 * @example
-	 * ```
-	 * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
-	 * ```
-	 *
-	 * Read more in our [docs](https://pris.ly/d/raw-queries).
-	 */
-	$queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
+  /**
+   * Performs a raw query and returns the `SELECT` data.
+   * Susceptible to SQL injections, see documentation.
+   * @example
+   * ```
+   * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $queryRawUnsafe<T = unknown>(
+    query: string,
+    ...values: any[]
+  ): Prisma.PrismaPromise<T>;
 
-	/**
-	 * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
-	 * @example
-	 * ```
-	 * const [george, bob, alice] = await prisma.$transaction([
-	 *   prisma.user.create({ data: { name: 'George' } }),
-	 *   prisma.user.create({ data: { name: 'Bob' } }),
-	 *   prisma.user.create({ data: { name: 'Alice' } }),
-	 * ])
-	 * ```
-	 *
-	 * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
-	 */
-	$transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: {
-		isolationLevel?: Prisma.TransactionIsolationLevel
-	}): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  /**
+   * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
+   * @example
+   * ```
+   * const [george, bob, alice] = await prisma.$transaction([
+   *   prisma.user.create({ data: { name: 'George' } }),
+   *   prisma.user.create({ data: { name: 'Bob' } }),
+   *   prisma.user.create({ data: { name: 'Alice' } }),
+   * ])
+   * ```
+   *
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+   */
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(
+    arg: [...P],
+    options?: {
+      isolationLevel?: Prisma.TransactionIsolationLevel;
+    },
+  ): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>;
 
-	$transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => runtime.Types.Utils.JsPromise<R>, options?: {
-		maxWait?: number,
-		timeout?: number,
-		isolationLevel?: Prisma.TransactionIsolationLevel
-	}): runtime.Types.Utils.JsPromise<R>
+  $transaction<R>(
+    fn: (
+      prisma: Omit<PrismaClient, runtime.ITXClientDenyList>,
+    ) => runtime.Types.Utils.JsPromise<R>,
+    options?: {
+      maxWait?: number;
+      timeout?: number;
+      isolationLevel?: Prisma.TransactionIsolationLevel;
+    },
+  ): runtime.Types.Utils.JsPromise<R>;
 
-	/**
-	 * `prisma.user`: Exposes CRUD operations for the **User** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more Users
-	 * const users = await prisma.user.findMany()
-	 * ```
-	 */
-	get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
+   * ```
+   */
+  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.event`: Exposes CRUD operations for the **Event** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more Events
-	 * const events = await prisma.event.findMany()
-	 * ```
-	 */
-	get event(): Prisma.EventDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.event`: Exposes CRUD operations for the **Event** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Events
+   * const events = await prisma.event.findMany()
+   * ```
+   */
+  get event(): Prisma.EventDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.ticketType`: Exposes CRUD operations for the **TicketType** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more TicketTypes
-	 * const ticketTypes = await prisma.ticketType.findMany()
-	 * ```
-	 */
-	get ticketType(): Prisma.TicketTypeDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.ticketType`: Exposes CRUD operations for the **TicketType** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more TicketTypes
+   * const ticketTypes = await prisma.ticketType.findMany()
+   * ```
+   */
+  get ticketType(): Prisma.TicketTypeDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more Notifications
-	 * const notifications = await prisma.notification.findMany()
-	 * ```
-	 */
-	get notification(): Prisma.NotificationDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Notifications
+   * const notifications = await prisma.notification.findMany()
+   * ```
+   */
+  get notification(): Prisma.NotificationDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.coupon`: Exposes CRUD operations for the **Coupon** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more Coupons
-	 * const coupons = await prisma.coupon.findMany()
-	 * ```
-	 */
-	get coupon(): Prisma.CouponDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.coupon`: Exposes CRUD operations for the **Coupon** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Coupons
+   * const coupons = await prisma.coupon.findMany()
+   * ```
+   */
+  get coupon(): Prisma.CouponDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.booking`: Exposes CRUD operations for the **Booking** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more Bookings
-	 * const bookings = await prisma.booking.findMany()
-	 * ```
-	 */
-	get booking(): Prisma.BookingDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.booking`: Exposes CRUD operations for the **Booking** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Bookings
+   * const bookings = await prisma.booking.findMany()
+   * ```
+   */
+  get booking(): Prisma.BookingDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.bookingItem`: Exposes CRUD operations for the **BookingItem** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more BookingItems
-	 * const bookingItems = await prisma.bookingItem.findMany()
-	 * ```
-	 */
-	get bookingItem(): Prisma.BookingItemDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.bookingItem`: Exposes CRUD operations for the **BookingItem** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more BookingItems
+   * const bookingItems = await prisma.bookingItem.findMany()
+   * ```
+   */
+  get bookingItem(): Prisma.BookingItemDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.bookmark`: Exposes CRUD operations for the **Bookmark** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more Bookmarks
-	 * const bookmarks = await prisma.bookmark.findMany()
-	 * ```
-	 */
-	get bookmark(): Prisma.BookmarkDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.bookmark`: Exposes CRUD operations for the **Bookmark** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Bookmarks
+   * const bookmarks = await prisma.bookmark.findMany()
+   * ```
+   */
+  get bookmark(): Prisma.BookmarkDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.subscribe`: Exposes CRUD operations for the **Subscribe** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more Subscribes
-	 * const subscribes = await prisma.subscribe.findMany()
-	 * ```
-	 */
-	get subscribe(): Prisma.SubscribeDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.subscribe`: Exposes CRUD operations for the **Subscribe** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Subscribes
+   * const subscribes = await prisma.subscribe.findMany()
+   * ```
+   */
+  get subscribe(): Prisma.SubscribeDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.ticketLock`: Exposes CRUD operations for the **TicketLock** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more TicketLocks
-	 * const ticketLocks = await prisma.ticketLock.findMany()
-	 * ```
-	 */
-	get ticketLock(): Prisma.TicketLockDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.ticketLock`: Exposes CRUD operations for the **TicketLock** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more TicketLocks
+   * const ticketLocks = await prisma.ticketLock.findMany()
+   * ```
+   */
+  get ticketLock(): Prisma.TicketLockDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.eventType`: Exposes CRUD operations for the **EventType** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more EventTypes
-	 * const eventTypes = await prisma.eventType.findMany()
-	 * ```
-	 */
-	get eventType(): Prisma.EventTypeDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.eventType`: Exposes CRUD operations for the **EventType** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more EventTypes
+   * const eventTypes = await prisma.eventType.findMany()
+   * ```
+   */
+  get eventType(): Prisma.EventTypeDelegate<ExtArgs, { omit: OmitOpts }>;
 
-	/**
-	 * `prisma.paymentLink`: Exposes CRUD operations for the **PaymentLink** model.
-	 * Example usage:
-	 * ```ts
-	 * // Fetch zero or more PaymentLinks
-	 * const paymentLinks = await prisma.paymentLink.findMany()
-	 * ```
-	 */
-	get paymentLink(): Prisma.PaymentLinkDelegate<ExtArgs, { omit: OmitOpts }>;
+  /**
+   * `prisma.paymentLink`: Exposes CRUD operations for the **PaymentLink** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more PaymentLinks
+   * const paymentLinks = await prisma.paymentLink.findMany()
+   * ```
+   */
+  get paymentLink(): Prisma.PaymentLinkDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {
-	return runtime.getPrismaClient(config) as unknown as PrismaClientConstructor
+  return runtime.getPrismaClient(config) as unknown as PrismaClientConstructor;
 }
