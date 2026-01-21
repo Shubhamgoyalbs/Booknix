@@ -1,8 +1,11 @@
 import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
 import { verifyAccessToken } from "../utils/jwt.ts";
+import type { MiddlewareData } from "../../types/type.ts";
 
-const userAuthMiddleware = createMiddleware(async (c, next) => {
+const userAuthMiddleware = createMiddleware<{
+  Variables: MiddlewareData;
+}>(async (c, next) => {
   const header = c.req.header("Authorization");
 
   // Missing or malformed Authorization header
@@ -26,7 +29,7 @@ const userAuthMiddleware = createMiddleware(async (c, next) => {
   }
 
   // Attach user info to context
-  c.set("userId", result.userId)
+  c.set("userId", result.userId);
   c.set("email", result.email);
 
   await next();

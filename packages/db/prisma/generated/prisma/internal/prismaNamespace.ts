@@ -414,6 +414,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never
 export const ModelName = {
   User: "User",
   Event: "Event",
+  Organizer: "Organizer",
   TicketType: "TicketType",
   Notification: "Notification",
   Coupon: "Coupon",
@@ -421,6 +422,7 @@ export const ModelName = {
   BookingItem: "BookingItem",
   Bookmark: "Bookmark",
   Subscribe: "Subscribe",
+  Follow: "Follow",
   TicketLock: "TicketLock",
   EventType: "EventType",
   PaymentLink: "PaymentLink",
@@ -430,9 +432,7 @@ export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils
   .Fn<
-  {
-    extArgs: runtime.Types.Extensions.InternalArgs;
-  },
+  { extArgs: runtime.Types.Extensions.InternalArgs },
   runtime.Types.Utils.Record<string, any>
 > {
   returns: TypeMap<this["params"]["extArgs"], GlobalOmitOptions>;
@@ -450,6 +450,7 @@ export type TypeMap<
     modelProps:
       | "user"
       | "event"
+      | "organizer"
       | "ticketType"
       | "notification"
       | "coupon"
@@ -457,6 +458,7 @@ export type TypeMap<
       | "bookingItem"
       | "bookmark"
       | "subscribe"
+      | "follow"
       | "ticketLock"
       | "eventType"
       | "paymentLink";
@@ -611,6 +613,82 @@ export type TypeMap<
           args: Prisma.EventCountArgs<ExtArgs>;
           result:
             | runtime.Types.Utils.Optional<Prisma.EventCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
+    Organizer: {
+      payload: Prisma.$OrganizerPayload<ExtArgs>;
+      fields: Prisma.OrganizerFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.OrganizerFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.OrganizerFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>;
+        };
+        findFirst: {
+          args: Prisma.OrganizerFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.OrganizerFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>;
+        };
+        findMany: {
+          args: Prisma.OrganizerFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>[];
+        };
+        create: {
+          args: Prisma.OrganizerCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>;
+        };
+        createMany: {
+          args: Prisma.OrganizerCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.OrganizerCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>[];
+        };
+        delete: {
+          args: Prisma.OrganizerDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>;
+        };
+        update: {
+          args: Prisma.OrganizerUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>;
+        };
+        deleteMany: {
+          args: Prisma.OrganizerDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.OrganizerUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.OrganizerUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>[];
+        };
+        upsert: {
+          args: Prisma.OrganizerUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizerPayload>;
+        };
+        aggregate: {
+          args: Prisma.OrganizerAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrganizer>;
+        };
+        groupBy: {
+          args: Prisma.OrganizerGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.OrganizerGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.OrganizerCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.OrganizerCountAggregateOutputType>
             | number;
         };
       };
@@ -1147,6 +1225,82 @@ export type TypeMap<
         };
       };
     };
+    Follow: {
+      payload: Prisma.$FollowPayload<ExtArgs>;
+      fields: Prisma.FollowFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.FollowFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.FollowFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>;
+        };
+        findFirst: {
+          args: Prisma.FollowFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.FollowFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>;
+        };
+        findMany: {
+          args: Prisma.FollowFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>[];
+        };
+        create: {
+          args: Prisma.FollowCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>;
+        };
+        createMany: {
+          args: Prisma.FollowCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.FollowCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>[];
+        };
+        delete: {
+          args: Prisma.FollowDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>;
+        };
+        update: {
+          args: Prisma.FollowUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>;
+        };
+        deleteMany: {
+          args: Prisma.FollowDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.FollowUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.FollowUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>[];
+        };
+        upsert: {
+          args: Prisma.FollowUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowPayload>;
+        };
+        aggregate: {
+          args: Prisma.FollowAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFollow>;
+        };
+        groupBy: {
+          args: Prisma.FollowGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.FollowGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.FollowCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.FollowCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
     TicketLock: {
       payload: Prisma.$TicketLockPayload<ExtArgs>;
       fields: Prisma.TicketLockFieldRefs;
@@ -1445,16 +1599,25 @@ export const EventScalarFieldEnum = {
   updatedAt: "updatedAt",
   eventTypeId: "eventTypeId",
   organizerId: "organizerId",
-  couponId: "couponId",
 } as const;
 
 export type EventScalarFieldEnum =
   (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum];
 
+export const OrganizerScalarFieldEnum = {
+  id: "id",
+  userId: "userId",
+  organizationName: "organizationName",
+} as const;
+
+export type OrganizerScalarFieldEnum =
+  (typeof OrganizerScalarFieldEnum)[keyof typeof OrganizerScalarFieldEnum];
+
 export const TicketTypeScalarFieldEnum = {
   id: "id",
   typeName: "typeName",
   available: "available",
+  locked: "locked",
   total: "total",
   imageUrl: "imageUrl",
   price: "price",
@@ -1486,6 +1649,7 @@ export const CouponScalarFieldEnum = {
   discountPercent: "discountPercent",
   createdAt: "createdAt",
   updatedAt: "updatedAt",
+  eventId: "eventId",
 } as const;
 
 export type CouponScalarFieldEnum =
@@ -1538,6 +1702,15 @@ export const SubscribeScalarFieldEnum = {
 
 export type SubscribeScalarFieldEnum =
   (typeof SubscribeScalarFieldEnum)[keyof typeof SubscribeScalarFieldEnum];
+
+export const FollowScalarFieldEnum = {
+  id: "id",
+  userId: "userId",
+  organizerId: "organizerId",
+} as const;
+
+export type FollowScalarFieldEnum =
+  (typeof FollowScalarFieldEnum)[keyof typeof FollowScalarFieldEnum];
 
 export const TicketLockScalarFieldEnum = {
   id: "id",
@@ -1812,6 +1985,7 @@ export type PrismaClientOptions = (
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit;
   event?: Prisma.EventOmit;
+  organizer?: Prisma.OrganizerOmit;
   ticketType?: Prisma.TicketTypeOmit;
   notification?: Prisma.NotificationOmit;
   coupon?: Prisma.CouponOmit;
@@ -1819,6 +1993,7 @@ export type GlobalOmitConfig = {
   bookingItem?: Prisma.BookingItemOmit;
   bookmark?: Prisma.BookmarkOmit;
   subscribe?: Prisma.SubscribeOmit;
+  follow?: Prisma.FollowOmit;
   ticketLock?: Prisma.TicketLockOmit;
   eventType?: Prisma.EventTypeOmit;
   paymentLink?: Prisma.PaymentLinkOmit;

@@ -8,6 +8,7 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums.ts";
 import type * as Prisma from "../internal/prismaNamespace.ts";
 
 /**
@@ -814,16 +815,10 @@ export interface SubscribeDelegate<
     runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  /**
-   * Fields of the Subscribe model
-   */
-  readonly fields: SubscribeFieldRefs;
-
   [K: symbol]: {
     types: Prisma.TypeMap<ExtArgs>["model"]["Subscribe"];
     meta: { name: "Subscribe" };
   };
-
   /**
    * Find zero or one Subscribe that matches the filter.
    * @param {SubscribeFindUniqueArgs} args - Arguments to find a Subscribe
@@ -1328,6 +1323,10 @@ export interface SubscribeDelegate<
   ): {} extends InputErrors
     ? GetSubscribeGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
+  /**
+   * Fields of the Subscribe model
+   */
+  readonly fields: SubscribeFieldRefs;
 }
 
 /**
@@ -1344,7 +1343,6 @@ export interface Prisma__SubscribeClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
-
   event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__EventClient<
@@ -1359,7 +1357,6 @@ export interface Prisma__SubscribeClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__UserClient<
@@ -1374,7 +1371,6 @@ export interface Prisma__SubscribeClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1391,7 +1387,6 @@ export interface Prisma__SubscribeClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
@@ -1403,7 +1398,6 @@ export interface Prisma__SubscribeClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
-
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
    * resolved value cannot be modified from the callback.

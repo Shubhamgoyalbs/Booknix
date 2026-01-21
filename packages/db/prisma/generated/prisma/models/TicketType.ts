@@ -8,6 +8,7 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums.ts";
 import type * as Prisma from "../internal/prismaNamespace.ts";
 
 /**
@@ -27,12 +28,14 @@ export type AggregateTicketType = {
 
 export type TicketTypeAvgAggregateOutputType = {
   available: number | null;
+  locked: number | null;
   total: number | null;
   price: number | null;
 };
 
 export type TicketTypeSumAggregateOutputType = {
   available: number | null;
+  locked: number | null;
   total: number | null;
   price: number | null;
 };
@@ -41,6 +44,7 @@ export type TicketTypeMinAggregateOutputType = {
   id: string | null;
   typeName: string | null;
   available: number | null;
+  locked: number | null;
   total: number | null;
   imageUrl: string | null;
   price: number | null;
@@ -53,6 +57,7 @@ export type TicketTypeMaxAggregateOutputType = {
   id: string | null;
   typeName: string | null;
   available: number | null;
+  locked: number | null;
   total: number | null;
   imageUrl: string | null;
   price: number | null;
@@ -65,6 +70,7 @@ export type TicketTypeCountAggregateOutputType = {
   id: number;
   typeName: number;
   available: number;
+  locked: number;
   total: number;
   imageUrl: number;
   price: number;
@@ -76,12 +82,14 @@ export type TicketTypeCountAggregateOutputType = {
 
 export type TicketTypeAvgAggregateInputType = {
   available?: true;
+  locked?: true;
   total?: true;
   price?: true;
 };
 
 export type TicketTypeSumAggregateInputType = {
   available?: true;
+  locked?: true;
   total?: true;
   price?: true;
 };
@@ -90,6 +98,7 @@ export type TicketTypeMinAggregateInputType = {
   id?: true;
   typeName?: true;
   available?: true;
+  locked?: true;
   total?: true;
   imageUrl?: true;
   price?: true;
@@ -102,6 +111,7 @@ export type TicketTypeMaxAggregateInputType = {
   id?: true;
   typeName?: true;
   available?: true;
+  locked?: true;
   total?: true;
   imageUrl?: true;
   price?: true;
@@ -114,6 +124,7 @@ export type TicketTypeCountAggregateInputType = {
   id?: true;
   typeName?: true;
   available?: true;
+  locked?: true;
   total?: true;
   imageUrl?: true;
   price?: true;
@@ -220,6 +231,7 @@ export type TicketTypeGroupByOutputType = {
   id: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -253,6 +265,7 @@ export type TicketTypeWhereInput = {
   id?: Prisma.StringFilter<"TicketType"> | string;
   typeName?: Prisma.StringFilter<"TicketType"> | string;
   available?: Prisma.IntFilter<"TicketType"> | number;
+  locked?: Prisma.IntFilter<"TicketType"> | number;
   total?: Prisma.IntFilter<"TicketType"> | number;
   imageUrl?: Prisma.StringFilter<"TicketType"> | string;
   price?: Prisma.FloatFilter<"TicketType"> | number;
@@ -268,6 +281,7 @@ export type TicketTypeOrderByWithRelationInput = {
   id?: Prisma.SortOrder;
   typeName?: Prisma.SortOrder;
   available?: Prisma.SortOrder;
+  locked?: Prisma.SortOrder;
   total?: Prisma.SortOrder;
   imageUrl?: Prisma.SortOrder;
   price?: Prisma.SortOrder;
@@ -288,6 +302,7 @@ export type TicketTypeWhereUniqueInput = Prisma.AtLeast<
     NOT?: Prisma.TicketTypeWhereInput | Prisma.TicketTypeWhereInput[];
     typeName?: Prisma.StringFilter<"TicketType"> | string;
     available?: Prisma.IntFilter<"TicketType"> | number;
+    locked?: Prisma.IntFilter<"TicketType"> | number;
     total?: Prisma.IntFilter<"TicketType"> | number;
     imageUrl?: Prisma.StringFilter<"TicketType"> | string;
     price?: Prisma.FloatFilter<"TicketType"> | number;
@@ -308,6 +323,7 @@ export type TicketTypeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder;
   typeName?: Prisma.SortOrder;
   available?: Prisma.SortOrder;
+  locked?: Prisma.SortOrder;
   total?: Prisma.SortOrder;
   imageUrl?: Prisma.SortOrder;
   price?: Prisma.SortOrder;
@@ -332,6 +348,7 @@ export type TicketTypeScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"TicketType"> | string;
   typeName?: Prisma.StringWithAggregatesFilter<"TicketType"> | string;
   available?: Prisma.IntWithAggregatesFilter<"TicketType"> | number;
+  locked?: Prisma.IntWithAggregatesFilter<"TicketType"> | number;
   total?: Prisma.IntWithAggregatesFilter<"TicketType"> | number;
   imageUrl?: Prisma.StringWithAggregatesFilter<"TicketType"> | string;
   price?: Prisma.FloatWithAggregatesFilter<"TicketType"> | number;
@@ -344,6 +361,7 @@ export type TicketTypeCreateInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -358,6 +376,7 @@ export type TicketTypeUncheckedCreateInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -372,6 +391,7 @@ export type TicketTypeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -386,6 +406,7 @@ export type TicketTypeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -400,6 +421,7 @@ export type TicketTypeCreateManyInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -412,6 +434,7 @@ export type TicketTypeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -423,6 +446,7 @@ export type TicketTypeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -450,6 +474,7 @@ export type TicketTypeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   typeName?: Prisma.SortOrder;
   available?: Prisma.SortOrder;
+  locked?: Prisma.SortOrder;
   total?: Prisma.SortOrder;
   imageUrl?: Prisma.SortOrder;
   price?: Prisma.SortOrder;
@@ -460,6 +485,7 @@ export type TicketTypeCountOrderByAggregateInput = {
 
 export type TicketTypeAvgOrderByAggregateInput = {
   available?: Prisma.SortOrder;
+  locked?: Prisma.SortOrder;
   total?: Prisma.SortOrder;
   price?: Prisma.SortOrder;
 };
@@ -468,6 +494,7 @@ export type TicketTypeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   typeName?: Prisma.SortOrder;
   available?: Prisma.SortOrder;
+  locked?: Prisma.SortOrder;
   total?: Prisma.SortOrder;
   imageUrl?: Prisma.SortOrder;
   price?: Prisma.SortOrder;
@@ -480,6 +507,7 @@ export type TicketTypeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   typeName?: Prisma.SortOrder;
   available?: Prisma.SortOrder;
+  locked?: Prisma.SortOrder;
   total?: Prisma.SortOrder;
   imageUrl?: Prisma.SortOrder;
   price?: Prisma.SortOrder;
@@ -490,6 +518,7 @@ export type TicketTypeMinOrderByAggregateInput = {
 
 export type TicketTypeSumOrderByAggregateInput = {
   available?: Prisma.SortOrder;
+  locked?: Prisma.SortOrder;
   total?: Prisma.SortOrder;
   price?: Prisma.SortOrder;
 };
@@ -669,6 +698,7 @@ export type TicketTypeCreateWithoutEventInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -682,6 +712,7 @@ export type TicketTypeUncheckedCreateWithoutEventInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -741,6 +772,7 @@ export type TicketTypeScalarWhereInput = {
   id?: Prisma.StringFilter<"TicketType"> | string;
   typeName?: Prisma.StringFilter<"TicketType"> | string;
   available?: Prisma.IntFilter<"TicketType"> | number;
+  locked?: Prisma.IntFilter<"TicketType"> | number;
   total?: Prisma.IntFilter<"TicketType"> | number;
   imageUrl?: Prisma.StringFilter<"TicketType"> | string;
   price?: Prisma.FloatFilter<"TicketType"> | number;
@@ -753,6 +785,7 @@ export type TicketTypeCreateWithoutBookingItemsInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -766,6 +799,7 @@ export type TicketTypeUncheckedCreateWithoutBookingItemsInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -807,6 +841,7 @@ export type TicketTypeUpdateWithoutBookingItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -820,6 +855,7 @@ export type TicketTypeUncheckedUpdateWithoutBookingItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -833,6 +869,7 @@ export type TicketTypeCreateWithoutTicketLocksInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -846,6 +883,7 @@ export type TicketTypeUncheckedCreateWithoutTicketLocksInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -887,6 +925,7 @@ export type TicketTypeUpdateWithoutTicketLocksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -900,6 +939,7 @@ export type TicketTypeUncheckedUpdateWithoutTicketLocksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -913,6 +953,7 @@ export type TicketTypeCreateManyEventInput = {
   id?: string;
   typeName: string;
   available: number;
+  locked: number;
   total: number;
   imageUrl: string;
   price: number;
@@ -924,6 +965,7 @@ export type TicketTypeUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -937,6 +979,7 @@ export type TicketTypeUncheckedUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -950,6 +993,7 @@ export type TicketTypeUncheckedUpdateManyWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   typeName?: Prisma.StringFieldUpdateOperationsInput | string;
   available?: Prisma.IntFieldUpdateOperationsInput | number;
+  locked?: Prisma.IntFieldUpdateOperationsInput | number;
   total?: Prisma.IntFieldUpdateOperationsInput | number;
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
   price?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -1015,6 +1059,7 @@ export type TicketTypeSelect<
     id?: boolean;
     typeName?: boolean;
     available?: boolean;
+    locked?: boolean;
     total?: boolean;
     imageUrl?: boolean;
     price?: boolean;
@@ -1037,6 +1082,7 @@ export type TicketTypeSelectCreateManyAndReturn<
     id?: boolean;
     typeName?: boolean;
     available?: boolean;
+    locked?: boolean;
     total?: boolean;
     imageUrl?: boolean;
     price?: boolean;
@@ -1056,6 +1102,7 @@ export type TicketTypeSelectUpdateManyAndReturn<
     id?: boolean;
     typeName?: boolean;
     available?: boolean;
+    locked?: boolean;
     total?: boolean;
     imageUrl?: boolean;
     price?: boolean;
@@ -1071,6 +1118,7 @@ export type TicketTypeSelectScalar = {
   id?: boolean;
   typeName?: boolean;
   available?: boolean;
+  locked?: boolean;
   total?: boolean;
   imageUrl?: boolean;
   price?: boolean;
@@ -1086,6 +1134,7 @@ export type TicketTypeOmit<
   | "id"
   | "typeName"
   | "available"
+  | "locked"
   | "total"
   | "imageUrl"
   | "price"
@@ -1131,6 +1180,7 @@ export type $TicketTypePayload<
       id: string;
       typeName: string;
       available: number;
+      locked: number;
       total: number;
       imageUrl: string;
       price: number;
@@ -1159,16 +1209,10 @@ export interface TicketTypeDelegate<
     runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  /**
-   * Fields of the TicketType model
-   */
-  readonly fields: TicketTypeFieldRefs;
-
   [K: symbol]: {
     types: Prisma.TypeMap<ExtArgs>["model"]["TicketType"];
     meta: { name: "TicketType" };
   };
-
   /**
    * Find zero or one TicketType that matches the filter.
    * @param {TicketTypeFindUniqueArgs} args - Arguments to find a TicketType
@@ -1673,6 +1717,10 @@ export interface TicketTypeDelegate<
   ): {} extends InputErrors
     ? GetTicketTypeGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
+  /**
+   * Fields of the TicketType model
+   */
+  readonly fields: TicketTypeFieldRefs;
 }
 
 /**
@@ -1689,7 +1737,6 @@ export interface Prisma__TicketTypeClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
-
   event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__EventClient<
@@ -1704,7 +1751,6 @@ export interface Prisma__TicketTypeClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   bookingItems<T extends Prisma.TicketType$bookingItemsArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.TicketType$bookingItemsArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -1716,7 +1762,6 @@ export interface Prisma__TicketTypeClient<
       >
     | Null
   >;
-
   ticketLocks<T extends Prisma.TicketType$ticketLocksArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.TicketType$ticketLocksArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -1728,7 +1773,6 @@ export interface Prisma__TicketTypeClient<
       >
     | Null
   >;
-
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1745,7 +1789,6 @@ export interface Prisma__TicketTypeClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
@@ -1757,7 +1800,6 @@ export interface Prisma__TicketTypeClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
-
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
    * resolved value cannot be modified from the callback.
@@ -1776,6 +1818,7 @@ export interface TicketTypeFieldRefs {
   readonly id: Prisma.FieldRef<"TicketType", "String">;
   readonly typeName: Prisma.FieldRef<"TicketType", "String">;
   readonly available: Prisma.FieldRef<"TicketType", "Int">;
+  readonly locked: Prisma.FieldRef<"TicketType", "Int">;
   readonly total: Prisma.FieldRef<"TicketType", "Int">;
   readonly imageUrl: Prisma.FieldRef<"TicketType", "String">;
   readonly price: Prisma.FieldRef<"TicketType", "Float">;

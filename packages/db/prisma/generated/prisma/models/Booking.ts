@@ -1581,16 +1581,10 @@ export interface BookingDelegate<
     runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  /**
-   * Fields of the Booking model
-   */
-  readonly fields: BookingFieldRefs;
-
   [K: symbol]: {
     types: Prisma.TypeMap<ExtArgs>["model"]["Booking"];
     meta: { name: "Booking" };
   };
-
   /**
    * Find zero or one Booking that matches the filter.
    * @param {BookingFindUniqueArgs} args - Arguments to find a Booking
@@ -2095,6 +2089,10 @@ export interface BookingDelegate<
   ): {} extends InputErrors
     ? GetBookingGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
+  /**
+   * Fields of the Booking model
+   */
+  readonly fields: BookingFieldRefs;
 }
 
 /**
@@ -2111,7 +2109,6 @@ export interface Prisma__BookingClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
-
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__UserClient<
@@ -2126,7 +2123,6 @@ export interface Prisma__BookingClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__EventClient<
@@ -2141,7 +2137,6 @@ export interface Prisma__BookingClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   coupon<T extends Prisma.Booking$couponArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.Booking$couponArgs<ExtArgs>>,
   ): Prisma.Prisma__CouponClient<
@@ -2155,7 +2150,6 @@ export interface Prisma__BookingClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   bookingItems<T extends Prisma.Booking$bookingItemsArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.Booking$bookingItemsArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -2167,7 +2161,6 @@ export interface Prisma__BookingClient<
       >
     | Null
   >;
-
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2184,7 +2177,6 @@ export interface Prisma__BookingClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
@@ -2196,7 +2188,6 @@ export interface Prisma__BookingClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
-
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
    * resolved value cannot be modified from the callback.

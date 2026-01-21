@@ -7,8 +7,11 @@ import {
 import { HTTPException } from "hono/http-exception";
 import { generateOTP, verifyOTP } from "../utils/otp.ts";
 import { getUserIdHelper } from "../utils/helper.ts";
+import type { MiddlewareData } from "../../types/type.ts";
 
-const otpRoute = new Hono();
+const otpRoute = new Hono<{
+  Variables: MiddlewareData;
+}>();
 
 otpRoute.post("/generate", zValidator("json", otpGenerateSchema), async (c) => {
   const body = c.req.valid("json");

@@ -9,8 +9,11 @@ import prismaClient from "@repo/db/client";
 import { HTTPException } from "hono/http-exception";
 import * as bcrypt from "bcrypt";
 import { generateTokens, verifyRefreshToken } from "../utils/jwt.ts";
+import type { MiddlewareData } from "../../types/type.ts";
 
-const authRoute = new Hono();
+const authRoute = new Hono<{
+  Variables: MiddlewareData;
+}>();
 
 // POST /signup
 authRoute.post("/signup", zValidator("json", authSignupSchema), async (c) => {

@@ -8,6 +8,7 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums.ts";
 import type * as Prisma from "../internal/prismaNamespace.ts";
 
 /**
@@ -919,16 +920,10 @@ export interface BookingItemDelegate<
     runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  /**
-   * Fields of the BookingItem model
-   */
-  readonly fields: BookingItemFieldRefs;
-
   [K: symbol]: {
     types: Prisma.TypeMap<ExtArgs>["model"]["BookingItem"];
     meta: { name: "BookingItem" };
   };
-
   /**
    * Find zero or one BookingItem that matches the filter.
    * @param {BookingItemFindUniqueArgs} args - Arguments to find a BookingItem
@@ -1433,6 +1428,10 @@ export interface BookingItemDelegate<
   ): {} extends InputErrors
     ? GetBookingItemGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
+  /**
+   * Fields of the BookingItem model
+   */
+  readonly fields: BookingItemFieldRefs;
 }
 
 /**
@@ -1449,7 +1448,6 @@ export interface Prisma__BookingItemClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
-
   booking<T extends Prisma.BookingDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.BookingDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__BookingClient<
@@ -1464,7 +1462,6 @@ export interface Prisma__BookingItemClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   ticketType<T extends Prisma.TicketTypeDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.TicketTypeDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__TicketTypeClient<
@@ -1479,7 +1476,6 @@ export interface Prisma__BookingItemClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1496,7 +1492,6 @@ export interface Prisma__BookingItemClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
@@ -1508,7 +1503,6 @@ export interface Prisma__BookingItemClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
-
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
    * resolved value cannot be modified from the callback.

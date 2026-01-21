@@ -23,11 +23,21 @@ cookies
 - bookmark
 - subscribe to receive notification
 - qr code for ticket id that help to throw ticket in used bin
-- zod in package
-- zVlaidator in api
-- get set for user id
 
 #### DB UPDATES
 
-add image thing
-organizer profile follow
+- add image thing
+- organizer profile follow
+- add organizer table
+
+#### Notification things
+
+- when booking status changes to expires due payment failure
+- when payment successful than for the booking competion
+
+#### Notification things
+
+- when organizer create event then have option(follower)
+- when update then (subscriber)
+- booking status changes then ask organizer (ubscribers)
+- event reminder

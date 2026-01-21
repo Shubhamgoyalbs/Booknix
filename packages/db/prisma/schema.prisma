@@ -30,23 +30,26 @@ enum PaymentStatus {
 // -- MODELS
 
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  firstName     String
-  lastName      String
-  profilePicUrl String
-  password      String
-  verified      Boolean        @default(false)
-  isOrganizer   Boolean        @default(false)
-  refreshToken  String?        @unique
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  events        Event[]
-  bookings      Booking[]
-  subscribes    Subscribe[]
-  bookmarks     Bookmark[]
-  notifications Notification[]
-  ticketLocks   TicketLock[]
+  id              String         @id @default(cuid())
+  email           String         @unique
+  firstName       String
+  lastName        String
+  profilePicUrl   String
+  password        String
+  verified        Boolean        @default(false)
+  isOrganizer     Boolean        @default(false)
+  organizer       Organizer?
+  refreshToken    String?        @unique
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  events          Event[]
+  bookings        Booking[]
+  subscribes      Subscribe[]
+  bookmarks       Bookmark[]
+  notifications   Notification[]
+  ticketLocks     TicketLock[]
+  userFollow      Follow[]       @relation("user")
+  organizerFollow Follow[]       @relation("organizer")
 
   @@index([email])
 }
@@ -59,16 +62,15 @@ model Event {
   location           String
   dateTime           DateTime
   duration           Int // duration in minutes
-  eventBookingStatus EventBookingStatus
-  eventStatus        EventStatus
+  eventBookingStatus EventBookingStatus @default(WAITING)
+  eventStatus        EventStatus        @default(OPEN)
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
   eventTypeId        String
   organizerId        String
-  couponId           String?
   eventType          EventType          @relation(fields: [eventTypeId], references: [id])
   organizer          User               @relation(fields: [organizerId], references: [id], onDelete: Cascade)
-  coupon             Coupon?            @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  coupons            Coupon[]
   ticketTypes        TicketType[]
   bookings           Booking[]
   subscribes         Subscribe[]
@@ -80,10 +82,21 @@ model Event {
   @@index([eventStatus])
 }
 
+model Organizer {
+  id               String @id @default(cuid())
+  user             User   @relation(fields: [userId], references: [id])
+  userId           String
+  organizationName String
+  //stripe credential
+
+  @@unique([userId])
+}
+
 model TicketType {
   id           String        @id @default(cuid())
   typeName     String
   available    Int
+  locked       Int
   total        Int
   imageUrl     String
   price        Float
@@ -118,8 +131,9 @@ model Coupon {
   discountPercent Float
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  events          Event[]
+  event           Event     @relation(fields: [eventId], references: [id])
   bookings        Booking[]
+  eventId         String
 
   @@index([code])
 }
@@ -184,6 +198,16 @@ model Subscribe {
   @@unique([userId, eventId])
   @@index([userId])
   @@index([eventId])
+}
+
+model Follow {
+  id          String @id @default(cuid())
+  userId      String
+  user        User   @relation("user", fields: [userId], references: [id], onDelete: Cascade)
+  organizer   User   @relation("organizer", fields: [organizerId], references: [id], onDelete: Cascade)
+  organizerId String
+
+  @@unique([organizerId, userId])
 }
 
 model TicketLock {

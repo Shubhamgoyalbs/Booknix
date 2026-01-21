@@ -9,6 +9,7 @@
  */
 export type * from "./models/User.ts";
 export type * from "./models/Event.ts";
+export type * from "./models/Organizer.ts";
 export type * from "./models/TicketType.ts";
 export type * from "./models/Notification.ts";
 export type * from "./models/Coupon.ts";
@@ -16,6 +17,7 @@ export type * from "./models/Booking.ts";
 export type * from "./models/BookingItem.ts";
 export type * from "./models/Bookmark.ts";
 export type * from "./models/Subscribe.ts";
+export type * from "./models/Follow.ts";
 export type * from "./models/TicketLock.ts";
 export type * from "./models/EventType.ts";
 export type * from "./models/PaymentLink.ts";

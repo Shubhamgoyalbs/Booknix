@@ -8,6 +8,7 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums.ts";
 import type * as Prisma from "../internal/prismaNamespace.ts";
 
 /**
@@ -232,12 +233,18 @@ export type UserWhereInput = {
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null;
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
+  organizer?: Prisma.XOR<
+    Prisma.OrganizerNullableScalarRelationFilter,
+    Prisma.OrganizerWhereInput
+  > | null;
   events?: Prisma.EventListRelationFilter;
   bookings?: Prisma.BookingListRelationFilter;
   subscribes?: Prisma.SubscribeListRelationFilter;
   bookmarks?: Prisma.BookmarkListRelationFilter;
   notifications?: Prisma.NotificationListRelationFilter;
   ticketLocks?: Prisma.TicketLockListRelationFilter;
+  userFollow?: Prisma.FollowListRelationFilter;
+  organizerFollow?: Prisma.FollowListRelationFilter;
 };
 
 export type UserOrderByWithRelationInput = {
@@ -252,12 +259,15 @@ export type UserOrderByWithRelationInput = {
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  organizer?: Prisma.OrganizerOrderByWithRelationInput;
   events?: Prisma.EventOrderByRelationAggregateInput;
   bookings?: Prisma.BookingOrderByRelationAggregateInput;
   subscribes?: Prisma.SubscribeOrderByRelationAggregateInput;
   bookmarks?: Prisma.BookmarkOrderByRelationAggregateInput;
   notifications?: Prisma.NotificationOrderByRelationAggregateInput;
   ticketLocks?: Prisma.TicketLockOrderByRelationAggregateInput;
+  userFollow?: Prisma.FollowOrderByRelationAggregateInput;
+  organizerFollow?: Prisma.FollowOrderByRelationAggregateInput;
 };
 
 export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -276,12 +286,18 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     isOrganizer?: Prisma.BoolFilter<"User"> | boolean;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
+    organizer?: Prisma.XOR<
+      Prisma.OrganizerNullableScalarRelationFilter,
+      Prisma.OrganizerWhereInput
+    > | null;
     events?: Prisma.EventListRelationFilter;
     bookings?: Prisma.BookingListRelationFilter;
     subscribes?: Prisma.SubscribeListRelationFilter;
     bookmarks?: Prisma.BookmarkListRelationFilter;
     notifications?: Prisma.NotificationListRelationFilter;
     ticketLocks?: Prisma.TicketLockListRelationFilter;
+    userFollow?: Prisma.FollowListRelationFilter;
+    organizerFollow?: Prisma.FollowListRelationFilter;
   },
   "id" | "email" | "refreshToken"
 >;
@@ -339,12 +355,15 @@ export type UserCreateInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
   events?: Prisma.EventCreateNestedManyWithoutOrganizerInput;
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserUncheckedCreateInput = {
@@ -359,12 +378,15 @@ export type UserUncheckedCreateInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
   events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizerInput;
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserUpdateInput = {
@@ -382,12 +404,15 @@ export type UserUpdateInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserUncheckedUpdateInput = {
@@ -405,12 +430,15 @@ export type UserUncheckedUpdateInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserCreateManyInput = {
@@ -550,6 +578,32 @@ export type UserUpdateOneRequiredWithoutEventsNestedInput = {
   >;
 };
 
+export type UserCreateNestedOneWithoutOrganizerInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutOrganizerInput,
+    Prisma.UserUncheckedCreateWithoutOrganizerInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizerInput;
+  connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserUpdateOneRequiredWithoutOrganizerNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutOrganizerInput,
+    Prisma.UserUncheckedCreateWithoutOrganizerInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizerInput;
+  upsert?: Prisma.UserUpsertWithoutOrganizerInput;
+  connect?: Prisma.UserWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutOrganizerInput,
+      Prisma.UserUpdateWithoutOrganizerInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutOrganizerInput
+  >;
+};
+
 export type UserCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<
     Prisma.UserCreateWithoutNotificationsInput,
@@ -654,6 +708,58 @@ export type UserUpdateOneRequiredWithoutSubscribesNestedInput = {
   >;
 };
 
+export type UserCreateNestedOneWithoutUserFollowInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutUserFollowInput,
+    Prisma.UserUncheckedCreateWithoutUserFollowInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserFollowInput;
+  connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserCreateNestedOneWithoutOrganizerFollowInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutOrganizerFollowInput,
+    Prisma.UserUncheckedCreateWithoutOrganizerFollowInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizerFollowInput;
+  connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserUpdateOneRequiredWithoutUserFollowNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutUserFollowInput,
+    Prisma.UserUncheckedCreateWithoutUserFollowInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserFollowInput;
+  upsert?: Prisma.UserUpsertWithoutUserFollowInput;
+  connect?: Prisma.UserWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutUserFollowInput,
+      Prisma.UserUpdateWithoutUserFollowInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutUserFollowInput
+  >;
+};
+
+export type UserUpdateOneRequiredWithoutOrganizerFollowNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutOrganizerFollowInput,
+    Prisma.UserUncheckedCreateWithoutOrganizerFollowInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizerFollowInput;
+  upsert?: Prisma.UserUpsertWithoutOrganizerFollowInput;
+  connect?: Prisma.UserWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutOrganizerFollowInput,
+      Prisma.UserUpdateWithoutOrganizerFollowInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutOrganizerFollowInput
+  >;
+};
+
 export type UserCreateNestedOneWithoutTicketLocksInput = {
   create?: Prisma.XOR<
     Prisma.UserCreateWithoutTicketLocksInput,
@@ -692,11 +798,14 @@ export type UserCreateWithoutEventsInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserUncheckedCreateWithoutEventsInput = {
@@ -711,11 +820,14 @@ export type UserUncheckedCreateWithoutEventsInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserCreateOrConnectWithoutEventsInput = {
@@ -761,11 +873,14 @@ export type UserUpdateWithoutEventsInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutEventsInput = {
@@ -783,14 +898,17 @@ export type UserUncheckedUpdateWithoutEventsInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
 };
 
-export type UserCreateWithoutNotificationsInput = {
+export type UserCreateWithoutOrganizerInput = {
   id?: string;
   email: string;
   firstName: string;
@@ -806,10 +924,13 @@ export type UserCreateWithoutNotificationsInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
 };
 
-export type UserUncheckedCreateWithoutNotificationsInput = {
+export type UserUncheckedCreateWithoutOrganizerInput = {
   id?: string;
   email: string;
   firstName: string;
@@ -825,7 +946,132 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
+};
+
+export type UserCreateOrConnectWithoutOrganizerInput = {
+  where: Prisma.UserWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutOrganizerInput,
+    Prisma.UserUncheckedCreateWithoutOrganizerInput
+  >;
+};
+
+export type UserUpsertWithoutOrganizerInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutOrganizerInput,
+    Prisma.UserUncheckedUpdateWithoutOrganizerInput
+  >;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutOrganizerInput,
+    Prisma.UserUncheckedCreateWithoutOrganizerInput
+  >;
+  where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutOrganizerInput = {
+  where?: Prisma.UserWhereInput;
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutOrganizerInput,
+    Prisma.UserUncheckedUpdateWithoutOrganizerInput
+  >;
+};
+
+export type UserUpdateWithoutOrganizerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  email?: Prisma.StringFieldUpdateOperationsInput | string;
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+  profilePicUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  isOrganizer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  refreshToken?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
+  subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+  ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutOrganizerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  email?: Prisma.StringFieldUpdateOperationsInput | string;
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+  profilePicUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  isOrganizer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  refreshToken?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
+  subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+  ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
+};
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profilePicUrl: string;
+  password: string;
+  verified?: boolean;
+  isOrganizer?: boolean;
+  refreshToken?: string | null;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
+  events?: Prisma.EventCreateNestedManyWithoutOrganizerInput;
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
+  subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
+  ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
+};
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profilePicUrl: string;
+  password: string;
+  verified?: boolean;
+  isOrganizer?: boolean;
+  refreshToken?: string | null;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizerInput;
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
+  subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
+  ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -871,11 +1117,14 @@ export type UserUpdateWithoutNotificationsInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -893,11 +1142,14 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserCreateWithoutBookingsInput = {
@@ -912,11 +1164,14 @@ export type UserCreateWithoutBookingsInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
   events?: Prisma.EventCreateNestedManyWithoutOrganizerInput;
   subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserUncheckedCreateWithoutBookingsInput = {
@@ -931,11 +1186,14 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
   events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizerInput;
   subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserCreateOrConnectWithoutBookingsInput = {
@@ -981,11 +1239,14 @@ export type UserUpdateWithoutBookingsInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
   subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -1003,11 +1264,14 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
   subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserCreateWithoutBookmarksInput = {
@@ -1022,11 +1286,14 @@ export type UserCreateWithoutBookmarksInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
   events?: Prisma.EventCreateNestedManyWithoutOrganizerInput;
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -1041,11 +1308,14 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
   events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizerInput;
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -1091,11 +1361,14 @@ export type UserUpdateWithoutBookmarksInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -1113,11 +1386,14 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserCreateWithoutSubscribesInput = {
@@ -1132,11 +1408,14 @@ export type UserCreateWithoutSubscribesInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
   events?: Prisma.EventCreateNestedManyWithoutOrganizerInput;
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserUncheckedCreateWithoutSubscribesInput = {
@@ -1151,11 +1430,14 @@ export type UserUncheckedCreateWithoutSubscribesInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
   events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizerInput;
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
   ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserCreateOrConnectWithoutSubscribesInput = {
@@ -1201,11 +1483,14 @@ export type UserUpdateWithoutSubscribesInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutSubscribesInput = {
@@ -1223,11 +1508,258 @@ export type UserUncheckedUpdateWithoutSubscribesInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
   ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
+};
+
+export type UserCreateWithoutUserFollowInput = {
+  id?: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profilePicUrl: string;
+  password: string;
+  verified?: boolean;
+  isOrganizer?: boolean;
+  refreshToken?: string | null;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
+  events?: Prisma.EventCreateNestedManyWithoutOrganizerInput;
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
+  subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+  ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
+};
+
+export type UserUncheckedCreateWithoutUserFollowInput = {
+  id?: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profilePicUrl: string;
+  password: string;
+  verified?: boolean;
+  isOrganizer?: boolean;
+  refreshToken?: string | null;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizerInput;
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
+  subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+  ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
+};
+
+export type UserCreateOrConnectWithoutUserFollowInput = {
+  where: Prisma.UserWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutUserFollowInput,
+    Prisma.UserUncheckedCreateWithoutUserFollowInput
+  >;
+};
+
+export type UserCreateWithoutOrganizerFollowInput = {
+  id?: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profilePicUrl: string;
+  password: string;
+  verified?: boolean;
+  isOrganizer?: boolean;
+  refreshToken?: string | null;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
+  events?: Prisma.EventCreateNestedManyWithoutOrganizerInput;
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
+  subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+  ticketLocks?: Prisma.TicketLockCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+};
+
+export type UserUncheckedCreateWithoutOrganizerFollowInput = {
+  id?: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profilePicUrl: string;
+  password: string;
+  verified?: boolean;
+  isOrganizer?: boolean;
+  refreshToken?: string | null;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizerInput;
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
+  subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+  ticketLocks?: Prisma.TicketLockUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+};
+
+export type UserCreateOrConnectWithoutOrganizerFollowInput = {
+  where: Prisma.UserWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutOrganizerFollowInput,
+    Prisma.UserUncheckedCreateWithoutOrganizerFollowInput
+  >;
+};
+
+export type UserUpsertWithoutUserFollowInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutUserFollowInput,
+    Prisma.UserUncheckedUpdateWithoutUserFollowInput
+  >;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutUserFollowInput,
+    Prisma.UserUncheckedCreateWithoutUserFollowInput
+  >;
+  where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutUserFollowInput = {
+  where?: Prisma.UserWhereInput;
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutUserFollowInput,
+    Prisma.UserUncheckedUpdateWithoutUserFollowInput
+  >;
+};
+
+export type UserUpdateWithoutUserFollowInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  email?: Prisma.StringFieldUpdateOperationsInput | string;
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+  profilePicUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  isOrganizer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  refreshToken?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
+  events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
+  subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+  ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutUserFollowInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  email?: Prisma.StringFieldUpdateOperationsInput | string;
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+  profilePicUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  isOrganizer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  refreshToken?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
+  subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+  ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
+};
+
+export type UserUpsertWithoutOrganizerFollowInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutOrganizerFollowInput,
+    Prisma.UserUncheckedUpdateWithoutOrganizerFollowInput
+  >;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutOrganizerFollowInput,
+    Prisma.UserUncheckedCreateWithoutOrganizerFollowInput
+  >;
+  where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutOrganizerFollowInput = {
+  where?: Prisma.UserWhereInput;
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutOrganizerFollowInput,
+    Prisma.UserUncheckedUpdateWithoutOrganizerFollowInput
+  >;
+};
+
+export type UserUpdateWithoutOrganizerFollowInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  email?: Prisma.StringFieldUpdateOperationsInput | string;
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+  profilePicUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  isOrganizer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  refreshToken?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
+  events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
+  subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+  ticketLocks?: Prisma.TicketLockUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutOrganizerFollowInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  email?: Prisma.StringFieldUpdateOperationsInput | string;
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+  profilePicUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  isOrganizer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  refreshToken?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
+  subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+  ticketLocks?: Prisma.TicketLockUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 export type UserCreateWithoutTicketLocksInput = {
@@ -1242,11 +1774,14 @@ export type UserCreateWithoutTicketLocksInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerCreateNestedOneWithoutUserInput;
   events?: Prisma.EventCreateNestedManyWithoutOrganizerInput;
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserUncheckedCreateWithoutTicketLocksInput = {
@@ -1261,11 +1796,14 @@ export type UserUncheckedCreateWithoutTicketLocksInput = {
   refreshToken?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  organizer?: Prisma.OrganizerUncheckedCreateNestedOneWithoutUserInput;
   events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizerInput;
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput;
   subscribes?: Prisma.SubscribeUncheckedCreateNestedManyWithoutUserInput;
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+  userFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutUserInput;
+  organizerFollow?: Prisma.FollowUncheckedCreateNestedManyWithoutOrganizerInput;
 };
 
 export type UserCreateOrConnectWithoutTicketLocksInput = {
@@ -1311,11 +1849,14 @@ export type UserUpdateWithoutTicketLocksInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUpdateManyWithoutOrganizerNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutTicketLocksInput = {
@@ -1333,11 +1874,14 @@ export type UserUncheckedUpdateWithoutTicketLocksInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  organizer?: Prisma.OrganizerUncheckedUpdateOneWithoutUserNestedInput;
   events?: Prisma.EventUncheckedUpdateManyWithoutOrganizerNestedInput;
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput;
   subscribes?: Prisma.SubscribeUncheckedUpdateManyWithoutUserNestedInput;
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput;
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+  userFollow?: Prisma.FollowUncheckedUpdateManyWithoutUserNestedInput;
+  organizerFollow?: Prisma.FollowUncheckedUpdateManyWithoutOrganizerNestedInput;
 };
 
 /**
@@ -1351,6 +1895,8 @@ export type UserCountOutputType = {
   bookmarks: number;
   notifications: number;
   ticketLocks: number;
+  userFollow: number;
+  organizerFollow: number;
 };
 
 export type UserCountOutputTypeSelect<
@@ -1363,6 +1909,8 @@ export type UserCountOutputTypeSelect<
   bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs;
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs;
   ticketLocks?: boolean | UserCountOutputTypeCountTicketLocksArgs;
+  userFollow?: boolean | UserCountOutputTypeCountUserFollowArgs;
+  organizerFollow?: boolean | UserCountOutputTypeCountOrganizerFollowArgs;
 };
 
 /**
@@ -1438,6 +1986,26 @@ export type UserCountOutputTypeCountTicketLocksArgs<
   where?: Prisma.TicketLockWhereInput;
 };
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUserFollowArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.FollowWhereInput;
+};
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOrganizerFollowArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.FollowWhereInput;
+};
+
 export type UserSelect<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
@@ -1454,12 +2022,15 @@ export type UserSelect<
     refreshToken?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    organizer?: boolean | Prisma.User$organizerArgs<ExtArgs>;
     events?: boolean | Prisma.User$eventsArgs<ExtArgs>;
     bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>;
     subscribes?: boolean | Prisma.User$subscribesArgs<ExtArgs>;
     bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>;
     notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>;
     ticketLocks?: boolean | Prisma.User$ticketLocksArgs<ExtArgs>;
+    userFollow?: boolean | Prisma.User$userFollowArgs<ExtArgs>;
+    organizerFollow?: boolean | Prisma.User$organizerFollowArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs["result"]["user"]
@@ -1540,12 +2111,15 @@ export type UserInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
 > = {
+  organizer?: boolean | Prisma.User$organizerArgs<ExtArgs>;
   events?: boolean | Prisma.User$eventsArgs<ExtArgs>;
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>;
   subscribes?: boolean | Prisma.User$subscribesArgs<ExtArgs>;
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>;
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>;
   ticketLocks?: boolean | Prisma.User$ticketLocksArgs<ExtArgs>;
+  userFollow?: boolean | Prisma.User$userFollowArgs<ExtArgs>;
+  organizerFollow?: boolean | Prisma.User$organizerFollowArgs<ExtArgs>;
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<
@@ -1563,12 +2137,15 @@ export type $UserPayload<
 > = {
   name: "User";
   objects: {
+    organizer: Prisma.$OrganizerPayload<ExtArgs> | null;
     events: Prisma.$EventPayload<ExtArgs>[];
     bookings: Prisma.$BookingPayload<ExtArgs>[];
     subscribes: Prisma.$SubscribePayload<ExtArgs>[];
     bookmarks: Prisma.$BookmarkPayload<ExtArgs>[];
     notifications: Prisma.$NotificationPayload<ExtArgs>[];
     ticketLocks: Prisma.$TicketLockPayload<ExtArgs>[];
+    userFollow: Prisma.$FollowPayload<ExtArgs>[];
+    organizerFollow: Prisma.$FollowPayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -1605,16 +2182,10 @@ export interface UserDelegate<
     runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  /**
-   * Fields of the User model
-   */
-  readonly fields: UserFieldRefs;
-
   [K: symbol]: {
     types: Prisma.TypeMap<ExtArgs>["model"]["User"];
     meta: { name: "User" };
   };
-
   /**
    * Find zero or one User that matches the filter.
    * @param {UserFindUniqueArgs} args - Arguments to find a User
@@ -2119,6 +2690,10 @@ export interface UserDelegate<
   ): {} extends InputErrors
     ? GetUserGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
 }
 
 /**
@@ -2135,7 +2710,19 @@ export interface Prisma__UserClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
-
+  organizer<T extends Prisma.User$organizerArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$organizerArgs<ExtArgs>>,
+  ): Prisma.Prisma__OrganizerClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$OrganizerPayload<ExtArgs>,
+      T,
+      "findUniqueOrThrow",
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
   events<T extends Prisma.User$eventsArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.User$eventsArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -2147,7 +2734,6 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
-
   bookings<T extends Prisma.User$bookingsArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.User$bookingsArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -2159,7 +2745,6 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
-
   subscribes<T extends Prisma.User$subscribesArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.User$subscribesArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -2171,7 +2756,6 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
-
   bookmarks<T extends Prisma.User$bookmarksArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.User$bookmarksArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -2183,7 +2767,6 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
-
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -2195,7 +2778,6 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
-
   ticketLocks<T extends Prisma.User$ticketLocksArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.User$ticketLocksArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -2207,7 +2789,28 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
-
+  userFollow<T extends Prisma.User$userFollowArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$userFollowArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$FollowPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    | Null
+  >;
+  organizerFollow<T extends Prisma.User$organizerFollowArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$organizerFollowArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$FollowPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2224,7 +2827,6 @@ export interface Prisma__UserClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
@@ -2236,7 +2838,6 @@ export interface Prisma__UserClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
-
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
    * resolved value cannot be modified from the callback.
@@ -2704,6 +3305,28 @@ export type UserDeleteManyArgs<
 };
 
 /**
+ * User.organizer
+ */
+export type User$organizerArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the Organizer
+   */
+  select?: Prisma.OrganizerSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the Organizer
+   */
+  omit?: Prisma.OrganizerOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrganizerInclude<ExtArgs> | null;
+  where?: Prisma.OrganizerWhereInput;
+};
+
+/**
  * User.events
  */
 export type User$eventsArgs<
@@ -2881,6 +3504,64 @@ export type User$ticketLocksArgs<
   distinct?:
     | Prisma.TicketLockScalarFieldEnum
     | Prisma.TicketLockScalarFieldEnum[];
+};
+
+/**
+ * User.userFollow
+ */
+export type User$userFollowArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the Follow
+   */
+  select?: Prisma.FollowSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the Follow
+   */
+  omit?: Prisma.FollowOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FollowInclude<ExtArgs> | null;
+  where?: Prisma.FollowWhereInput;
+  orderBy?:
+    | Prisma.FollowOrderByWithRelationInput
+    | Prisma.FollowOrderByWithRelationInput[];
+  cursor?: Prisma.FollowWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?: Prisma.FollowScalarFieldEnum | Prisma.FollowScalarFieldEnum[];
+};
+
+/**
+ * User.organizerFollow
+ */
+export type User$organizerFollowArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the Follow
+   */
+  select?: Prisma.FollowSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the Follow
+   */
+  omit?: Prisma.FollowOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FollowInclude<ExtArgs> | null;
+  where?: Prisma.FollowWhereInput;
+  orderBy?:
+    | Prisma.FollowOrderByWithRelationInput
+    | Prisma.FollowOrderByWithRelationInput[];
+  cursor?: Prisma.FollowWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?: Prisma.FollowScalarFieldEnum | Prisma.FollowScalarFieldEnum[];
 };
 
 /**

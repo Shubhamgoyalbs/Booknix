@@ -8,6 +8,7 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums.ts";
 import type * as Prisma from "../internal/prismaNamespace.ts";
 
 /**
@@ -660,16 +661,10 @@ export interface NotificationDelegate<
     runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  /**
-   * Fields of the Notification model
-   */
-  readonly fields: NotificationFieldRefs;
-
   [K: symbol]: {
     types: Prisma.TypeMap<ExtArgs>["model"]["Notification"];
     meta: { name: "Notification" };
   };
-
   /**
    * Find zero or one Notification that matches the filter.
    * @param {NotificationFindUniqueArgs} args - Arguments to find a Notification
@@ -1177,6 +1172,10 @@ export interface NotificationDelegate<
   ): {} extends InputErrors
     ? GetNotificationGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
+  /**
+   * Fields of the Notification model
+   */
+  readonly fields: NotificationFieldRefs;
 }
 
 /**
@@ -1193,7 +1192,6 @@ export interface Prisma__NotificationClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
-
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__UserClient<
@@ -1208,7 +1206,6 @@ export interface Prisma__NotificationClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1225,7 +1222,6 @@ export interface Prisma__NotificationClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
@@ -1237,7 +1233,6 @@ export interface Prisma__NotificationClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
-
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
    * resolved value cannot be modified from the callback.

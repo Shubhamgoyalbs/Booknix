@@ -1,9 +1,12 @@
 import { createMiddleware } from "hono/factory";
 import prismaClient from "@repo/db/client";
 import { HTTPException } from "hono/http-exception";
+import type { MiddlewareData } from "../../types/type.ts";
 
-const organizerAuthMiddleware = createMiddleware(async (c, next) => {
-  const userId: string = c.get("userID");
+const organizerAuthMiddleware = createMiddleware<{
+  Variables: MiddlewareData;
+}>(async (c, next) => {
+  const userId = c.get("userId");
 
   const user = await prismaClient.user.findUnique({
     where: {

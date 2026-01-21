@@ -56,6 +56,7 @@ export const AnyNull = runtime.AnyNull;
 export const ModelName = {
   User: "User",
   Event: "Event",
+  Organizer: "Organizer",
   TicketType: "TicketType",
   Notification: "Notification",
   Coupon: "Coupon",
@@ -63,6 +64,7 @@ export const ModelName = {
   BookingItem: "BookingItem",
   Bookmark: "Bookmark",
   Subscribe: "Subscribe",
+  Follow: "Follow",
   TicketLock: "TicketLock",
   EventType: "EventType",
   PaymentLink: "PaymentLink",
@@ -115,16 +117,25 @@ export const EventScalarFieldEnum = {
   updatedAt: "updatedAt",
   eventTypeId: "eventTypeId",
   organizerId: "organizerId",
-  couponId: "couponId",
 } as const;
 
 export type EventScalarFieldEnum =
   (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum];
 
+export const OrganizerScalarFieldEnum = {
+  id: "id",
+  userId: "userId",
+  organizationName: "organizationName",
+} as const;
+
+export type OrganizerScalarFieldEnum =
+  (typeof OrganizerScalarFieldEnum)[keyof typeof OrganizerScalarFieldEnum];
+
 export const TicketTypeScalarFieldEnum = {
   id: "id",
   typeName: "typeName",
   available: "available",
+  locked: "locked",
   total: "total",
   imageUrl: "imageUrl",
   price: "price",
@@ -156,6 +167,7 @@ export const CouponScalarFieldEnum = {
   discountPercent: "discountPercent",
   createdAt: "createdAt",
   updatedAt: "updatedAt",
+  eventId: "eventId",
 } as const;
 
 export type CouponScalarFieldEnum =
@@ -208,6 +220,15 @@ export const SubscribeScalarFieldEnum = {
 
 export type SubscribeScalarFieldEnum =
   (typeof SubscribeScalarFieldEnum)[keyof typeof SubscribeScalarFieldEnum];
+
+export const FollowScalarFieldEnum = {
+  id: "id",
+  userId: "userId",
+  organizerId: "organizerId",
+} as const;
+
+export type FollowScalarFieldEnum =
+  (typeof FollowScalarFieldEnum)[keyof typeof FollowScalarFieldEnum];
 
 export const TicketLockScalarFieldEnum = {
   id: "id",

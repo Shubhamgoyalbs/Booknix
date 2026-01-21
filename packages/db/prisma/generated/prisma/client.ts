@@ -9,13 +9,15 @@
  * 🟢 You can import this file directly.
  */
 
+import * as process from "node:process";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
+globalThis["__dirname"] = path.dirname(fileURLToPath(import.meta.url));
+
 import * as runtime from "@prisma/client/runtime/client";
+import * as $Enums from "./enums.ts";
 import * as $Class from "./internal/class.ts";
 import * as Prisma from "./internal/prismaNamespace.ts";
-
-globalThis["__dirname"] = path.dirname(fileURLToPath(import.meta.url));
 
 export * as $Enums from "./enums.ts";
 export * from "./enums.ts";
@@ -53,6 +55,11 @@ export type User = Prisma.UserModel;
  */
 export type Event = Prisma.EventModel;
 /**
+ * Model Organizer
+ *
+ */
+export type Organizer = Prisma.OrganizerModel;
+/**
  * Model TicketType
  *
  */
@@ -87,6 +94,11 @@ export type Bookmark = Prisma.BookmarkModel;
  *
  */
 export type Subscribe = Prisma.SubscribeModel;
+/**
+ * Model Follow
+ *
+ */
+export type Follow = Prisma.FollowModel;
 /**
  * Model TicketLock
  *

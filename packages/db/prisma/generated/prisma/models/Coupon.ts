@@ -8,6 +8,7 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums.ts";
 import type * as Prisma from "../internal/prismaNamespace.ts";
 
 /**
@@ -46,6 +47,7 @@ export type CouponMinAggregateOutputType = {
   discountPercent: number | null;
   createdAt: Date | null;
   updatedAt: Date | null;
+  eventId: string | null;
 };
 
 export type CouponMaxAggregateOutputType = {
@@ -57,6 +59,7 @@ export type CouponMaxAggregateOutputType = {
   discountPercent: number | null;
   createdAt: Date | null;
   updatedAt: Date | null;
+  eventId: string | null;
 };
 
 export type CouponCountAggregateOutputType = {
@@ -68,6 +71,7 @@ export type CouponCountAggregateOutputType = {
   discountPercent: number;
   createdAt: number;
   updatedAt: number;
+  eventId: number;
   _all: number;
 };
 
@@ -92,6 +96,7 @@ export type CouponMinAggregateInputType = {
   discountPercent?: true;
   createdAt?: true;
   updatedAt?: true;
+  eventId?: true;
 };
 
 export type CouponMaxAggregateInputType = {
@@ -103,6 +108,7 @@ export type CouponMaxAggregateInputType = {
   discountPercent?: true;
   createdAt?: true;
   updatedAt?: true;
+  eventId?: true;
 };
 
 export type CouponCountAggregateInputType = {
@@ -114,6 +120,7 @@ export type CouponCountAggregateInputType = {
   discountPercent?: true;
   createdAt?: true;
   updatedAt?: true;
+  eventId?: true;
   _all?: true;
 };
 
@@ -219,6 +226,7 @@ export type CouponGroupByOutputType = {
   discountPercent: number;
   createdAt: Date;
   updatedAt: Date;
+  eventId: string;
   _count: CouponCountAggregateOutputType | null;
   _avg: CouponAvgAggregateOutputType | null;
   _sum: CouponSumAggregateOutputType | null;
@@ -251,7 +259,8 @@ export type CouponWhereInput = {
   discountPercent?: Prisma.FloatFilter<"Coupon"> | number;
   createdAt?: Prisma.DateTimeFilter<"Coupon"> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<"Coupon"> | Date | string;
-  events?: Prisma.EventListRelationFilter;
+  eventId?: Prisma.StringFilter<"Coupon"> | string;
+  event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>;
   bookings?: Prisma.BookingListRelationFilter;
 };
 
@@ -264,7 +273,8 @@ export type CouponOrderByWithRelationInput = {
   discountPercent?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
-  events?: Prisma.EventOrderByRelationAggregateInput;
+  eventId?: Prisma.SortOrder;
+  event?: Prisma.EventOrderByWithRelationInput;
   bookings?: Prisma.BookingOrderByRelationAggregateInput;
 };
 
@@ -281,7 +291,11 @@ export type CouponWhereUniqueInput = Prisma.AtLeast<
     discountPercent?: Prisma.FloatFilter<"Coupon"> | number;
     createdAt?: Prisma.DateTimeFilter<"Coupon"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Coupon"> | Date | string;
-    events?: Prisma.EventListRelationFilter;
+    eventId?: Prisma.StringFilter<"Coupon"> | string;
+    event?: Prisma.XOR<
+      Prisma.EventScalarRelationFilter,
+      Prisma.EventWhereInput
+    >;
     bookings?: Prisma.BookingListRelationFilter;
   },
   "id" | "code"
@@ -296,6 +310,7 @@ export type CouponOrderByWithAggregationInput = {
   discountPercent?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  eventId?: Prisma.SortOrder;
   _count?: Prisma.CouponCountOrderByAggregateInput;
   _avg?: Prisma.CouponAvgOrderByAggregateInput;
   _max?: Prisma.CouponMaxOrderByAggregateInput;
@@ -319,6 +334,7 @@ export type CouponScalarWhereWithAggregatesInput = {
   discountPercent?: Prisma.FloatWithAggregatesFilter<"Coupon"> | number;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Coupon"> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Coupon"> | Date | string;
+  eventId?: Prisma.StringWithAggregatesFilter<"Coupon"> | string;
 };
 
 export type CouponCreateInput = {
@@ -330,7 +346,7 @@ export type CouponCreateInput = {
   discountPercent: number;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  events?: Prisma.EventCreateNestedManyWithoutCouponInput;
+  event: Prisma.EventCreateNestedOneWithoutCouponsInput;
   bookings?: Prisma.BookingCreateNestedManyWithoutCouponInput;
 };
 
@@ -343,7 +359,7 @@ export type CouponUncheckedCreateInput = {
   discountPercent: number;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutCouponInput;
+  eventId: string;
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCouponInput;
 };
 
@@ -356,7 +372,7 @@ export type CouponUpdateInput = {
   discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  events?: Prisma.EventUpdateManyWithoutCouponNestedInput;
+  event?: Prisma.EventUpdateOneRequiredWithoutCouponsNestedInput;
   bookings?: Prisma.BookingUpdateManyWithoutCouponNestedInput;
 };
 
@@ -369,7 +385,7 @@ export type CouponUncheckedUpdateInput = {
   discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  events?: Prisma.EventUncheckedUpdateManyWithoutCouponNestedInput;
+  eventId?: Prisma.StringFieldUpdateOperationsInput | string;
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutCouponNestedInput;
 };
 
@@ -382,6 +398,7 @@ export type CouponCreateManyInput = {
   discountPercent: number;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  eventId: string;
 };
 
 export type CouponUpdateManyMutationInput = {
@@ -404,11 +421,17 @@ export type CouponUncheckedUpdateManyInput = {
   discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  eventId?: Prisma.StringFieldUpdateOperationsInput | string;
 };
 
-export type CouponNullableScalarRelationFilter = {
-  is?: Prisma.CouponWhereInput | null;
-  isNot?: Prisma.CouponWhereInput | null;
+export type CouponListRelationFilter = {
+  every?: Prisma.CouponWhereInput;
+  some?: Prisma.CouponWhereInput;
+  none?: Prisma.CouponWhereInput;
+};
+
+export type CouponOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder;
 };
 
 export type CouponCountOrderByAggregateInput = {
@@ -420,6 +443,7 @@ export type CouponCountOrderByAggregateInput = {
   discountPercent?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  eventId?: Prisma.SortOrder;
 };
 
 export type CouponAvgOrderByAggregateInput = {
@@ -437,6 +461,7 @@ export type CouponMaxOrderByAggregateInput = {
   discountPercent?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  eventId?: Prisma.SortOrder;
 };
 
 export type CouponMinOrderByAggregateInput = {
@@ -448,6 +473,7 @@ export type CouponMinOrderByAggregateInput = {
   discountPercent?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  eventId?: Prisma.SortOrder;
 };
 
 export type CouponSumOrderByAggregateInput = {
@@ -456,32 +482,95 @@ export type CouponSumOrderByAggregateInput = {
   discountPercent?: Prisma.SortOrder;
 };
 
-export type CouponCreateNestedOneWithoutEventsInput = {
-  create?: Prisma.XOR<
-    Prisma.CouponCreateWithoutEventsInput,
-    Prisma.CouponUncheckedCreateWithoutEventsInput
-  >;
-  connectOrCreate?: Prisma.CouponCreateOrConnectWithoutEventsInput;
-  connect?: Prisma.CouponWhereUniqueInput;
+export type CouponNullableScalarRelationFilter = {
+  is?: Prisma.CouponWhereInput | null;
+  isNot?: Prisma.CouponWhereInput | null;
 };
 
-export type CouponUpdateOneWithoutEventsNestedInput = {
-  create?: Prisma.XOR<
-    Prisma.CouponCreateWithoutEventsInput,
-    Prisma.CouponUncheckedCreateWithoutEventsInput
-  >;
-  connectOrCreate?: Prisma.CouponCreateOrConnectWithoutEventsInput;
-  upsert?: Prisma.CouponUpsertWithoutEventsInput;
-  disconnect?: Prisma.CouponWhereInput | boolean;
-  delete?: Prisma.CouponWhereInput | boolean;
-  connect?: Prisma.CouponWhereUniqueInput;
-  update?: Prisma.XOR<
-    Prisma.XOR<
-      Prisma.CouponUpdateToOneWithWhereWithoutEventsInput,
-      Prisma.CouponUpdateWithoutEventsInput
-    >,
-    Prisma.CouponUncheckedUpdateWithoutEventsInput
-  >;
+export type CouponCreateNestedManyWithoutEventInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.CouponCreateWithoutEventInput,
+        Prisma.CouponUncheckedCreateWithoutEventInput
+      >
+    | Prisma.CouponCreateWithoutEventInput[]
+    | Prisma.CouponUncheckedCreateWithoutEventInput[];
+  connectOrCreate?:
+    | Prisma.CouponCreateOrConnectWithoutEventInput
+    | Prisma.CouponCreateOrConnectWithoutEventInput[];
+  createMany?: Prisma.CouponCreateManyEventInputEnvelope;
+  connect?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+};
+
+export type CouponUncheckedCreateNestedManyWithoutEventInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.CouponCreateWithoutEventInput,
+        Prisma.CouponUncheckedCreateWithoutEventInput
+      >
+    | Prisma.CouponCreateWithoutEventInput[]
+    | Prisma.CouponUncheckedCreateWithoutEventInput[];
+  connectOrCreate?:
+    | Prisma.CouponCreateOrConnectWithoutEventInput
+    | Prisma.CouponCreateOrConnectWithoutEventInput[];
+  createMany?: Prisma.CouponCreateManyEventInputEnvelope;
+  connect?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+};
+
+export type CouponUpdateManyWithoutEventNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.CouponCreateWithoutEventInput,
+        Prisma.CouponUncheckedCreateWithoutEventInput
+      >
+    | Prisma.CouponCreateWithoutEventInput[]
+    | Prisma.CouponUncheckedCreateWithoutEventInput[];
+  connectOrCreate?:
+    | Prisma.CouponCreateOrConnectWithoutEventInput
+    | Prisma.CouponCreateOrConnectWithoutEventInput[];
+  upsert?:
+    | Prisma.CouponUpsertWithWhereUniqueWithoutEventInput
+    | Prisma.CouponUpsertWithWhereUniqueWithoutEventInput[];
+  createMany?: Prisma.CouponCreateManyEventInputEnvelope;
+  set?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+  disconnect?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+  delete?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+  connect?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+  update?:
+    | Prisma.CouponUpdateWithWhereUniqueWithoutEventInput
+    | Prisma.CouponUpdateWithWhereUniqueWithoutEventInput[];
+  updateMany?:
+    | Prisma.CouponUpdateManyWithWhereWithoutEventInput
+    | Prisma.CouponUpdateManyWithWhereWithoutEventInput[];
+  deleteMany?: Prisma.CouponScalarWhereInput | Prisma.CouponScalarWhereInput[];
+};
+
+export type CouponUncheckedUpdateManyWithoutEventNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.CouponCreateWithoutEventInput,
+        Prisma.CouponUncheckedCreateWithoutEventInput
+      >
+    | Prisma.CouponCreateWithoutEventInput[]
+    | Prisma.CouponUncheckedCreateWithoutEventInput[];
+  connectOrCreate?:
+    | Prisma.CouponCreateOrConnectWithoutEventInput
+    | Prisma.CouponCreateOrConnectWithoutEventInput[];
+  upsert?:
+    | Prisma.CouponUpsertWithWhereUniqueWithoutEventInput
+    | Prisma.CouponUpsertWithWhereUniqueWithoutEventInput[];
+  createMany?: Prisma.CouponCreateManyEventInputEnvelope;
+  set?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+  disconnect?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+  delete?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+  connect?: Prisma.CouponWhereUniqueInput | Prisma.CouponWhereUniqueInput[];
+  update?:
+    | Prisma.CouponUpdateWithWhereUniqueWithoutEventInput
+    | Prisma.CouponUpdateWithWhereUniqueWithoutEventInput[];
+  updateMany?:
+    | Prisma.CouponUpdateManyWithWhereWithoutEventInput
+    | Prisma.CouponUpdateManyWithWhereWithoutEventInput[];
+  deleteMany?: Prisma.CouponScalarWhereInput | Prisma.CouponScalarWhereInput[];
 };
 
 export type CouponCreateNestedOneWithoutBookingsInput = {
@@ -512,7 +601,7 @@ export type CouponUpdateOneWithoutBookingsNestedInput = {
   >;
 };
 
-export type CouponCreateWithoutEventsInput = {
+export type CouponCreateWithoutEventInput = {
   id?: string;
   code: string;
   description: string;
@@ -524,7 +613,7 @@ export type CouponCreateWithoutEventsInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutCouponInput;
 };
 
-export type CouponUncheckedCreateWithoutEventsInput = {
+export type CouponUncheckedCreateWithoutEventInput = {
   id?: string;
   code: string;
   description: string;
@@ -536,56 +625,60 @@ export type CouponUncheckedCreateWithoutEventsInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCouponInput;
 };
 
-export type CouponCreateOrConnectWithoutEventsInput = {
+export type CouponCreateOrConnectWithoutEventInput = {
   where: Prisma.CouponWhereUniqueInput;
   create: Prisma.XOR<
-    Prisma.CouponCreateWithoutEventsInput,
-    Prisma.CouponUncheckedCreateWithoutEventsInput
+    Prisma.CouponCreateWithoutEventInput,
+    Prisma.CouponUncheckedCreateWithoutEventInput
   >;
 };
 
-export type CouponUpsertWithoutEventsInput = {
+export type CouponCreateManyEventInputEnvelope = {
+  data: Prisma.CouponCreateManyEventInput | Prisma.CouponCreateManyEventInput[];
+  skipDuplicates?: boolean;
+};
+
+export type CouponUpsertWithWhereUniqueWithoutEventInput = {
+  where: Prisma.CouponWhereUniqueInput;
   update: Prisma.XOR<
-    Prisma.CouponUpdateWithoutEventsInput,
-    Prisma.CouponUncheckedUpdateWithoutEventsInput
+    Prisma.CouponUpdateWithoutEventInput,
+    Prisma.CouponUncheckedUpdateWithoutEventInput
   >;
   create: Prisma.XOR<
-    Prisma.CouponCreateWithoutEventsInput,
-    Prisma.CouponUncheckedCreateWithoutEventsInput
+    Prisma.CouponCreateWithoutEventInput,
+    Prisma.CouponUncheckedCreateWithoutEventInput
   >;
-  where?: Prisma.CouponWhereInput;
 };
 
-export type CouponUpdateToOneWithWhereWithoutEventsInput = {
-  where?: Prisma.CouponWhereInput;
+export type CouponUpdateWithWhereUniqueWithoutEventInput = {
+  where: Prisma.CouponWhereUniqueInput;
   data: Prisma.XOR<
-    Prisma.CouponUpdateWithoutEventsInput,
-    Prisma.CouponUncheckedUpdateWithoutEventsInput
+    Prisma.CouponUpdateWithoutEventInput,
+    Prisma.CouponUncheckedUpdateWithoutEventInput
   >;
 };
 
-export type CouponUpdateWithoutEventsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  code?: Prisma.StringFieldUpdateOperationsInput | string;
-  description?: Prisma.StringFieldUpdateOperationsInput | string;
-  minPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
-  maxDiscount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  bookings?: Prisma.BookingUpdateManyWithoutCouponNestedInput;
+export type CouponUpdateManyWithWhereWithoutEventInput = {
+  where: Prisma.CouponScalarWhereInput;
+  data: Prisma.XOR<
+    Prisma.CouponUpdateManyMutationInput,
+    Prisma.CouponUncheckedUpdateManyWithoutEventInput
+  >;
 };
 
-export type CouponUncheckedUpdateWithoutEventsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  code?: Prisma.StringFieldUpdateOperationsInput | string;
-  description?: Prisma.StringFieldUpdateOperationsInput | string;
-  minPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
-  maxDiscount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  bookings?: Prisma.BookingUncheckedUpdateManyWithoutCouponNestedInput;
+export type CouponScalarWhereInput = {
+  AND?: Prisma.CouponScalarWhereInput | Prisma.CouponScalarWhereInput[];
+  OR?: Prisma.CouponScalarWhereInput[];
+  NOT?: Prisma.CouponScalarWhereInput | Prisma.CouponScalarWhereInput[];
+  id?: Prisma.StringFilter<"Coupon"> | string;
+  code?: Prisma.StringFilter<"Coupon"> | string;
+  description?: Prisma.StringFilter<"Coupon"> | string;
+  minPrice?: Prisma.FloatFilter<"Coupon"> | number;
+  maxDiscount?: Prisma.FloatFilter<"Coupon"> | number;
+  discountPercent?: Prisma.FloatFilter<"Coupon"> | number;
+  createdAt?: Prisma.DateTimeFilter<"Coupon"> | Date | string;
+  updatedAt?: Prisma.DateTimeFilter<"Coupon"> | Date | string;
+  eventId?: Prisma.StringFilter<"Coupon"> | string;
 };
 
 export type CouponCreateWithoutBookingsInput = {
@@ -597,7 +690,7 @@ export type CouponCreateWithoutBookingsInput = {
   discountPercent: number;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  events?: Prisma.EventCreateNestedManyWithoutCouponInput;
+  event: Prisma.EventCreateNestedOneWithoutCouponsInput;
 };
 
 export type CouponUncheckedCreateWithoutBookingsInput = {
@@ -609,7 +702,7 @@ export type CouponUncheckedCreateWithoutBookingsInput = {
   discountPercent: number;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutCouponInput;
+  eventId: string;
 };
 
 export type CouponCreateOrConnectWithoutBookingsInput = {
@@ -649,7 +742,7 @@ export type CouponUpdateWithoutBookingsInput = {
   discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  events?: Prisma.EventUpdateManyWithoutCouponNestedInput;
+  event?: Prisma.EventUpdateOneRequiredWithoutCouponsNestedInput;
 };
 
 export type CouponUncheckedUpdateWithoutBookingsInput = {
@@ -661,7 +754,53 @@ export type CouponUncheckedUpdateWithoutBookingsInput = {
   discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  events?: Prisma.EventUncheckedUpdateManyWithoutCouponNestedInput;
+  eventId?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+
+export type CouponCreateManyEventInput = {
+  id?: string;
+  code: string;
+  description: string;
+  minPrice: number;
+  maxDiscount: number;
+  discountPercent: number;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};
+
+export type CouponUpdateWithoutEventInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  code?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.StringFieldUpdateOperationsInput | string;
+  minPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+  maxDiscount?: Prisma.FloatFieldUpdateOperationsInput | number;
+  discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  bookings?: Prisma.BookingUpdateManyWithoutCouponNestedInput;
+};
+
+export type CouponUncheckedUpdateWithoutEventInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  code?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.StringFieldUpdateOperationsInput | string;
+  minPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+  maxDiscount?: Prisma.FloatFieldUpdateOperationsInput | number;
+  discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutCouponNestedInput;
+};
+
+export type CouponUncheckedUpdateManyWithoutEventInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  code?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.StringFieldUpdateOperationsInput | string;
+  minPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+  maxDiscount?: Prisma.FloatFieldUpdateOperationsInput | number;
+  discountPercent?: Prisma.FloatFieldUpdateOperationsInput | number;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
 /**
@@ -669,7 +808,6 @@ export type CouponUncheckedUpdateWithoutBookingsInput = {
  */
 
 export type CouponCountOutputType = {
-  events: number;
   bookings: number;
 };
 
@@ -677,7 +815,6 @@ export type CouponCountOutputTypeSelect<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
 > = {
-  events?: boolean | CouponCountOutputTypeCountEventsArgs;
   bookings?: boolean | CouponCountOutputTypeCountBookingsArgs;
 };
 
@@ -692,16 +829,6 @@ export type CouponCountOutputTypeDefaultArgs<
    * Select specific fields to fetch from the CouponCountOutputType
    */
   select?: Prisma.CouponCountOutputTypeSelect<ExtArgs> | null;
-};
-
-/**
- * CouponCountOutputType without action
- */
-export type CouponCountOutputTypeCountEventsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs =
-    runtime.Types.Extensions.DefaultArgs,
-> = {
-  where?: Prisma.EventWhereInput;
 };
 
 /**
@@ -727,7 +854,8 @@ export type CouponSelect<
     discountPercent?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    events?: boolean | Prisma.Coupon$eventsArgs<ExtArgs>;
+    eventId?: boolean;
+    event?: boolean | Prisma.EventDefaultArgs<ExtArgs>;
     bookings?: boolean | Prisma.Coupon$bookingsArgs<ExtArgs>;
     _count?: boolean | Prisma.CouponCountOutputTypeDefaultArgs<ExtArgs>;
   },
@@ -747,6 +875,8 @@ export type CouponSelectCreateManyAndReturn<
     discountPercent?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    eventId?: boolean;
+    event?: boolean | Prisma.EventDefaultArgs<ExtArgs>;
   },
   ExtArgs["result"]["coupon"]
 >;
@@ -764,6 +894,8 @@ export type CouponSelectUpdateManyAndReturn<
     discountPercent?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    eventId?: boolean;
+    event?: boolean | Prisma.EventDefaultArgs<ExtArgs>;
   },
   ExtArgs["result"]["coupon"]
 >;
@@ -777,6 +909,7 @@ export type CouponSelectScalar = {
   discountPercent?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  eventId?: boolean;
 };
 
 export type CouponOmit<
@@ -790,25 +923,30 @@ export type CouponOmit<
   | "maxDiscount"
   | "discountPercent"
   | "createdAt"
-  | "updatedAt",
+  | "updatedAt"
+  | "eventId",
   ExtArgs["result"]["coupon"]
 >;
 export type CouponInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
 > = {
-  events?: boolean | Prisma.Coupon$eventsArgs<ExtArgs>;
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>;
   bookings?: boolean | Prisma.Coupon$bookingsArgs<ExtArgs>;
   _count?: boolean | Prisma.CouponCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type CouponIncludeCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
-> = {};
+> = {
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>;
+};
 export type CouponIncludeUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
-> = {};
+> = {
+  event?: boolean | Prisma.EventDefaultArgs<ExtArgs>;
+};
 
 export type $CouponPayload<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
@@ -816,7 +954,7 @@ export type $CouponPayload<
 > = {
   name: "Coupon";
   objects: {
-    events: Prisma.$EventPayload<ExtArgs>[];
+    event: Prisma.$EventPayload<ExtArgs>;
     bookings: Prisma.$BookingPayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
@@ -829,6 +967,7 @@ export type $CouponPayload<
       discountPercent: number;
       createdAt: Date;
       updatedAt: Date;
+      eventId: string;
     },
     ExtArgs["result"]["coupon"]
   >;
@@ -851,16 +990,10 @@ export interface CouponDelegate<
     runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {},
 > {
-  /**
-   * Fields of the Coupon model
-   */
-  readonly fields: CouponFieldRefs;
-
   [K: symbol]: {
     types: Prisma.TypeMap<ExtArgs>["model"]["Coupon"];
     meta: { name: "Coupon" };
   };
-
   /**
    * Find zero or one Coupon that matches the filter.
    * @param {CouponFindUniqueArgs} args - Arguments to find a Coupon
@@ -1365,6 +1498,10 @@ export interface CouponDelegate<
   ): {} extends InputErrors
     ? GetCouponGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
+  /**
+   * Fields of the Coupon model
+   */
+  readonly fields: CouponFieldRefs;
 }
 
 /**
@@ -1381,19 +1518,20 @@ export interface Prisma__CouponClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
-
-  events<T extends Prisma.Coupon$eventsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Coupon$eventsArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
+  event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__EventClient<
     | runtime.Types.Result.GetResult<
         Prisma.$EventPayload<ExtArgs>,
         T,
-        "findMany",
+        "findUniqueOrThrow",
         GlobalOmitOptions
       >
-    | Null
+    | Null,
+    Null,
+    ExtArgs,
+    GlobalOmitOptions
   >;
-
   bookings<T extends Prisma.Coupon$bookingsArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.Coupon$bookingsArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -1405,7 +1543,6 @@ export interface Prisma__CouponClient<
       >
     | Null
   >;
-
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1422,7 +1559,6 @@ export interface Prisma__CouponClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
-
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
@@ -1434,7 +1570,6 @@ export interface Prisma__CouponClient<
       | undefined
       | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
-
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
    * resolved value cannot be modified from the callback.
@@ -1458,6 +1593,7 @@ export interface CouponFieldRefs {
   readonly discountPercent: Prisma.FieldRef<"Coupon", "Float">;
   readonly createdAt: Prisma.FieldRef<"Coupon", "DateTime">;
   readonly updatedAt: Prisma.FieldRef<"Coupon", "DateTime">;
+  readonly eventId: Prisma.FieldRef<"Coupon", "String">;
 }
 
 // Custom InputTypes
@@ -1736,6 +1872,10 @@ export type CouponCreateManyAndReturnArgs<
    */
   data: Prisma.CouponCreateManyInput | Prisma.CouponCreateManyInput[];
   skipDuplicates?: boolean;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CouponIncludeCreateManyAndReturn<ExtArgs> | null;
 };
 
 /**
@@ -1821,6 +1961,10 @@ export type CouponUpdateManyAndReturnArgs<
    * Limit how many Coupons to update.
    */
   limit?: number;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CouponIncludeUpdateManyAndReturn<ExtArgs> | null;
 };
 
 /**
@@ -1902,35 +2046,6 @@ export type CouponDeleteManyArgs<
    * Limit how many Coupons to delete.
    */
   limit?: number;
-};
-
-/**
- * Coupon.events
- */
-export type Coupon$eventsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs =
-    runtime.Types.Extensions.DefaultArgs,
-> = {
-  /**
-   * Select specific fields to fetch from the Event
-   */
-  select?: Prisma.EventSelect<ExtArgs> | null;
-  /**
-   * Omit specific fields from the Event
-   */
-  omit?: Prisma.EventOmit<ExtArgs> | null;
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EventInclude<ExtArgs> | null;
-  where?: Prisma.EventWhereInput;
-  orderBy?:
-    | Prisma.EventOrderByWithRelationInput
-    | Prisma.EventOrderByWithRelationInput[];
-  cursor?: Prisma.EventWhereUniqueInput;
-  take?: number;
-  skip?: number;
-  distinct?: Prisma.EventScalarFieldEnum | Prisma.EventScalarFieldEnum[];
 };
 
 /**

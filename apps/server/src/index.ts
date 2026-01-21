@@ -10,8 +10,11 @@ import organizerIndexRoute from "./route/organizer/index.route.ts";
 import userIndexRoute from "./route/user/index.route.ts";
 import userAuthMiddleware from "./middleware/user.middleware.ts";
 import organizerAuthMiddleware from "./middleware/organizer.middleware.ts";
+import type { MiddlewareData } from "../types/type.ts";
 
-const app = new Hono().basePath("/api");
+const app = new Hono<{
+  Variables: MiddlewareData;
+}>().basePath("/api");
 
 // Handlers
 app.route("/auth", authRoute);
