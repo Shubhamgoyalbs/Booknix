@@ -5,15 +5,15 @@ import {
   otpVerifySchema,
 } from "@repo/shared/validation/zod.ts";
 import { HTTPException } from "hono/http-exception";
-import { generateOTP, verifyOTP } from "../utils/otp.ts";
-import { getUserIdHelper } from "../utils/helper.ts";
-import type { MiddlewareData } from "../../types/type.ts";
+import { generateOTP, verifyOTP } from "../../../utils/otp.ts";
+import { getUserIdHelper } from "../../../utils/helper.ts";
+import type { MiddlewareData } from "../../../../types/type.ts";
 
-const otpRoute = new Hono<{
+const route = new Hono<{
   Variables: MiddlewareData;
 }>();
 
-otpRoute.post("/generate", zValidator("json", otpGenerateSchema), async (c) => {
+route.post("/generate", zValidator("json", otpGenerateSchema), async (c) => {
   const body = c.req.valid("json");
 
   const userId = await getUserIdHelper(body.email);
@@ -32,7 +32,7 @@ otpRoute.post("/generate", zValidator("json", otpGenerateSchema), async (c) => {
   );
 });
 
-otpRoute.post("/verify", zValidator("json", otpVerifySchema), async (c) => {
+route.post("/verify", zValidator("json", otpVerifySchema), async (c) => {
   const body = c.req.valid("json");
 
   const userId = await getUserIdHelper(body.email);
@@ -52,4 +52,4 @@ otpRoute.post("/verify", zValidator("json", otpVerifySchema), async (c) => {
   );
 });
 
-export default otpRoute;
+export default route;

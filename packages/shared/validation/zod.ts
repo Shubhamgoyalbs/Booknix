@@ -256,6 +256,11 @@ const ticketTypeUpdateSchema = z.object({
     .max(1000000, "Price must not exceed 1,000,000"),
 });
 
+const toggleSchema = z.object({
+  id: z.cuid("Coupon ID must be a valid CUID"),
+  toggle: z.boolean(),
+});
+
 export {
   authSignupSchema,
   authSigninSchema,
@@ -270,4 +275,5 @@ export {
   eventDetailsSchema,
   idSchema,
   couponUpdateSchema,
+  toggleSchema,
 };

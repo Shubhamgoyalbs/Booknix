@@ -2,12 +2,12 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 import { Hono } from "hono";
-import authRoute from "./route/auth.route.ts";
+import route from "./route/auth/route.ts";
 import { HTTPException } from "hono/http-exception";
-import otpRoute from "./route/otp.route.ts";
+import route from "./route/auth/otp/route.ts";
 import "dotenv/config";
-import organizerIndexRoute from "./route/organizer/index.route.ts";
-import userIndexRoute from "./route/user/index.route.ts";
+import organizerIndexRoute from "./route/organizer/route.ts";
+import userIndexRoute from "./route/user/route.ts";
 import userAuthMiddleware from "./middleware/user.middleware.ts";
 import organizerAuthMiddleware from "./middleware/organizer.middleware.ts";
 import type { MiddlewareData } from "../types/type.ts";
@@ -17,8 +17,8 @@ const app = new Hono<{
 }>().basePath("/api");
 
 // Handlers
-app.route("/auth", authRoute);
-app.route("/otp", otpRoute);
+app.route("/auth", route);
+app.route("/otp", route);
 app.route("/organizer", organizerIndexRoute);
 app.route("/user", userIndexRoute);
 

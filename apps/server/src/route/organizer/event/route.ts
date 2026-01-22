@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import type { MiddlewareData } from "../../../types/type.ts";
+import type { MiddlewareData } from "../../../../types/type.ts";
 import prismaClient from "@repo/db/client";
 import { HTTPException } from "hono/http-exception";
 import { zValidator } from "@hono/zod-validator";
@@ -7,19 +7,18 @@ import {
   eventBookingStatusSchema,
   eventCreateSchema,
 } from "@repo/shared/validation/zod.ts";
-import { NotificationHandler } from "../../utils/webSocket.ts";
-import eventTypeHandler from "../../utils/handlers/eventTypeHandler.ts";
-import eventUpdateRoute from "./event.update.route.ts";
+import { NotificationHandler } from "../../../utils/webSocket.ts";
+import eventTypeHandler from "../../../utils/handlers/eventTypeHandler.ts";
 
-const eventRoute = new Hono<{
+const route = new Hono<{
   Variables: MiddlewareData;
 }>();
 
-eventRoute.route("/update", eventUpdateRoute);
+route.route("/update", route);
 
-eventRoute.all("/types", eventTypeHandler);
+route.all("/types", eventTypeHandler);
 
-eventRoute.get("/my", async (c) => {
+route.get("/my", async (c) => {
   const userId = c.get("userId");
 
   const user = await prismaClient.user.findUnique({
@@ -54,14 +53,14 @@ eventRoute.get("/my", async (c) => {
   return c.json(
     {
       success: true,
-      message: "",
+      message: "Organizer events fetched successfully",
       events: user.events,
     },
     200,
   );
 });
 
-eventRoute.post("/create", zValidator("json", eventCreateSchema), async (c) => {
+route.post("/create", zValidator("json", eventCreateSchema), async (c) => {
   const userId = c.get("userId");
 
   const body = c.req.valid("json");
@@ -155,7 +154,7 @@ eventRoute.post("/create", zValidator("json", eventCreateSchema), async (c) => {
   );
 });
 
-eventRoute.get("/:id", async (c) => {
+route.get("/:id", async (c) => {
   const eventId = c.req.param("id");
 
   const event = await prismaClient.event.findUnique({
@@ -188,7 +187,7 @@ eventRoute.get("/:id", async (c) => {
   );
 });
 
-eventRoute.put(
+route.put(
   "/booking-status",
   zValidator("json", eventBookingStatusSchema),
   async (c) => {
@@ -262,7 +261,7 @@ eventRoute.put(
   },
 );
 
-eventRoute.get("booking/:id", async (c) => {
+route.get("booking/:id", async (c) => {
   const eventId = c.req.param("id");
 
   const event = await prismaClient.event.findUnique({
@@ -291,6 +290,4 @@ eventRoute.get("booking/:id", async (c) => {
   );
 });
 
-//todo jobs: make event closed after event complete, make booking status(optional), ticket lock,booking check
-
-export default eventRoute;
+export default route;

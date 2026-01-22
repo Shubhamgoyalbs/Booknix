@@ -8,15 +8,15 @@ import {
 import prismaClient from "@repo/db/client";
 import { HTTPException } from "hono/http-exception";
 import * as bcrypt from "bcrypt";
-import { generateTokens, verifyRefreshToken } from "../utils/jwt.ts";
-import type { MiddlewareData } from "../../types/type.ts";
+import { generateTokens, verifyRefreshToken } from "../../utils/jwt.ts";
+import type { MiddlewareData } from "../../../types/type.ts";
 
-const authRoute = new Hono<{
+const route = new Hono<{
   Variables: MiddlewareData;
 }>();
 
 // POST /signup
-authRoute.post("/signup", zValidator("json", authSignupSchema), async (c) => {
+route.post("/signup", zValidator("json", authSignupSchema), async (c) => {
   const body = c.req.valid("json");
 
   const existingUser = await prismaClient.user.findUnique({
@@ -48,7 +48,7 @@ authRoute.post("/signup", zValidator("json", authSignupSchema), async (c) => {
 });
 
 // POST /signin
-authRoute.post("/signin", zValidator("json", authSigninSchema), async (c) => {
+route.post("/signin", zValidator("json", authSigninSchema), async (c) => {
   const body = c.req.valid("json");
 
   const user = await prismaClient.user.findUnique({
@@ -107,7 +107,7 @@ authRoute.post("/signin", zValidator("json", authSigninSchema), async (c) => {
   );
 });
 
-authRoute.post("/refresh/token", zValidator("json", tokenSchema), async (c) => {
+route.post("/refresh/token", zValidator("json", tokenSchema), async (c) => {
   const body = c.req.valid("json");
   const user = await prismaClient.user.findUnique({
     where: {
@@ -152,4 +152,4 @@ authRoute.post("/refresh/token", zValidator("json", tokenSchema), async (c) => {
   );
 });
 
-export default authRoute;
+export default route;
