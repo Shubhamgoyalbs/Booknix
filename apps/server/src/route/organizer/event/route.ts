@@ -10,15 +10,13 @@ import {
 import { NotificationHandler } from "../../../utils/webSocket.ts";
 import eventTypeHandler from "../../../utils/handlers/eventTypeHandler.ts";
 
-const route = new Hono<{
+const eventRoute = new Hono<{
   Variables: MiddlewareData;
 }>();
 
-route.route("/update", route);
+eventRoute.all("/types", eventTypeHandler);
 
-route.all("/types", eventTypeHandler);
-
-route.get("/my", async (c) => {
+eventRoute.get("/my", async (c) => {
   const userId = c.get("userId");
 
   const user = await prismaClient.user.findUnique({
@@ -60,7 +58,7 @@ route.get("/my", async (c) => {
   );
 });
 
-route.post("/create", zValidator("json", eventCreateSchema), async (c) => {
+eventRoute.post("/create", zValidator("json", eventCreateSchema), async (c) => {
   const userId = c.get("userId");
 
   const body = c.req.valid("json");
@@ -154,7 +152,7 @@ route.post("/create", zValidator("json", eventCreateSchema), async (c) => {
   );
 });
 
-route.get("/:id", async (c) => {
+eventRoute.get("/:id", async (c) => {
   const eventId = c.req.param("id");
 
   const event = await prismaClient.event.findUnique({
@@ -187,17 +185,20 @@ route.get("/:id", async (c) => {
   );
 });
 
-route.put(
+eventRoute.put(
   "/booking-status",
   zValidator("json", eventBookingStatusSchema),
   async (c) => {
     const body = c.req.valid("json");
+    const userId = c.get("userId");
 
     const event = await prismaClient.event.findUnique({
       where: {
         id: body.eventId,
+        organizerId: userId,
       },
       select: {
+        id: true,
         eventBookingStatus: true,
       },
     });
@@ -225,6 +226,27 @@ route.put(
           eventBookingStatus: "STARTED",
         },
       });
+
+      if (body.notificationMessage) {
+        const userIdList = await prismaClient.subscribe.findMany({
+          where: {
+            eventId: event.id,
+          },
+          select: {
+            userId: true,
+          },
+        });
+
+        await prismaClient.notification.createMany({
+          data: userIdList.map(({ userId }) => ({
+            userId,
+            message: body.notificationMessage,
+          })),
+          skipDuplicates: true,
+        });
+
+        NotificationHandler(userIdList);
+      }
 
       return c.json({
         success: true,
@@ -261,7 +283,7 @@ route.put(
   },
 );
 
-route.get("booking/:id", async (c) => {
+eventRoute.get("booking/:id", async (c) => {
   const eventId = c.req.param("id");
 
   const event = await prismaClient.event.findUnique({
@@ -290,4 +312,4 @@ route.get("booking/:id", async (c) => {
   );
 });
 
-export default route;
+export default eventRoute;

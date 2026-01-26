@@ -41,8 +41,8 @@ webSocket.get(
 
 export const NotificationHandler = (list: { userId: string }[]) => {
   for (const userFromList of list) {
-    const user = users.get(userFromList.userId);
-    if (!user) {
+    const userWs = users.get(userFromList.userId);
+    if (!userWs) {
       continue;
     }
 
@@ -51,8 +51,21 @@ export const NotificationHandler = (list: { userId: string }[]) => {
       message: "You got notification",
     };
 
-    user.send(JSON.stringify(message));
+    userWs.send(JSON.stringify(message));
   }
 };
+
+export const seatCountUpdateHandler = (eventId: string) => {
+	for (const [,userWs] of users) {
+		if (!userWs){
+			continue;
+		}
+		const message = {
+			type: 'SeatCountUpdate',
+			eventId
+		}
+		userWs.send(JSON.stringify(message))
+	}
+}
 
 export default webSocket;

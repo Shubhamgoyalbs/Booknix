@@ -13,11 +13,23 @@ export const getUserIdHelper = async (email: string) => {
   });
 
   if (!user) {
-    throw new HTTPException();
+    throw new HTTPException(
+			400,
+	    {
+				cause: 'InputError',
+		    message: "User with this email doesn't exists"
+	    }
+    );
   }
 
   if (user.verified) {
-    throw new HTTPException();
+    throw new HTTPException(
+	    400,
+	    {
+		    cause: 'InputError',
+		    message: "User is already verified"
+	    }
+    );
   }
 
   return user.id;

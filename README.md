@@ -4,14 +4,10 @@
 
 ###### Image kit
 
-- Seat no, pdf for ticket
-- shared user after getting ticket you can assign ticket to some one with email and only one chance if don't then person
-  don't have the ticket
-- live notification alert and count increase, and opening notification page all are set viewed make iPhone like
-  notification
-- for event start ticket related things we can email
+- pdf for ticket
 - qr code for ticket id that help to throw ticket in used bin
 - event remainder for person having booking completed
+
 
 #### jobs
 
@@ -22,31 +18,29 @@
 - provide ticket
 
 #### DB UPDATES
+- ticket model with scanned option
 
 #### Notification things
 
 - when booking status changes to expires due payment failure
-- when payment successful than for the booking competion
+- when payment successful than for the booking completion
 
 #### Notification things
-
-- when organizer create event then have option(follower)
-- when update then (subscriber)
-- booking status changes then ask organizer (ubscribers)
 - event reminder
 
-#### user routes
+#### organizer routes
 
+- event reminder
+- payments in organizer for payout
+- scanning option and assigning to some organizer emails
+
+#### user routes
+- my
 - cancel booking
 - my booking
-- events
-- id event
-- follow
-- subscribe
-- bookmark
-- book
-- id booking
-- following
-- subscribed
-- bookmark
+- book ticket
 - become organizer
+
+#### to do after dev 
+
+- complete payments part

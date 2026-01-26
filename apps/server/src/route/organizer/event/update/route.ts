@@ -9,6 +9,7 @@ import {
 } from "@repo/shared/validation/zod.ts";
 import prismaClient from "@repo/db/client";
 import { HTTPException } from "hono/http-exception";
+import { NotificationHandler } from "../../../../utils/webSocket.ts";
 
 const route = new Hono<{
   Variables: MiddlewareData;
@@ -130,6 +131,7 @@ route.delete("/coupon", zValidator("json", idSchema), async (c) => {
     include: {
       event: {
         select: {
+          id: true,
           eventBookingStatus: true,
           organizerId: true,
         },
@@ -181,6 +183,7 @@ route.put(
       include: {
         event: {
           select: {
+            id: true,
             eventBookingStatus: true,
             organizerId: true,
           },
@@ -216,6 +219,27 @@ route.put(
         price: body.price,
       },
     });
+
+    if (body.notificationMessage) {
+      const userIdList = await prismaClient.subscribe.findMany({
+        where: {
+          eventId: ticketType.event.id,
+        },
+        select: {
+          userId: true,
+        },
+      });
+
+      await prismaClient.notification.createMany({
+        data: userIdList.map(({ userId }) => ({
+          userId,
+          message: body.notificationMessage,
+        })),
+        skipDuplicates: true,
+      });
+
+      NotificationHandler(userIdList);
+    }
 
     return c.json({
       success: true,

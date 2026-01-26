@@ -10,13 +10,16 @@ import { HTTPException } from "hono/http-exception";
 import * as bcrypt from "bcrypt";
 import { generateTokens, verifyRefreshToken } from "../../utils/jwt.ts";
 import type { MiddlewareData } from "../../../types/type.ts";
+import otpAuthRoute from "./otp/route.ts";
 
-const route = new Hono<{
+const authRoute = new Hono<{
   Variables: MiddlewareData;
 }>();
 
+authRoute.route('/otp', otpAuthRoute);
+
 // POST /signup
-route.post("/signup", zValidator("json", authSignupSchema), async (c) => {
+authRoute.post("/signup", zValidator("json", authSignupSchema), async (c) => {
   const body = c.req.valid("json");
 
   const existingUser = await prismaClient.user.findUnique({
@@ -24,6 +27,7 @@ route.post("/signup", zValidator("json", authSignupSchema), async (c) => {
   });
 
   if (existingUser) {
+	  console.log('uer exists alraeayd')
     throw new HTTPException(400, {
       message: "Email already in use.",
       cause: "InputError",
@@ -48,7 +52,7 @@ route.post("/signup", zValidator("json", authSignupSchema), async (c) => {
 });
 
 // POST /signin
-route.post("/signin", zValidator("json", authSigninSchema), async (c) => {
+authRoute.post("/signin", zValidator("json", authSigninSchema), async (c) => {
   const body = c.req.valid("json");
 
   const user = await prismaClient.user.findUnique({
@@ -58,6 +62,7 @@ route.post("/signin", zValidator("json", authSigninSchema), async (c) => {
       email: true,
       password: true,
       verified: true,
+	    isOrganizer: true
     },
   });
 
@@ -68,25 +73,30 @@ route.post("/signin", zValidator("json", authSigninSchema), async (c) => {
     });
   }
 
-  if (!user.verified) {
-    throw new HTTPException(403, {
-      message: "Email not verified.",
-      cause: "OtpError",
-    });
-  }
-
   const isValidPassword = await bcrypt.compare(body.password, user.password);
 
   if (!isValidPassword) {
     throw new HTTPException(401, {
       message: "Invalid password.",
+	    cause: "InputError",
     });
   }
 
-  const data = generateTokens({
-    userId: user.id,
-    email: user.email,
-  });
+
+	if (!user.verified) {
+		throw new HTTPException(403, {
+			message: "Email not verified.",
+			cause: "OtpError",
+		});
+	}
+
+  const data = {
+	  ...generateTokens({
+     userId: user.id,
+     email: user.email,
+	  }),
+    isOrganizer: user.isOrganizer
+  }
 
   await prismaClient.user.update({
     where: {
@@ -103,11 +113,11 @@ route.post("/signin", zValidator("json", authSigninSchema), async (c) => {
       message: "Signed in successfully.",
       data,
     },
-    200,
+    201,
   );
 });
 
-route.post("/refresh/token", zValidator("json", tokenSchema), async (c) => {
+authRoute.post("/refresh/token", zValidator("json", tokenSchema), async (c) => {
   const body = c.req.valid("json");
   const user = await prismaClient.user.findUnique({
     where: {
@@ -152,4 +162,4 @@ route.post("/refresh/token", zValidator("json", tokenSchema), async (c) => {
   );
 });
 
-export default route;
+export default authRoute;

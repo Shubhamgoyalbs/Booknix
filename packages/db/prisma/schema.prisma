@@ -20,8 +20,9 @@ enum EventStatus {
   CLOSED
 }
 
-enum PaymentStatus {
+enum BookingStatus {
   PENDING
+  CANCELED
   COMPLETED
   FAILED
   REFUNDED
@@ -87,7 +88,6 @@ model Organizer {
   user             User   @relation(fields: [userId], references: [id])
   userId           String
   organizationName String
-  //stripe credential
 
   @@unique([userId])
 }
@@ -143,7 +143,7 @@ model Booking {
   totalAmount     Float
   discountPercent Float         @default(0)
   finalAmount     Float
-  paymentStatus   PaymentStatus @default(PENDING)
+  bookingStatus   BookingStatus @default(PENDING)
   expiresAt       DateTime
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
@@ -154,10 +154,11 @@ model Booking {
   event           Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
   coupon          Coupon?       @relation(fields: [couponId], references: [id], onDelete: SetNull)
   bookingItems    BookingItem[]
+  TicketLock      TicketLock[]
 
   @@index([userId])
   @@index([eventId])
-  @@index([paymentStatus])
+  @@index([bookingStatus])
   @@index([expiresAt])
 }
 
@@ -219,7 +220,10 @@ model TicketLock {
   ticketTypeId String
   user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   ticketType   TicketType @relation(fields: [ticketTypeId], references: [id], onDelete: Cascade)
+  booking      Booking    @relation(fields: [bookingId], references: [id])
+  bookingId    String
 
+  @@unique([bookingId, ticketTypeId])
   @@index([expiresAt])
   @@index([userId])
   @@index([ticketTypeId])
@@ -232,10 +236,4 @@ model EventType {
   events    Event[]
 
   @@index([typeName])
-}
-
-model PaymentLink {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  // You'll handle this later
 }

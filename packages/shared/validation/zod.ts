@@ -20,11 +20,14 @@ const authSignupSchema = z.object({
     .min(2, "Last name must be at least 2 characters")
     .max(50, "Last name must not exceed 50 characters"),
 
-  password: z
-    .string("Password is required")
-    .min(8, "Password must be at least 8 characters")
-    .max(128, "Password must not exceed 128 characters"),
-  // Add regex here for password strength requirements
+	password: z
+		.string("Password is required")
+		.min(8, "Password must be at least 8 characters")
+		.max(128, "Password must not exceed 128 characters")
+		.regex(
+			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])/,
+			"Password must include uppercase, lowercase, number, and special character"
+		),
 
   profilePicUrl: z.url("Please enter a valid URL").trim().or(z.literal("")),
 });
@@ -35,7 +38,14 @@ const authSigninSchema = z.object({
     .trim()
     .min(1, "Email cannot be empty"),
 
-  password: z.string("Password is required").min(1, "Password cannot be empty"),
+	password: z
+		.string("Password is required")
+		.min(8, "Password must be at least 8 characters")
+		.max(128, "Password must not exceed 128 characters")
+		.regex(
+			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])/,
+			"Password must include uppercase, lowercase, number, and special character"
+		),
 });
 
 const tokenSchema = z.object({
@@ -168,6 +178,11 @@ const eventBookingStatusSchema = z.object({
   status: z.enum(["STARTED", "CLOSED"]),
 
   eventId: z.cuid("eventId must be a valid cuid"),
+
+  notificationMessage: z
+    .string()
+    .trim()
+    .max(1000, "Notification message must not exceed 1000 characters"),
 });
 
 const idSchema = z.object({
@@ -182,6 +197,11 @@ const eventDetailsSchema = z.object({
     .trim()
     .min(3, "Event title must be at least 3 characters")
     .max(200, "Event title must not exceed 200 characters"),
+
+  notificationMessage: z
+    .string()
+    .trim()
+    .max(1000, "Notification message must not exceed 1000 characters"),
 
   description: z
     .string("Event description is required")
@@ -220,6 +240,11 @@ const couponUpdateSchema = z.object({
     .max(50, "Coupon code must not exceed 50 characters")
     .toUpperCase(),
 
+  notificationMessage: z
+    .string()
+    .trim()
+    .max(1000, "Notification message must not exceed 1000 characters"),
+
   description: z
     .string("Coupon description is required")
     .trim()
@@ -249,6 +274,11 @@ const ticketTypeUpdateSchema = z.object({
     .min(0, "Available tickets cannot be negative"),
 
   imageUrl: z.url("Please enter a valid image URL").trim(),
+
+  notificationMessage: z
+    .string()
+    .trim()
+    .max(1000, "Notification message must not exceed 1000 characters"),
 
   price: z
     .number("Price must be a number")

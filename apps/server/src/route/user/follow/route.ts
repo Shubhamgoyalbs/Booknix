@@ -9,7 +9,7 @@ const followRoute = new Hono<{
   Variables: MiddlewareData;
 }>();
 
-followRoute.post("toggle", zValidator("json", toggleSchema), async (c) => {
+followRoute.post("/toggle", zValidator("json", toggleSchema), async (c) => {
   const body = c.req.valid("json");
   const userId = c.get("userId");
 
