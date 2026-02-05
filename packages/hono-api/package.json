@@ -1,0 +1,18 @@
+{
+  "name": "@repo/hono-api",
+  "module": "./src/index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+    "hono": "^4.11.7"
+  }
+}
